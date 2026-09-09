@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<meta name="googlebot" content="noindex,nofollow">
+<title>Sesame · Moderator Onboarding</title>
+<style>
+:root{
+  --accent:#B8926A; --accent-dim:#9A7854; --accent-soft:rgba(184,146,106,0.15); --accent-ink:#B8926A;
+  --amber:#B8926A; --amber-bg:#FBF6EE; --amber-text:#5C3D1A; --amber-border:#d4b896;
+  --green:#22c55e; --green-bg:#EAF3DE; --green-text:#27500A;
+  --red:#ef4444; --red-bg:#FEF2F2; --red-text:#991b1b;
+  --blue:#3b82f6; --blue-bg:#EFF6FF; --blue-text:#1e3a8a;
+  --font:-apple-system,'SF Pro Display','SF Pro Text',BlinkMacSystemFont,'Helvetica Neue',sans-serif;
+  --font-num:'Avenir Next','Avenir','SF Pro Display',-apple-system,sans-serif;
+}
+[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#12100E; --bg2:#1C1814; --bg3:#252119; --bg4:#302C25;
+  --text:#EFE8DC; --text2:#B8A08A; --text3:#7A6C5A;
+  --border:#221E18; --border-strong:#352F26;
+  --input-bg:#1C1814; --card-bg:#1C1814; --nav-bg:rgba(18,16,14,0.92); --sidebar-bg:#1C1814;
+  --shadow-sm:0 2px 12px rgba(0,0,0,0.50); --shadow-md:0 8px 40px rgba(0,0,0,0.62); --shadow-lg:0 20px 60px rgba(0,0,0,0.72);
+  --accent-ink:#D4A87A;
+  --bg-glow:#2A1E10;
+  --bg-glow2:#1E1A12;
+  --seed-op:1;
+}
+[data-theme="light"]{
+  color-scheme:light;
+  --bg:#F7F3EC; --bg2:#FDFBF7; --bg3:#EDE8DE; --bg4:#E0D9CC;
+  --text:#2C241A; --text2:#6B5840; --text3:#9C8B76;
+  --border:rgba(100,75,40,0.12); --border-strong:rgba(85,60,25,0.20);
+  --input-bg:#EDE8DE; --card-bg:#FDFBF7; --nav-bg:rgba(247,243,236,0.92); --sidebar-bg:#FDFBF7;
+  --shadow-sm:0 2px 12px rgba(60,40,10,0.06); --shadow-md:0 8px 40px rgba(60,40,10,0.10); --shadow-lg:0 20px 60px rgba(60,40,10,0.12);
+  --accent-ink:#8A6840;
+  --bg-glow:#EDD8B8;
+  --bg-glow2:#F5ECD8;
+  --seed-op:0;
+}
+*{box-sizing:border-box;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+input,select,textarea{font-family:inherit;}input:focus{outline:none;}
+html,body{margin:0;padding:0;}
+/* Sesame seed pattern background (dark mode only, via --seed-op) with amber glows. */
+body{
+  font-family:var(--font);color:var(--text);
+  background:
+    radial-gradient(5px 1.8px at 8% 16%, rgba(210,188,155,calc(0.10*var(--seed-op))), transparent 100%) 0 0/200px 160px repeat,
+    radial-gradient(1.6px 5px at 31% 71%, rgba(210,188,155,calc(0.09*var(--seed-op))), transparent 100%) 0 0/280px 220px repeat,
+    radial-gradient(4px 1.5px at 73% 42%, rgba(210,188,155,calc(0.08*var(--seed-op))), transparent 100%) 0 0/240px 190px repeat,
+    radial-gradient(1.4px 4.5px at 88% 25%, rgba(210,188,155,calc(0.07*var(--seed-op))), transparent 100%) 0 0/190px 150px repeat,
+    radial-gradient(3.5px 2px at 52% 88%, rgba(210,188,155,calc(0.08*var(--seed-op))), transparent 100%) 0 0/260px 200px repeat,
+    radial-gradient(2px 3.5px at 19% 45%, rgba(210,188,155,calc(0.09*var(--seed-op))), transparent 100%) 0 0/220px 175px repeat,
+    radial-gradient(circle at 12% 100%, var(--bg-glow) 0%, transparent 38%),
+    radial-gradient(circle at 90% -4%, var(--bg-glow2) 0%, transparent 42%),
+    var(--bg);
+  background-attachment:fixed;
+  transition:background .3s,color .3s;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent-ink);}
+#login{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+  background:
+    radial-gradient(5px 1.8px at 8% 16%, rgba(210,188,155,calc(0.10*var(--seed-op))), transparent 100%) 0 0/200px 160px repeat,
+    radial-gradient(1.6px 5px at 31% 71%, rgba(210,188,155,calc(0.09*var(--seed-op))), transparent 100%) 0 0/280px 220px repeat,
+    radial-gradient(4px 1.5px at 73% 42%, rgba(210,188,155,calc(0.08*var(--seed-op))), transparent 100%) 0 0/240px 190px repeat,
+    radial-gradient(1.4px 4.5px at 88% 25%, rgba(210,188,155,calc(0.07*var(--seed-op))), transparent 100%) 0 0/190px 150px repeat,
+    radial-gradient(3.5px 2px at 52% 88%, rgba(210,188,155,calc(0.08*var(--seed-op))), transparent 100%) 0 0/260px 200px repeat,
+    radial-gradient(2px 3.5px at 19% 45%, rgba(210,188,155,calc(0.09*var(--seed-op))), transparent 100%) 0 0/220px 175px repeat,
+    radial-gradient(circle at 12% 100%, var(--bg-glow) 0%, transparent 38%),
+    radial-gradient(circle at 90% -4%, var(--bg-glow2) 0%, transparent 42%),
+    var(--bg);
+}
+.entry-card{background:var(--card-bg);border:.5px solid var(--border);border-radius:22px;box-shadow:var(--shadow-lg);padding:44px 40px 34px;width:100%;max-width:420px;text-align:center;}
+.brand-mark{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent-dim));display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:700;color:#fff;margin:0 auto 18px;}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:10px;}
+.entry-title{font-size:25px;font-weight:600;letter-spacing:-.02em;margin-bottom:8px;}
+.entry-sub{font-size:14.5px;color:var(--text2);line-height:1.55;margin-bottom:28px;}
+.field-label{display:block;text-align:left;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text3);margin-bottom:7px;}
+.field-input{width:100%;font-size:15.5px;padding:12px 14px;background:var(--input-bg);border:.5px solid var(--border-strong);border-radius:12px;color:var(--text);letter-spacing:-.005em;transition:border-color .18s,box-shadow .18s;}
+.field-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+.field-input::placeholder{color:var(--text3);}
+.err-msg{color:var(--red);font-size:13px;margin-top:10px;min-height:18px;text-align:left;}
+.hint-line{font-size:12.5px;color:var(--text3);margin-top:18px;line-height:1.5;}
+.version-tag{font-size:10.5px;color:var(--text3);margin-top:22px;opacity:.7;}
+.btn{font-size:15px;font-weight:500;letter-spacing:-.01em;padding:11px 16px;border-radius:12px;border:.5px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:all .22s cubic-bezier(.4,0,.2,1);width:100%;}
+.btn-primary{background:var(--accent);color:#fff;font-weight:600;}
+.btn-primary:hover{background:var(--accent-dim);transform:translateY(-1px);box-shadow:0 6px 18px var(--accent-soft);}
+.btn-primary:active{transform:scale(.98);}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-secondary{background:var(--bg2);color:var(--text);border:.5px solid var(--border-strong);width:auto;}
+.btn-secondary:hover{background:var(--bg4);}
+.btn-ghost{background:transparent;color:var(--text2);border:.5px solid var(--border-strong);width:auto;font-size:13px;padding:8px 14px;}
+.btn-ghost:hover{background:var(--bg3);color:var(--text);}
+.page-wrap{max-width:1180px;margin:0 auto;padding:0 32px;width:100%;}
+.shell{min-height:calc(100vh - 90px);}
+.app-header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:22px 0 18px;flex-wrap:wrap;}
+.nav-left{display:flex;align-items:center;gap:12px;min-width:0;}
+.nav-logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-dim));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;}
+.nav-brand{font-size:15.5px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nav-brand span{color:var(--text3);font-weight:400;}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.who{display:flex;align-items:center;}
+.who-text{font-size:13px;line-height:1.4;text-align:right;}
+.role-line{color:var(--accent-ink);font-size:11.5px;}
+.icon-btn{width:32px;height:32px;border-radius:8px;background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:15px;}
+.icon-btn:hover{background:var(--bg4);color:var(--text);}
+.btn-signout{display:flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:8px;border:.5px solid var(--border-strong);color:var(--text2);font-size:12.5px;font-weight:600;}
+.btn-signout:hover{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft);}
+.nav-tabs{display:flex;gap:6px;background:var(--bg2);border:.5px solid var(--border);border-radius:13px;padding:5px;overflow-x:auto;scrollbar-width:none;box-shadow:var(--shadow-sm);margin-bottom:22px;}
+.nav-tabs::-webkit-scrollbar{display:none;}
+.nav-tab{display:flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap;padding:9px 16px;border-radius:9px;font-size:13.5px;font-weight:500;color:var(--text2);transition:all .2s;flex:1;min-width:fit-content;}
+.nav-tab:hover{color:var(--text);}
+.nav-tab.active{background:linear-gradient(135deg,var(--accent),var(--accent-dim));color:#fff;font-weight:600;box-shadow:0 4px 14px var(--accent-soft);}
+.content{padding:0 0 60px;min-width:0;overflow-x:hidden;width:100%;}
+h1.page-h1{font-size:24px;font-weight:600;letter-spacing:-.02em;margin:0 0 4px;}
+.page-sub{font-size:14.5px;color:var(--text2);margin:0 0 24px;line-height:1.5;}
+.card{background:var(--card-bg);border:.5px solid var(--border);border-radius:18px;padding:20px 22px;box-shadow:var(--shadow-sm);}
+.hero-box{background:var(--card-bg);border:.5px solid var(--border);border-radius:20px;padding:26px 28px;margin-bottom:26px;box-shadow:var(--shadow-sm);}
+.hero-box.certified{border-color:rgba(34,197,94,.35);}
+.hero-title2{font-size:19px;font-weight:600;letter-spacing:-.015em;margin-bottom:6px;}
+.hero-sub2{font-size:14px;color:var(--text2);line-height:1.5;margin-bottom:16px;}
+.progress-track{height:8px;border-radius:99px;background:var(--bg4);overflow:hidden;margin-bottom:8px;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent-dim),var(--accent));border-radius:99px;transition:width .4s cubic-bezier(.4,0,.2,1);}
+.progress-label{font-size:12.5px;color:var(--text3);}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:99px;font-size:11.5px;font-weight:600;letter-spacing:.02em;}
+.pill-green{background:var(--green-bg);color:var(--green-text);border:.5px solid rgba(34,197,94,.3);}
+.pill-amber{background:var(--amber-bg);color:var(--amber-text);border:.5px solid var(--amber-border);}
+.pill-blue{background:var(--blue-bg);color:var(--blue-text);border:.5px solid rgba(59,130,246,.3);}
+.pill-gray{background:var(--bg3);color:var(--text3);border:.5px solid var(--border-strong);}
+.stepper{margin-top:6px;}
+.step-row{display:flex;gap:14px;position:relative;padding-bottom:22px;}
+.step-row:last-child{padding-bottom:0;}
+.step-row:not(:last-child)::before{content:'';position:absolute;left:15px;top:32px;bottom:0;width:2px;background:var(--border);}
+.step-dot{width:31px;height:31px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;flex-shrink:0;background:var(--bg3);color:var(--text3);border:2px solid var(--border-strong);z-index:1;}
+.step-dot.locked{opacity:.55;}
+.step-dot.current{background:linear-gradient(135deg,var(--accent),var(--accent-dim));color:#fff;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft);}
+.step-dot.done{background:var(--green);color:#fff;border-color:var(--green);}
+.step-body{flex:1;padding-top:3px;min-width:0;}
+.step-title{font-size:14.5px;font-weight:600;letter-spacing:-.01em;margin-bottom:2px;}
+.step-title.locked{color:var(--text3);}
+.step-meta{font-size:12px;color:var(--text3);}
+.step-row.clickable{cursor:pointer;}
+.step-row.clickable:hover .step-title{color:var(--accent-ink);}
+.module-page{max-width:760px;margin:0 auto;}
+.r-eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:8px;}
+.r-title{font-size:26px;font-weight:600;letter-spacing:-.02em;margin-bottom:6px;}
+.r-sub{font-size:14.5px;color:var(--text2);margin-bottom:8px;}
+.r-meta{font-size:12.5px;color:var(--text3);margin-bottom:26px;}
+.reader{font-size:15px;line-height:1.72;color:var(--text);}
+.reader h2{font-size:17px;font-weight:600;letter-spacing:-.01em;margin:30px 0 12px;}
+.reader h3{font-size:14.5px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--text2);margin:24px 0 10px;}
+.reader p{margin:0 0 14px;color:var(--text2);}
+.reader ul,.reader ol{margin:0 0 14px;padding-left:22px;color:var(--text2);}
+.reader li{margin-bottom:7px;line-height:1.6;color:var(--text2);}
+.reader strong{color:var(--text);}
+.callout{display:flex;gap:11px;background:var(--bg3);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:13px 16px;margin:16px 0;}
+.callout .c-ic{font-size:16px;line-height:1.4;flex-shrink:0;color:var(--accent-ink);}
+.callout .c-tx{font-size:14.5px;line-height:1.6;color:var(--text2);}
+.callout .c-tx strong{color:var(--text);}
+.callout.warn{border-left-color:var(--amber);}.callout.warn .c-ic{color:var(--amber);}
+.callout.danger{border-left-color:var(--red);}.callout.danger .c-ic{color:var(--red);}
+.callout.info{border-left-color:var(--blue);}.callout.info .c-ic{color:var(--blue);}
+.awaiting{display:flex;gap:11px;background:var(--amber-bg);border:1px dashed var(--amber-border);border-radius:12px;padding:14px 16px;margin:16px 0;}
+.awaiting .a-ic{font-size:15px;flex-shrink:0;color:var(--amber-text);}
+.awaiting .a-tx{font-size:13.5px;line-height:1.6;color:var(--amber-text);}
+.awaiting .a-tx strong{font-weight:700;color:var(--amber-text);}
+.callout .c-tx strong{color:var(--text);}
+.script-card .why strong,.script-card .dont strong{color:var(--text);}
+.script{background:var(--bg3);border:.5px solid var(--border);border-radius:12px;padding:14px 16px;font-style:italic;font-size:14.5px;line-height:1.6;color:var(--text2);margin:10px 0;}
+.script-card{border:.5px solid var(--border);border-radius:14px;padding:16px 18px;margin:14px 0;background:var(--card-bg);}
+.script-card h4{font-size:14.5px;font-weight:700;margin:0 0 8px;letter-spacing:-.01em;}
+.script-card .dont{font-size:13px;color:var(--text2);margin-top:10px;line-height:1.55;}
+.script-card .why{font-size:13.5px;color:var(--text2);margin-top:8px;line-height:1.55;}
+.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px;}
+.tbl th{text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text3);padding:8px 10px;border-bottom:.5px solid var(--border-strong);}
+.tbl td{padding:10px 10px;border-bottom:.5px solid var(--border);color:var(--text2);vertical-align:top;}
+.tbl tr:last-child td{border-bottom:none;}
+.quiz-card{background:var(--card-bg);border:.5px solid var(--border);border-radius:16px;padding:22px 24px;margin-top:26px;}
+.quiz-progress{font-size:12px;color:var(--text3);margin-bottom:14px;}
+.quiz-q{font-size:16px;font-weight:600;letter-spacing:-.01em;margin-bottom:16px;line-height:1.45;}
+.quiz-opt{display:block;width:100%;text-align:left;padding:13px 15px;border-radius:12px;border:1px solid var(--border-strong);margin-bottom:9px;font-size:14.5px;color:var(--text);background:var(--bg2);transition:all .15s;}
+.quiz-opt:hover{border-color:var(--accent);}
+.quiz-opt.picked{border-color:var(--accent);background:var(--accent-soft);}
+.quiz-opt.correct{border-color:var(--green);background:var(--green-bg);color:var(--green-text);}
+.quiz-opt.incorrect{border-color:var(--red);background:var(--red-bg);color:var(--red-text);}
+.quiz-fb{font-size:13.5px;line-height:1.55;margin-top:10px;padding:12px 14px;border-radius:10px;background:var(--bg3);color:var(--text2);font-weight:600;}
+.quiz-fb.correct{background:var(--green-bg);color:var(--green-text);}
+.quiz-fb.incorrect{background:var(--red-bg);color:var(--red-text);}
+.quiz-dots{display:flex;gap:6px;margin-bottom:16px;}
+.quiz-dot{width:8px;height:8px;border-radius:50%;background:var(--border-strong);}
+.quiz-dot.active{background:var(--accent);width:20px;border-radius:99px;}
+.quiz-dot.answered{background:var(--text3);}
+.stub-gate{background:var(--card-bg);border:.5px solid var(--border);border-radius:16px;padding:22px 24px;margin-top:26px;}
+.stub-check{display:flex;align-items:flex-start;gap:12px;cursor:pointer;padding:6px 0;}
+.stub-box{width:22px;height:22px;border:1.5px solid var(--border-strong);border-radius:6px;flex-shrink:0;position:relative;margin-top:1px;transition:all .15s;}
+.stub-box.on{background:var(--accent);border-color:var(--accent);}
+.stub-box.on::after{content:'';position:absolute;left:6px;top:2px;width:6px;height:11px;border-right:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(45deg);}
+.stub-label{font-size:14.5px;line-height:1.55;color:var(--text2);}
+.mod-nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:26px;gap:10px;}
+.checklist-section{margin-bottom:10px;border:.5px solid var(--border);border-radius:14px;overflow:hidden;background:var(--card-bg);}
+.checklist-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;transition:background .15s;gap:10px;}
+.checklist-head:hover{background:var(--bg3);}
+.checklist-head-l{display:flex;align-items:center;gap:11px;min-width:0;}
+.checklist-head-ic{font-size:17px;flex-shrink:0;}
+.checklist-head-tx h4{font-size:14.5px;font-weight:600;margin:0 0 2px;}
+.checklist-head-tx p{font-size:12.5px;color:var(--text3);margin:0;}
+.checklist-head svg{color:var(--text3);transition:transform .2s;flex-shrink:0;}
+.checklist-head svg.open{transform:rotate(180deg);}
+.checklist-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.4,0,.2,1);background:var(--bg3);}
+.checklist-body.open{max-height:3000px;}
+.checklist-body-inner{padding:2px 16px 16px;}
+.check-group{margin:10px 0 4px;}
+.check-item{display:flex;align-items:flex-start;gap:12px;padding:9px 0;cursor:pointer;font-size:14.5px;line-height:1.55;border-bottom:.5px solid var(--border);}
+.check-item:last-child{border-bottom:none;}
+.check-item.done span{color:var(--text3);text-decoration:line-through;}
+.check-item input{margin-top:3px;}
+.res-card{display:flex;align-items:center;gap:14px;padding:16px 18px;border:.5px solid var(--border);border-radius:14px;background:var(--card-bg);margin-bottom:10px;transition:all .2s;}
+.res-card:hover{border-color:var(--accent);box-shadow:var(--shadow-sm);}
+.res-ic{width:38px;height:38px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;color:var(--accent-ink);}
+.res-tx{flex:1;min-width:0;}
+.res-tx h4{font-size:14.5px;font-weight:600;margin:0 0 2px;}
+.res-tx p{font-size:12.5px;color:var(--text3);margin:0;}
+.res-arrow{color:var(--text3);flex-shrink:0;}
+.contact-card{border:.5px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;background:var(--card-bg);}
+.contact-card .cn{font-size:14px;font-weight:600;}
+.contact-card .cr{font-size:12px;color:var(--text3);margin-bottom:3px;}
+.contact-card .ce{font-size:12.5px;color:var(--accent-ink);}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--text);color:var(--bg);border-radius:14px;padding:12px 20px;font-size:14px;font-weight:500;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:all .3s cubic-bezier(.4,0,.2,1);z-index:999;max-width:90vw;text-align:center;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.locked-note{display:flex;align-items:center;gap:10px;background:var(--bg3);border:.5px solid var(--border);border-radius:12px;padding:14px 16px;font-size:13.5px;color:var(--text2);margin-top:14px;}
+.video-embed{border-radius:14px;overflow:hidden;border:.5px solid var(--border);margin:14px 0;}
+.video-embed iframe{width:100%;aspect-ratio:16/9;border:none;display:block;}
+.video-fallback{display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;background:var(--bg3);color:var(--text2);font-size:13.5px;flex-direction:column;gap:10px;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+@media (max-width:760px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+.kpi-card{background:var(--card-bg);border:.5px solid var(--border);border-radius:14px;padding:16px 18px;}
+.kpi-val{font-family:var(--font-num);font-size:26px;font-weight:700;}
+.kpi-lbl{font-size:11.5px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-top:2px;}
+.filter-row{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
+.filter-chip{padding:7px 14px;border-radius:99px;font-size:12.5px;font-weight:600;background:var(--bg2);border:.5px solid var(--border-strong);color:var(--text2);}
+.filter-chip.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.admin-tbl{width:100%;border-collapse:collapse;font-size:13.5px;}
+.admin-tbl th{text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text3);padding:10px 12px;border-bottom:.5px solid var(--border-strong);}
+.admin-tbl td{padding:12px;border-bottom:.5px solid var(--border);}
+.mod-avatar{width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;flex-shrink:0;}
+.mod-row-name{display:flex;align-items:center;gap:10px;}
+.field-quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px;}
+@media (max-width:640px){.field-quick-grid{grid-template-columns:1fr;}}
+.field-quick-card{border:.5px solid var(--border);border-radius:14px;padding:16px 18px;background:var(--card-bg);cursor:pointer;transition:all .15s;}
+.field-quick-card:hover{border-color:var(--accent);}
+.field-quick-card h4{font-size:13.5px;font-weight:600;margin:0 0 4px;}
+.field-quick-card p{font-size:12px;color:var(--text3);margin:0;}
+.tree-node{border-left:2px solid var(--border-strong);padding-left:16px;margin:14px 0 14px 6px;}
+.tree-q{font-size:14px;font-weight:600;margin-bottom:8px;}
+.tree-a{font-size:13.5px;color:var(--text2);margin-bottom:6px;padding-left:10px;border-left:2px solid var(--accent-soft);}
+::-webkit-scrollbar{width:8px;height:8px;}
+::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:99px;}
+
+</style>
+</head>
+<body>
+<script>
+
+// ── VERSION (MAJOR.MINOR.MMDDYY) ────────────────────────────────────────────
+const APP_VERSION = 'v0.1.0.090926-sesame';
+
+// ── BACKEND CONFIG ───────────────────────────────────────────────────────────
+// DEMO MODE until real Power Automate URLs are pasted in below. Once wired,
+// see Sesame_Go_Live_Guide.md for the validation sequence to run before
+// trusting this for a real cohort.
+const BACKEND = {
+  getDirectory:    'PASTE_YOUR_GET_DIRECTORY_URL_HERE',
+  getProgress:     'PASTE_YOUR_GET_PROGRESS_URL_HERE',
+  saveProgress:    'PASTE_YOUR_SAVE_PROGRESS_URL_HERE',
+  manageModerator: 'PASTE_YOUR_MANAGE_MODERATOR_URL_HERE'
+};
+const LIVE = /^https?:\/\//.test(BACKEND.getDirectory);
+
+// ── DATA ─────────────────────────────────────────────────────────────────────
+// FLAG BEFORE PRODUCTION DEPLOY: DEMO_DIRECTORY and the "Demo accounts:" hint
+// on the login screen are intentionally left in for now (per direct
+// instruction) so this file is testable the moment it's handed over. Remove
+// both -- this const and the hint-line in renderLogin() -- before real
+// moderators start using a live-wired build. See Team_Handoff.md action items.
+const DEMO_DIRECTORY = [
+  {name:'Test Moderator', email:'test.mod@centific.com', role:'moderator', cohort:'A', active:'yes'},
+  {name:'Test Admin', email:'test.admin@centific.com', role:'admin', cohort:'', active:'yes'},
+  {name:'Bhargav Mukkala', email:'bhargavsai.m@centific.com', role:'admin', cohort:'', active:'yes'}
+];
+const MODULES = [{"id": "welcome", "ic": "&#127793;", "title": "Welcome to Sesame", "sub": "What this course covers and what to expect before we start.", "min": 4, "gate": "none", "body": "\n<p>Welcome — you're about to start onboarding for Project Sesame. Before anything else, here's the shape of what you're signing up for and how this course works.</p>\n\n<h2>What Sesame is, in one paragraph</h2>\n<p>Sesame is a multimodal data collection project run at the <strong>Centific Las Vegas Lab</strong>. In teams of two, you'll run participants through short, unscripted movement scenarios in staged rooms while radar, 360&deg; video and audio record simultaneously. The radar motion data is the primary deliverable; video and audio exist to validate what the radar captured. The next module covers who Centific is; the one after that covers the moderator role and how to reach the team. This is just enough to orient you before that.</p>\n\n<h2>How this course works</h2>\n<ul>\n<li><strong>Modules unlock in order.</strong> Each one opens after you finish the one before it. You can always go back and re-read anything you've already completed.</li>\n<li><strong>Most modules end with a short knowledge check</strong> — a few questions to confirm you're reading, not clicking through. Answers are flagged, not blocking, except for the final check.</li>\n<li><strong>A few modules are placeholders by design</strong> — Project Guidelines, Hardware Setup, Hydra, and Troubleshooting point at your in-person training rather than trying to teach hands-on equipment work through a screen. You'll see them marked clearly, with a simple &quot;I've reviewed this&quot; checkbox standing in until on-site training happens.</li>\n<li><strong>A final scenario check</strong> comes after every module is complete — that's what actually certifies you for on-site training. You get <strong>three attempts</strong> to pass it. If you don't pass within three attempts, your Project Manager will follow up directly rather than the app opening a fourth.</li>\n<li><strong>A Field Reference tab</strong> becomes available once you're in the app — keep it open on your phone during an actual session for quick access to scripts, escalation steps, and troubleshooting, without digging back through training content.</li>\n</ul>\n\n<div class=\"callout\"><div class=\"c-ic\">&#9432;</div><div class=\"c-tx\">If anything in this course is unclear, or a link looks broken, that's useful to know — route it to Ingrid Lindstrom (Training &amp; Development). You'll get her contact details, along with everyone else's, in the next couple of modules.</div></div>\n\n<p>Ready? Next up: who Centific actually is, and what your role means in practice.</p>\n"}, {"id": "centific", "ic": "&#127760;", "title": "Who Is Centific", "sub": "Who we are, what the data collection team does, and what your role is.", "min": 7, "gate": "quiz", "body": "\n<p>If a participant asks you who Centific is, this is all you need:</p>\n<div class=\"script\">Centific is a global data and AI company. We collect real-world data — video, audio, sensor and behavioral data — so that AI systems learn to recognize the world as it actually looks and moves. Today's captures become part of the training material that teaches those systems what they're looking at.</div>\n<p>Everything below is context so you can answer follow-up questions with confidence. You are not expected to recite it.</p>\n<div class=\"video-embed\"><div class=\"video-fallback\">&#9654; Moderator Fundamentals — Centific Branding<br><a href=\"https://digitaltechedge.sharepoint.com/sites/Oslo_Sesame_Moderators\" target=\"_blank\" rel=\"noopener\">Watch on the Moderator SharePoint &#8599;</a><br><span style=\"font-size:11.5px;\">Sign in with your Centific credentials.</span></div></div>\n\n<h2>1. Who is Centific?</h2>\n<p>Centific is a global data and AI solutions company. We do not build the AI products you would recognize by name. We build the data those products learn from — which is why Centific is sometimes described as the hidden infrastructure behind AI models.</p>\n<p>Our clients are companies that build AI systems. They come to us because a model is only as good as the data it learned from, and good data does not exist by default. Someone has to go out and create it, carefully, with real people. That is our job.</p>\n<p>What we provide to those clients:</p>\n<ul>\n<li><strong>Data creation and collection.</strong> Speech, conversation, video, images, sensor data, and text are all types of data we collect. These are gathered in structured sessions like the ones you will run.</li>\n<li><strong>Human judgment and evaluation.</strong> Experts review, rate, correct, and label AI output so systems learn what a good answer looks like and where they get things wrong.</li>\n<li><strong>Language and cultural coverage.</strong> Data work in 350+ languages and regional variants, so AI works for people outside a handful of major markets.</li>\n<li><strong>Platforms and tooling.</strong> The systems that manage all the above at scale, including the tools you will use to run and submit sessions.</li>\n</ul>\n<p>The scale behind that: a network of over 1.8 million domain experts, working across 230+ markets and 50+ industries.</p>\n<p>Centific's mission line is <em>&quot;The Future Learns Here.&quot;</em> That is literal. The data collected in your sessions is what the technology learns from.</p>\n<div class=\"callout\"><div class=\"c-ic\">&#9432;</div><div class=\"c-tx\"><strong>One rule that never changes:</strong> we never disclose which client a project is for. Not to participants, not to friends, not on social media. That confidentiality is part of the agreement Centific has with every client, and it is part of your agreement with Centific.</div></div>\n\n<h2>2. What does the data collection team do?</h2>\n<p>The data collection team is the part of Centific that turns a client requirement into a finished, usable dataset. A client says, in effect, &quot;our system needs to understand natural human movement through indoor spaces.&quot; The data collection team designs and runs the work that produces it.</p>\n<p>End to end, that looks like:</p>\n<ol>\n<li><strong>Define the spec.</strong> What kind of movement, from which kinds of people, in what conditions, and what counts as acceptable quality.</li>\n<li><strong>Recruit and consent participants.</strong> Find people who match the profile, explain what they are agreeing to, and collect proper consent before anything is recorded.</li>\n<li><strong>Schedule and prepare.</strong> Match participants to sessions and moderators, confirm attendance, and make sure the tooling works before anyone joins.</li>\n<li><strong>Run the sessions.</strong> This is where you come in. Moderators run the actual capture sessions to the project format.</li>\n<li><strong>QA review.</strong> Every capture is checked against the project quality standards. Sessions that miss the bar are flagged, returned, or rejected.</li>\n<li><strong>Process and deliver.</strong> Accepted sessions are processed, labeled, packaged into a dataset, and delivered to the client to train and evaluate their system.</li>\n</ol>\n<p>Two things worth understanding about how the team works:</p>\n<ul>\n<li><strong>Quality is the product, not volume.</strong> A large pile of unusable captures is worth nothing. The team is measured on how much data passes QA, not on how much was recorded.</li>\n<li><strong>Every stage depends on the one before it.</strong> A rejected session does not just cost one recording; it costs the participants' time, the recruiter's effort, and leaves a gap in the dataset that someone must fill again.</li>\n</ul>\n<p>As a Sesame moderator, you will mainly interact with your Project Manager (scheduling, questions, escalations) and, indirectly, with QA, whose feedback tells you whether your sessions are hitting the standard. Names and contact details are covered in the Moderator Fundamentals module.</p>\n\n<h2>3. What is the Moderator role on Sesame?</h2>\n<p>You are the person who runs the session and is responsible for the captured data being usable. On Sesame, the clearest way to think about the role is as <strong>a movie director</strong>: your job is to make sure participants act, move, speak, gesture and engage with the room to the client's specification — directing the scene, not performing in it, and not issuing a stream of commands mid-episode.</p>\n<ul>\n<li><strong>Prepare.</strong> Check your equipment, the room, and the recording tool before the session starts — not while a participant is waiting.</li>\n<li><strong>Set people at ease.</strong> Welcome participants, explain what is going to happen, and confirm they understand what they consented to. Nervous participants produce stiff, unnatural movement, which is exactly what the dataset does not need.</li>\n<li><strong>Hold the format.</strong> Keep the session inside spec — the right rooms, the right movement, the right timing.</li>\n<li><strong>Keep the action natural.</strong> Brief clearly, then step back. A light, occasional redirect is fine; running commentary is not.</li>\n<li><strong>Handle problems live.</strong> Equipment hiccups, a participant who drifts out of frame, anything unexpected — moderators handle it in the moment.</li>\n<li><strong>Submit correctly and flag issues.</strong> Follow the submission steps exactly, and tell your Project Manager about anything that went wrong. An honest flag is far cheaper than a surprise found in QA.</li>\n</ul>\n<p>Just as important, what the role is not:</p>\n<ul>\n<li><strong>You are not an interviewer or researcher.</strong> You are not there to collect opinions or test a product. The movement itself is the deliverable.</li>\n<li><strong>You are not the QA reviewer.</strong> You apply first-line quality judgment, but you do not decide whether a session is accepted. Flag it and let QA decide.</li>\n<li><strong>You are not the client's representative.</strong> You represent Centific. You cannot speak for the client, and you cannot name them.</li>\n<li><strong>You are not expected to improvise policy.</strong> If a participant asks something you were not briefed on, route it to Oslo_comms@centific.com. Centific's delivery team monitors this inbox and answers participant questions there.</li>\n</ul>\n<div class=\"callout\"><div class=\"c-ic\">&#9733;</div><div class=\"c-tx\"><strong>The core of the job:</strong> be warm enough that people forget they are being watched, while quietly holding the room to a technical spec. These are two sides of the same coin, and getting the balance right is the whole skill.</div></div>\n<p>You are also, for most participants, the only person from Centific they will ever meet. To them, you are the company. How you handle the session shapes whether they trust the process and whether they come back for future work.</p>\n\n<h2>Why we collect data — the honest answer</h2>\n<p>AI systems learn from examples. If the examples are narrow, the system is narrow. A model trained mostly on staged, cooperative, obviously-posed movement will fail the moment it meets a real person moving through a real room without thinking about it.</p>\n<p>That failure is not an abstraction. It means a system that misreads ordinary movement, that can't tell a person reaching for a cabinet from a person falling, or that treats a normal pause as an anomaly — because scenes like that were not in the training data. Precision matters here specifically because the underlying sensor is reading motion, not appearance: the value is in exactly what moved, exactly where, and exactly how.</p>\n<div class=\"callout\"><div class=\"c-ic\">&#9679;</div><div class=\"c-tx\">Real, natural, unscripted human movement through a space is genuinely hard to obtain cleanly. It can't be scraped, and a rendered or staged substitute behaves subtly wrong. It has to be captured, with consent, by people who agree to take part and are directed by someone who knows how to keep it natural rather than performative. That is why these sessions exist.</div></div>\n\n<h2>Saying it to a participant</h2>\n<p>Keep it short, plain, and honest. Something like:</p>\n<div class=\"script\">&quot;I work with Centific — we're a company that collects data used to train AI systems. Today we're recording your movement through a few different rooms using cameras, microphones and a motion sensor. The reason is that this kind of technology has to work with real, natural movement, and that's genuinely hard to come by any other way.&quot;</div>\n<div class=\"script\">&quot;The recordings get reviewed for quality and then go into a dataset used to train that technology. You agreed to that in the consent form you signed, and you can stop or ask me anything at any point.&quot;</div>\n\n<h2>What not to say</h2>\n<ul>\n<li><strong>Never name the client.</strong> If asked which company the data is for, say plainly: &quot;I'm not able to share the client's name — that's part of our agreement with them. What I can tell you is what the data is used for.&quot; That is a complete, professional answer. Do not hint, do not guess, do not confirm a participant's guess.</li>\n<li><strong>Do not speculate.</strong> If you do not know how the data will be used beyond what you have been told, say so and offer to route the question.</li>\n<li><strong>Do not make promises</strong> about payment amounts, timelines, retention periods, or future work that are not in the project documentation you were given.</li>\n<li><strong>Do not oversell.</strong> &quot;You're helping build AI that understands how people actually move&quot; is true. Promising your session will end up in a specific named product is not something you can say.</li>\n</ul>\n\n<h2>Questions participants actually ask</h2>\n<ul>\n<li><strong>&quot;Who is this for?&quot;</strong> — Centific collects data on behalf of companies that build AI systems. You cannot name the client, and you can say that openly.</li>\n<li><strong>&quot;Will I be identifiable?&quot;</strong> — Be straightforward: this is a Centific facility, not a public space, and the cameras are recording the room and the movement in it. How footage is handled, stored, and who can see it is set out in the consent form they signed, and Oslo_comms@centific.com answers anything the form does not. Do not speculate about de-identification.</li>\n<li><strong>&quot;What happens to my recording?&quot;</strong> — It is reviewed for quality, processed, and used as AI training data under the terms in the consent form.</li>\n<li><strong>&quot;Am I doing it right?&quot;</strong> — Reassure them: there is no wrong way to do this. Just move naturally. This is usually the most useful thing you can say all session.</li>\n</ul>\n\n<h2>Why this matters for you</h2>\n<p>Participants relax when the person running the session sounds like they know what they are doing and why. A moderator who can explain the purpose in two clear sentences gets a more natural session — which is exactly what a Centific project is trying to capture. Confidence about the &quot;why&quot; is a quality tool, not just a courtesy.</p>\n"}, {"id": "fundamentals", "ic": "&#127775;", "title": "Moderator Fundamentals", "sub": "What Sesame is, who to contact, escalation, and the full script library.", "min": 22, "gate": "quiz", "body": "\n<h2>What Sesame is</h2>\n<p>Sesame is a multimodal data collection project. Radar motion data is the primary deliverable; 360&deg; video and audio exist to validate what the radar captured. You will work in a team of two, running participants through short, unscripted movement scenarios across a set of staged rooms.</p>\n<div class=\"callout\"><div class=\"c-ic\">&#128205;</div><div class=\"c-tx\"><strong>Sesame currently collects data at the Centific Las Vegas Lab, per client specification.</strong> There are no participant home visits on this collection. If the client requests additional collections, the project may expand to offsite (participant home) work in the future — this module and its scripts note where a rule is written for either setting.</div></div>\n<p><strong>You may be seen and heard on camera.</strong> This is a real change from prior Centific collections, and worth repeating: the radar is the primary data source, and video/audio exist to validate what it captured — not the reverse. Minimal, natural verbal cueing (&quot;starting now,&quot; &quot;that's the end of that one&quot;) is fine. Continuous direction (&quot;go there now, now do this&quot;) is not — it degrades the capture and reads as staged rather than natural.</p>\n<p><strong>Sessions run with one or two participants.</strong> Duration is identical either way — you never record participants separately and then together. With two participants, they move independently and asynchronously, not in a coordinated or mirrored way.</p>\n<p><strong>You always work in a team of two: a Primary Moderator and a QA Moderator.</strong> While one moderator runs the room, the other reviews the just-completed capture and confirms every episode is present before the pair moves to the next room. Both moderators are trained on both roles — this keeps scheduling flexible, since the team is small on this collection.</p>\n<div class=\"awaiting\"><div class=\"a-ic\">&#9203;</div><div class=\"a-tx\"><strong>Awaiting confirmation:</strong> the detailed responsibility split between Primary and QA is still being finalized between your Project Manager and the Quality Lead. This module will update once that's settled — for now, know the two roles exist and that both moderators can perform either one.</div></div>\n\n<h2>The room and the environment</h2>\n<p>All sessions happen in staged rooms at the Las Vegas Lab. A few things are different from a real home:</p>\n<ul>\n<li><strong>Props may not be functional.</strong> A tap may not run, a lamp may not be plugged in. Do the natural action anyway — reaching for the lamp, turning the tap — the motion is what's being captured, not the outcome.</li>\n<li><strong>No pets, no mirrors.</strong> Mirrors are removed from the lab rooms because they interfere with equipment visibility, not because of any radar confusion — radar reads organic bodies, and a mirror image won't register as a second person.</li>\n<li><strong>Six room types are used, no bathrooms</strong> — there isn't enough usable space in most bathroom layouts for the rig and the movement the client wants.</li>\n</ul>\n\n<h2>What the role is not</h2>\n<ul>\n<li>You are not the client's representative. You represent Centific, you cannot speak for the client, and you cannot name them.</li>\n<li>You are not the QA reviewer of record. You apply first-line judgment, then flag. You do not decide whether a capture is accepted.</li>\n<li>You are not expected to improvise policy. If you are asked something you were not briefed on, routing it is the correct, professional answer — not a failure.</li>\n<li><strong>You are not the site's security team.</strong> If something at the lab feels unsafe or unworkable, your job is to stay calm, pause, and notify your Project Coordinator. It is not to resolve it yourself.</li>\n</ul>\n\n<h2>Who to contact</h2>\n<div class=\"awaiting\"><div class=\"a-ic\">&#9203;</div><div class=\"a-tx\"><strong>The full point-of-contact list for Sesame is still being finalized.</strong> The table below reflects who's been named so far. This module updates as soon as the complete list is confirmed — check back before your first session if a role you need isn't listed yet.</div></div>\n<table class=\"tbl\">\n<tr><th>If you need...</th><th>Contact</th><th>Role</th><th>Email</th></tr>\n<tr><td>Anything about Sesame: process, scheduling, sessions</td><td>Marine Aghasyan</td><td>Program Manager</td><td><em>pending POC list</em></td></tr>\n<tr><td>Technical workflow, tooling, and quality</td><td>Riley Robertson</td><td>Technical &amp; Quality Lead</td><td><em>pending POC list</em></td></tr>\n<tr><td>Client guidelines and runbook questions</td><td>Fen Yik</td><td>Guidelines</td><td><em>pending POC list</em></td></tr>\n<tr><td>Radar / sensor technical questions</td><td>Bishwajit Pal</td><td>Radar SME</td><td><em>pending POC list</em></td></tr>\n<tr><td>Onboarding: this app, your progress, certification</td><td>Ingrid Lindstrom</td><td>Training &amp; Development</td><td>ingrid.lindstrom@centific.com</td></tr>\n<tr><td>Anything general, or you are not sure who to ask</td><td>The project team</td><td>—</td><td>Oslo_comms@centific.com</td></tr>\n<tr><td>Your pay, rate, bonuses, future work</td><td>Your agency</td><td>—</td><td>Centific cannot answer these. See the Hours and Pay module.</td></tr>\n</table>\n\n<h3>Where you send participants</h3>\n<table class=\"tbl\">\n<tr><th>Participant asks about...</th><th>Send them to</th></tr>\n<tr><td>The consent form they signed</td><td>Oslo_comms@centific.com</td></tr>\n<tr><td>How their data will be used, or who sees it</td><td>Oslo_comms@centific.com</td></tr>\n<tr><td>Withdrawing consent or deleting recordings</td><td>Oslo_comms@centific.com</td></tr>\n<tr><td>Payment amount or timing</td><td>Oslo_comms@centific.com</td></tr>\n</table>\n<p><strong>You route these. You do not answer them.</strong> That is not a brush-off. It is how participants get an accurate answer instead of your best guess.</p>\n<p><strong>Read the address back when you give it to a participant.</strong> It takes a moment and it is what makes sure they reach the monitored account rather than emailing you directly.</p>\n\n<h2>Teams and escalation</h2>\n<p>For anything time-sensitive during a session at the lab, post in the Teams channel <strong>Oslo_Sesame_Moderators</strong> (channel: General) rather than emailing — the team is watching it live during collection hours. Your Project Manager adds you before your first session; if you haven't been added by then, say so.</p>\n<table class=\"tbl\">\n<tr><th>Tier</th><th>What it covers</th></tr>\n<tr><td><strong>Handle it yourself</strong></td><td>Routine session flow, everything the scripts cover, minor equipment hiccups, a normal reschedule.</td></tr>\n<tr><td><strong>Flag to your on-site lead in real time</strong></td><td>Anything you can't resolve safely or compliantly on your own while it's happening: a participant under the influence, an unsafe or unworkable environment, an absent guardian for a minor, inappropriate conduct toward you, a participant in visible distress.</td></tr>\n<tr><td><strong>Report after the fact</strong></td><td>Resolved, but leadership must know: a canceled or cut-short session, a data-withdrawal request, a scope dispute, any participant complaint. Same day.</td></tr>\n<tr><td><strong>Escalate to compliance / legal</strong></td><td>Legal, privacy, or safety weight: a data breach or lost recording, a demand touching the consent form you can't answer, an allegation of misconduct, harm or a threat of harm. Notify your on-site lead AND the designated compliance/legal contact — do not try to resolve these yourself.</td></tr>\n</table>\n\n<h2>What gets logged after every session</h2>\n<div class=\"awaiting\"><div class=\"a-ic\">&#9203;</div><div class=\"a-tx\"><strong>Whether Sesame uses a standalone session log, or captures this entirely in the field app, is still being decided.</strong> Until that's confirmed, the standard below is what to follow if you're asked to log a session manually.</div></div>\n<p>Keep it factual and free of diagnosis, opinion, or the client's name. At minimum, capture: session basics (date, time, moderators, participant identifier — not free-text personal details), outcome (completed / rescheduled / cut short / canceled and why), scope covered (which rooms and episodes, and anything skipped), consent status, issues and how they were handled in neutral observable terms, and any escalation with what was passed along and to whom. Never record diagnoses (&quot;drunk,&quot; &quot;high&quot;), payment amounts, or the client's identity — describe behavior, not conclusions.\n\n<h2>Scripts</h2>\n<p>These sixteen cards are the moderator's playbook for the situations that come up most. Scripts are scaffolding, not lines to memorize — the facilitator at in-person training will assess your posture and judgment, not word-for-word recall. Compliance is the spine of every card: never name the client, never quote figures on site, never handle money; route open questions to Oslo_comms@centific.com.</p>\n\n<h3>Set A — The Participant Journey</h3>\n\n<div class=\"script-card\"><h4>C1 &middot; Welcoming a Nervous or Hesitant Participant</h4>\n<p><strong>Setup:</strong> A participant arrives looking anxious about the cameras and unsure what the session involves.</p>\n<div class=\"script\"><strong>PT:</strong> &quot;Hi&#8230; I'm a little nervous, I've never done anything like this.&quot;<br><strong>MOD:</strong> &quot;You're in exactly the right place, welcome. I'm [name], I'll be with you the whole way and I'll walk you through everything before we start. There are no wrong answers here and nothing you can mess up — we'll go at your pace.&quot;<br><strong>PT:</strong> &quot;Okay. What if I do it wrong on camera?&quot;<br><strong>MOD:</strong> &quot;We practice everything first — I'll show you, then we do it together, then we record. By the time we're rolling, it'll feel familiar. All we need is for you to move naturally.&quot;</div>\n<div class=\"why\"><strong>Coach for:</strong> Warmth in the first 10 seconds &middot; states they'll stay with the PT the whole session &middot; frames &quot;no wrong answers&quot; and the rehearse-first flow &middot; keeps purpose framing simple, never names the client.</div>\n<div class=\"dont\"><strong>Fail signals:</strong> Jumps into tasks with no reassurance &middot; pressures a hesitant PT to &quot;just start&quot; &middot; names or hints at the client &middot; promises a survey or asks for a review.</div>\n</div>\n\n<div class=\"script-card\"><h4>C2 &middot; Explaining the Session to an Unprepared Participant</h4>\n<p><strong>Setup:</strong> The participant admits they didn't read the welcome materials or consent forms in advance.</p>\n<div class=\"script\"><strong>PT:</strong> &quot;I'll be honest, I didn't really read what they sent.&quot;<br><strong>MOD:</strong> &quot;No problem at all — here's the short version. We'll capture short movement scenarios in a few different rooms to help train an AI system. Mostly you'll be walking around and doing everyday things naturally. I'll show each one first and we'll practice.&quot;<br><strong>PT:</strong> &quot;Do I need anything for it?&quot;<br><strong>MOD:</strong> &quot;Just a couple of checks: have you signed the consent forms? Those are required to take part. If not, let's sort that before we start, and I'll preview a room or two so nothing's a surprise.&quot;</div>\n<div class=\"why\"><strong>Coach for:</strong> Clear, jargon-free overview &middot; checks consent is signed before filming &middot; offers to preview a room &middot; routes anything about data/payment to the compliant script.</div>\n<div class=\"dont\"><strong>Fail signals:</strong> Makes the PT feel judged &middot; starts filming before confirming signed forms &middot; improvises data-use or payment terms.</div>\n</div>\n\n<div class=\"script-card\"><h4>C4 &middot; Payment Questions Before the Session</h4>\n<p><strong>Setup:</strong> Before starting, the participant asks how and when they'll be paid, and about possible bonuses.</p>\n<div class=\"script\"><strong>PT:</strong> &quot;Before we start — how does getting paid work?&quot;<br><strong>MOD:</strong> &quot;You're compensated for the time you spend participating, at the rate on your registration form. I'll have Oslo_comms@centific.com confirm the exact timing for you.&quot;<br><strong>PT:</strong> &quot;Is there a bonus I can get?&quot;<br><strong>MOD:</strong> &quot;Some participants may be eligible for a bonus. I can't quote amounts on site because the campaign can change — email Oslo_comms@centific.com and they'll share the current details.&quot;</div>\n<div class=\"why\"><strong>Coach for:</strong> Ties rate back to the registration form rather than quoting a figure from memory &middot; refuses to quote bonus figures; routes to support &middot; mentions the PT can stop or withdraw consent anytime.</div>\n<div class=\"dont\"><strong>Fail signals:</strong> Quotes a bonus/referral figure on site &middot; invents forfeiture/withdrawal terms &middot; implies pay depends on someone else finishing.</div>\n<div class=\"awaiting\"><div class=\"a-ic\">&#9203;</div><div class=\"a-tx\">Payment terms and the exact registration/consent form name are still being confirmed. Route the specifics to Oslo_comms@centific.com rather than stating a number or timeline until this module is updated.</div></div>\n</div>\n\n<div class=\"script-card\"><h4>C5 &middot; Payment Questions After the Session</h4>\n<p><strong>Setup:</strong> The session is complete and the participant asks when the money will arrive and what to do if it's late.</p>\n<div class=\"script\"><strong>PT:</strong> &quot;Great — so when do I actually get paid?&quot;<br><strong>MOD:</strong> &quot;Oslo_comms@centific.com will confirm the exact timeline for you — it's based on what you completed today and isn't held for anyone else. Let me read back the email on file so nothing's misdelivered: [reads address slowly]. Is that right?&quot;<br><strong>PT:</strong> &quot;Yes. And if it doesn't show up?&quot;<br><strong>MOD:</strong> &quot;Email Oslo_comms@centific.com and they'll handle it directly.&quot;</div>\n<div class=\"why\"><strong>Coach for:</strong> Reads the payment email back to confirm spelling &middot; routes delays to the project inbox rather than guessing.</div>\n<div class=\"dont\"><strong>Fail signals:</strong> Promises an exact deposit date &middot; handles or offers money directly &middot; reconstructs withdrawal/forfeiture terms.</div>\n</div>\n\n<div class=\"script-card\"><h4>C13 &middot; Language Barrier or Accessibility Need</h4>\n<p><strong>Setup:</strong> The participant has limited English, a hearing impairment, or another disability that changes how instructions must be given.</p>\n<div class=\"script\"><strong>PT:</strong> &quot;Sorry — my English is not so good. Sometimes I don't catch everything fast.&quot;<br><strong>MOD:</strong> &quot;That's completely fine — we'll take it slowly and I'll show you each step rather than just explain it. Watch me first, then we try together. Stop me anytime and I'll repeat.&quot;<br><strong>PT:</strong> &quot;Okay. It's easier if I can see it.&quot;<br><strong>MOD:</strong> &quot;Perfect — I'll demonstrate every room before we record, and use simple words and gestures. There's no rush and no wrong pace here.&quot;</div>\n<div class=\"why\"><strong>Coach for:</strong> Slows down, demonstrates visually, and checks understanding after each step &middot; confirms informed consent is real before proceeding &middot; flags your on-site lead if a needed accommodation can't be met.</div>\n<div class=\"dont\"><strong>Fail signals:</strong> Speaks faster or louder instead of adapting &middot; assumes understanding without confirming it &middot; improvises or waives consent requirements to &quot;make it work.&quot;</div>\n</div>\n\n<h3>Set B — De-escalation Under Pressure</h3>\n\n<div class=\"script-card\"><h4>C3 &middot; Questions About the Client or Data Use</h4>\n<p><strong>Setup:</strong> The participant asks who the client is and how their footage/data will actually be used.</p>\n<div class=\"script\"><strong>PT:</strong> &quot;So who's actually behind this? And what happens to my footage?&quot;<br><strong>MOD:</strong> &quot;Fair question. I'm not able to name the specific company — what I can say is the footage helps train an AI system that needs to understand real human movement.&quot;<br><strong>PT:</strong> &quot;And the data side?&quot;<br><strong>MOD:</strong> &quot;The full detail lives in the consent form you signed — that's the source of truth, so I won't paraphrase and risk getting it slightly wrong. For anything beyond it, Oslo_comms@centific.com can help.&quot;</div>\n<div class=\"why\"><strong>Coach for:</strong> Never names the client &middot; points to the signed consent form as source of truth &middot; routes extra detail to the project inbox.</div>\n<div class=\"dont\"><strong>Fail signals:</strong> Names or guesses at the client &middot; improvises how data will be used &middot; gets flustered instead of routing cleanly.</div>\n</div>\n\n<div class=\"script-card\"><h4>C6 &middot; Frustrated Participant — Wait or Technical Issue</h4>\n<p><strong>Setup:</strong> The participant is irritated after a long wait or an equipment problem interrupts the session.</p>\n<div class=\"script\"><strong>PT:</strong> &quot;I've been sitting here forever, and now the equipment's not working?&quot;<br><strong>MOD:</strong> &quot;I'm sorry you've been waiting — that's on us, not you, and I appreciate your patience. This is a quick fix, nothing you did.&quot;</div>\n<div class=\"why\"><strong>Coach for:</strong> Owns the experience plainly &middot; reassures using &quot;compensation is for time spent participating&quot; &middot; stays calm and resets.</div>\n<div class=\"dont\"><strong>Fail signals:</strong> Blames the equipment defensively &middot; offers cash or a bonus to smooth it over &middot; pushes ahead when quality is clearly compromised.</div>\n</div>\n\n<div class=\"script-card\"><h4>C7 &middot; Participant Wants to Stop Mid-Session</h4>\n<p><strong>Setup:</strong> Partway through, the participant says they want to stop, and may ask about their data.</p>\n<div class=\"script\"><strong>PT:</strong> &quot;I think I want to stop. I'm not feeling it.&quot;<br><strong>MOD:</strong> &quot;Absolutely — you can stop at any time, and that's completely okay. You'll still be paid for the time you've already given today; that doesn't change.&quot;<br><strong>PT:</strong> &quot;And what about the recordings of me?&quot;<br><strong>MOD:</strong> &quot;You can withdraw consent at any point. If you withdraw, we delete the affected recordings. Just tell me what you'd like — I can also connect you with Oslo_comms@centific.com for the details.&quot;</div>\n<div class=\"why\"><strong>Coach for:</strong> Respects the choice immediately, no pressure &middot; confirms pay for time already given is unaffected &middot; flags your on-site lead if there's real confusion.</div>\n<div class=\"dont\"><strong>Fail signals:</strong> Tries to talk the PT into staying &middot; implies stopping forfeits their pay &middot; improvises forfeiture/withdrawal terms.</div>\n</div>\n\n<div class=\"script-card\"><h4>C8 &middot; Participant Arrives Late</h4>\n<p><strong>Setup:</strong> The participant shows up late to their scheduled lab slot.</p>\n<div class=\"script\"><strong>PT:</strong> &quot;I'm so sorry I'm late, traffic was awful.&quot;<br><strong>MOD:</strong> &quot;Please don't worry — things happen. Let me check where that puts us.&quot;<br><strong>PT:</strong> &quot;Can we still do it?&quot;<br><strong>MOD:</strong> &quot;With the time left today we wouldn't be able to complete it properly, and I'd rather not rush you. Let's rebook so you get the full session — you won't lose your spot.&quot;</div>\n<div class=\"why\"><strong>Coach for:</strong> Warm, non-judgmental greeting &middot; honestly assesses whether a quality session fits &middot; reschedules firmly rather than rushing a compromised session.</div>\n<div class=\"dont\"><strong>Fail signals:</strong> Scolds the PT &middot; rushes a compromised session through &middot; promises partial pay for a session that can't run.</div>\n</div>\n\n<div class=\"script-card\"><h4>C14 &middot; Participant Negotiates Scope</h4>\n<p><strong>Setup:</strong> The participant tries to trim the session — &quot;can I skip this room?&quot;, &quot;can we cut this short?&quot; — to finish faster.</p>\n<div class=\"script\"><strong>PT:</strong> &quot;Can I just skip this one? Do we really need all these rooms?&quot;<br><strong>MOD:</strong> &quot;I hear you — let's keep it moving. Each room is part of what makes the data usable, so I can't drop them, but I can pace us efficiently and take a short break whenever you need.&quot;<br><strong>PT:</strong> &quot;So it's all or nothing?&quot;<br><strong>MOD:</strong> &quot;The session is designed as a set. If something feels uncomfortable rather than just long, tell me — we can pause or stop entirely, and I'll always respect that.&quot;</div>\n<div class=\"why\"><strong>Coach for:</strong> Explains why full scope matters, kindly &middot; offers flexibility on pace, breaks, and comfort — not on required content &middot; distinguishes &quot;this is long&quot; from &quot;this is uncomfortable.&quot;</div>\n<div class=\"dont\"><strong>Fail signals:</strong> Agrees to skip rooms or cut episodes short to finish early &middot; improvises partial-pay terms &middot; pressures the PT into continuing.</div>\n</div>\n\n<div class=\"script-card\"><h4>C15 &middot; Participant Wants to See Their Footage</h4>\n<p><strong>Setup:</strong> The participant asks to watch what was just recorded of them.</p>\n<div class=\"script\"><strong>PT:</strong> &quot;Can you show me what you just recorded? I just want to see how I did.&quot;<br><strong>MOD:</strong> &quot;Totally understand wanting to see — most people do. We got the capture we need, so let's go ahead and move to the next one rather than reviewing it here.&quot;<br><strong>PT:</strong> &quot;Is that a privacy thing?&quot;<br><strong>MOD:</strong> &quot;It's about keeping the session moving efficiently and keeping the process consistent for everyone. How your footage is stored and used is spelled out in the consent form you signed, and Oslo_comms@centific.com can answer anything beyond that.&quot;</div>\n<div class=\"why\"><strong>Coach for:</strong> Validates the curiosity before holding the line &middot; frames it as a pace-and-consistency matter, never a flat refusal — Sesame follows the same approach as prior collections: not &quot;no,&quot; just &quot;let's keep moving.&quot;</div>\n<div class=\"dont\"><strong>Fail signals:</strong> Plays footage back on site &middot; improvises what happens to the footage &middot; makes the PT feel accused or distrusted for asking.</div>\n</div>\n\n<h3>Set C — Boundaries &amp; Safety</h3>\n\n<div class=\"script-card\"><h4>C9 &middot; Requests — Childcare or Transportation</h4>\n<p><strong>Setup:</strong> The participant asks for help with money, transportation, or supervising a child.</p>\n<div class=\"script\"><strong>PT:</strong> &quot;Any chance you could cover my parking, or watch my kid for a sec?&quot;<br><strong>MOD:</strong> &quot;I really wish I could help directly. I'm not able to handle payments or reimbursements on site, and I can't supervise children during the session — I want to give you my full attention.&quot;</div>\n<div class=\"why\"><strong>Coach for:</strong> Kind refusal, offers the correct channel &middot; never hands out cash &middot; for minors, the signing guardian must stay the whole session.</div>\n<div class=\"dont\"><strong>Fail signals:</strong> Offers or fronts money &quot;just this once&quot; &middot; agrees to watch a child during the session &middot; leaves the request unrouted.</div>\n</div>\n\n<div class=\"script-card\"><h4>C10 &middot; Safety Protocols</h4>\n<p><strong>Setup:</strong> On arrival, the environment or participant may not be workable — this card is written for a participant home visit. Sesame currently runs at the Centific Las Vegas Lab, where the room and equipment are set and pre-checked by Centific, not assessed by the moderator on arrival. Keep this card as written, ready to use unchanged, for if and when the project expands to offsite collection.</p>\n<div class=\"script\"><strong>MOD:</strong> &quot;Before we set up, let me take a quick look at the space so we can capture safely and clearly — we need an open, clean area with good line of sight and no mirrors in frame.&quot;<br><strong>PT:</strong> &quot;It's a bit messy, is that a problem?&quot;<br><strong>MOD:</strong> &quot;For a safe, quality session I do need a clean, open, residential setting. As things are right now I can't proceed today, so let's look at rescheduling — I appreciate your understanding.&quot;</div>\n<div class=\"why\"><strong>Coach for:</strong> Assesses workability within 15&ndash;20 minutes &middot; asserts the clean/open/sober requirement &middot; cancels rather than sinking time into a doomed session &middot; for minors, signing guardian present, ID-checked, stays throughout.</div>\n<div class=\"dont\"><strong>Fail signals:</strong> Pushes ahead in an unsafe/unsuitable space &middot; continues a minor session with an absent guardian &middot; fails to escalate.</div>\n</div>\n\n<div class=\"script-card\"><h4>C11 &middot; PT Under the Influence</h4>\n<p><strong>Setup:</strong> The participant appears intoxicated or otherwise not sober. This applies at the lab exactly as written.</p>\n<div class=\"script\"><strong>MOD:</strong> &quot;We're not able to run the session today. I'm going to head out now.&quot;<br><strong>PT:</strong> &quot;Wait — why? Can we reschedule? What about my payment?&quot;<br><strong>MOD:</strong> &quot;I'm not able to get into that. Take care.&quot; [Moderator ends the session and steps away. No reasons, no reschedule offer, no discussion of payment.]</div>\n<div class=\"why\"><strong>Coach for:</strong> Ends the session outright — no reschedule, no compensation discussion, no negotiation &middot; stays calm and neutral, gives no reason and does not debate the decision &middot; does not diagnose, accuse, or use words like &quot;drunk&quot; or &quot;high&quot; &middot; escalates to your on-site lead and documents immediately after, from a safe location.</div>\n<div class=\"dont\"><strong>Fail signals:</strong> Offers to reschedule or implies the PT can come back &middot; discusses or apologizes about compensation &middot; gets drawn into a back-and-forth &middot; confronts or accuses the PT about their state.</div>\n</div>\n\n<div class=\"script-card\"><h4>C12 &middot; Moderator Safety — Onsite &amp; Offsite</h4>\n<p><strong>Setup:</strong> The moderator is in a setting — a participant's home, if offsite work is added, or the lab itself — and feels the situation isn't safe or workable. This card is written to cover both; on Sesame's current Las Vegas Lab collection, apply the onsite half.</p>\n<div class=\"script\"><strong>MOD:</strong> &quot;Thanks for having me — I'll set up here in the open area where the light and sound are best, and keep everything in this space.&quot;<br><strong>PT:</strong> &quot;We could just use the back room if you want.&quot;<br><strong>MOD:</strong> &quot;This spot works better for the capture. You know, I don't think today's setup will give us a clean result, so I'm going to reschedule rather than push ahead — I'll be in touch through the usual channel. Thanks so much.&quot;</div>\n<div class=\"why\"><strong>Coach for:</strong> Stays in open, visible areas &middot; exits gracefully without over-justifying &middot; notifies your on-site lead; safety before session completion.</div>\n<div class=\"dont\"><strong>Fail signals:</strong> Follows the PT into an isolated/closed space &middot; ignores a gut sense that it's unsafe &middot; feels obligated to finish despite discomfort &middot; leaves without notifying anyone.</div>\n</div>\n\n<div class=\"script-card\"><h4>C16 &middot; Participant Inappropriate Toward the Moderator</h4>\n<p><strong>Setup:</strong> The participant makes personal, flirtatious, or otherwise inappropriate comments or advances toward the moderator during the session. This applies at the lab exactly as written.</p>\n<div class=\"script\"><strong>PT:</strong> &quot;You're really pretty, you know that? We should get a drink after this.&quot;<br><strong>MOD:</strong> &quot;I'm here in a professional capacity, so let's keep our focus on the session. Back to the next room — I'll demonstrate it first.&quot;<br><strong>PT:</strong> &quot;Come on, don't be like that.&quot;<br><strong>MOD:</strong> &quot;I need us to keep this professional. If that's not workable, I'll end the session here.&quot; [If it continues:] &quot;We're going to stop for today.&quot; [Calmly ends the session and notifies the on-site lead, documenting from a safe location.]</div>\n<div class=\"why\"><strong>Coach for:</strong> Redirects once, firmly and calmly &middot; names the professional boundary without shaming or debating &middot; has a clear end-and-leave line if it continues &middot; notifies your on-site lead and documents after, from safety.</div>\n<div class=\"dont\"><strong>Fail signals:</strong> Laughs it off or engages the personal comments &middot; over-explains or argues the boundary &middot; stays in an escalating situation out of politeness.</div>\n</div>\n\n<div class=\"callout\"><div class=\"c-ic\">&#9432;</div><div class=\"c-tx\">These scripts are scaffolding, not lines to memorize. Your facilitator will assess your posture and judgment against the coach-for and fail-signal boxes above, not word-for-word recall.</div></div>\n"}, {"id": "workflow", "ic": "&#128203;", "title": "Project Workflow", "sub": "The shape of a Sesame session — vocabulary, the C0/T1 arc, and the six things that go wrong.", "min": 9, "gate": "quiz", "body": "\n<p>Riley delivers full hands-on depth on this at in-person training. This module gives you the sequence and vocabulary in your head before you get there — enough that the on-site day builds on something, rather than starting from zero.</p>\n\n<h2>Vocabulary first</h2>\n<table class=\"tbl\">\n<tr><th>Term</th><th>What it means</th></tr>\n<tr><td><strong>Session</strong></td><td>One participant booking. Covers one or more rooms.</td></tr>\n<tr><td><strong>Capture</strong></td><td>One recording in the field app. All three sensors — radar, camera, microphone — run together for the whole capture.</td></tr>\n<tr><td><strong>Scenario</strong></td><td>The label on a capture: <strong>C0</strong> (calibration) or <strong>T1</strong> (natural tracking).</td></tr>\n<tr><td><strong>Episode</strong></td><td>A timestamped start/end marker <em>inside</em> a capture. Sensors never stop between episodes — only the timestamp changes.</td></tr>\n</table>\n\n<h2>The session arc</h2>\n<ol>\n<li>Connect the radar and microphone; power on the camera; join its Wi-Fi.</li>\n<li>Open the field app; confirm all three devices show as connected and storage is green.</li>\n<li>Select every room that will actually be recorded this session, and confirm consent.</li>\n<li><strong>C0 — once per session.</strong> Operator-only; participants can be present but it doesn't involve them.</li>\n<li><strong>T1 — once per room</strong>, for every room selected.</li>\n<li>Review each room capture — accept it, or redo the room.</li>\n<li>After the final room: ingest the footage while still connected to the camera's Wi-Fi.</li>\n<li>Verify the package completed, record the confirmation, and hand off.</li>\n</ol>\n\n<h2>C0 — calibration</h2>\n<ul>\n<li>About 50&ndash;60 seconds. Start the episode with the rig stable, end it near 55 seconds.</li>\n<li>Pick it up with two hands. Smooth loops or figure-eight-like motion; gentle rotation and tilt.</li>\n<li>Add translations covering forward/back, left/right, up/down, roughly 20&ndash;40 cm.</li>\n<li><strong>It's a motion family, not an exact trajectory.</strong> Follow the reference example in spirit.</li>\n<li>Never shake, release, or drop the rig. Keep the mounting rigid and cables slack.</li>\n<li>Redo only for a sensor failure, missing episode, loosened mounting, unsafe handling, or almost no real motion.</li>\n<li><strong>C0 calibration motion is not the same as T1 pickup/carry/setdown.</strong> Different purposes — don't confuse one for the other.</li>\n</ul>\n\n<h2>T1 — natural tracking, per room</h2>\n<ul>\n<li>Before recording: walk the room, identify 6&ndash;8 safe, quick setdown positions, and remember the order. Pre-plan before you start so switch time contains movement, not deliberation.</li>\n<li>Cover different sides, distances and diagonals. Reusing one surface at multiple orientations is fine and expected.</li>\n<li>Nothing should stay tethered to a wall during recording.</li>\n<li>Roughly 55 seconds per episode. Retain 10&ndash;15 useful stable views per room — 15 is a ceiling, not a quota.</li>\n<li>Between episodes: pick up promptly, carry it steady, set down securely, restart. <strong>Never stop the sensors between episodes.</strong></li>\n<li><strong>Never change rooms while a capture is running.</strong> Move only when all sensors are stopped.</li>\n</ul>\n\n<h2>Guiding natural movement — the moderator's real craft</h2>\n<p>This is where the movie-director framing does the most work, and it has no fixed script — the client wants spontaneity, not repetition.</p>\n<ul>\n<li><strong>Constant motion, no lingering</strong> in one spot.</li>\n<li>A healthy mix of <em>motivated</em> actions (walk to a cabinet, open it, look inside, close it, move on) and <em>unmotivated</em> movement (pacing, walking a route, a brief pause then change of direction).</li>\n<li><strong>No fixed ratio</strong> between the two — the client hasn't specified one, so variety is the goal, not a formula.</li>\n<li>Think &quot;an ordinary person doing ordinary things in that kind of room&quot; — not performative, not comedic.</li>\n<li>Props may not function. Do the action anyway.</li>\n<li>With two participants, they move independently and asynchronously — not mirroring each other.</li>\n</ul>\n\n<h2>Review and handoff</h2>\n<ul>\n<li>Skim the preview after every recording and confirm every episode is present before moving to the next room.</li>\n<li>Accept or redo the room. Accept discards nothing; redo discards the whole room capture.</li>\n<li>Complete every selected room before moving to the final ingestion/handoff step — the app will not let you skip ahead.</li>\n<li><strong>A transfer reaching 100% is not the same as complete.</strong> Validation and packaging both have to finish too.</li>\n<li><strong>Never force-quit the field app</strong> during a capture, or while it's finalizing or packaging a session.</li>\n</ul>\n\n<div class=\"callout\"><div class=\"c-ic\">&#9432;</div><div class=\"c-tx\"><strong>The field app is your source of truth on site.</strong> Not your phone notes, not a text from your PC, not memory. Where you are going, the checklist, and the scenario list live in that one app.</div></div>\n"}, {"id": "guidelines", "ic": "&#128196;", "title": "Project Guidelines", "sub": "The client runbook, simplified for moderators.", "min": 6, "gate": "stub", "body": "\n<p>This module is covered hands-on at in-person training, led by Fen Yik. You'll get the full walkthrough with the actual equipment and materials — the substance doesn't translate well to a screen. Here's what to expect, and the one or two things already settled.</p>\n<div class=\"awaiting\"><div class=\"a-ic\">&#9203;</div><div class=\"a-tx\"><strong>Full content pending from Fen Yik.</strong> Check the box below once you've read this placeholder — the real content will replace it before your on-site training date, and your progress won't reset when it does.</div></div>\n<h2>Already settled</h2>\n<ul><li>The definitive Sesame guideline is a simplified, de-jargoned version of the client runbook — not the raw technical document.</li><li>A short, separate participant-facing guideline is also being prepared, covering only what a participant needs to know.</li></ul>\n"}, {"id": "hardware", "ic": "&#128268;", "title": "Hardware Setup", "sub": "Equipment and hardware setup for Sesame sessions.", "min": 6, "gate": "stub", "body": "\n<p>This module is covered hands-on at in-person training, led by Riley Robertson. You'll get the full walkthrough with the actual equipment and materials — the substance doesn't translate well to a screen. Here's what to expect, and the one or two things already settled.</p>\n<div class=\"awaiting\"><div class=\"a-ic\">&#9203;</div><div class=\"a-tx\"><strong>Full content pending from Riley Robertson.</strong> Check the box below once you've read this placeholder — the real content will replace it before your on-site training date, and your progress won't reset when it does.</div></div>\n<h2>Already settled</h2>\n<ul><li>Equipment: the field capture app, the 360&deg; camera, the radar unit, and the microphone.</li><li><strong>You do not start a capture with fewer than all three devices confirmed connected.</strong> This is non-negotiable and the single most common early mistake.</li></ul>\n"}, {"id": "tools", "ic": "&#128241;", "title": "Hydra", "sub": "The field app you'll run every session through.", "min": 6, "gate": "stub", "body": "\n<p>This module is covered hands-on at in-person training, led by Riley Robertson. You'll get the full walkthrough with the actual equipment and materials — the substance doesn't translate well to a screen. Here's what to expect, and the one or two things already settled.</p>\n<div class=\"awaiting\"><div class=\"a-ic\">&#9203;</div><div class=\"a-tx\"><strong>Full content pending from Riley Robertson.</strong> Check the box below once you've read this placeholder — the real content will replace it before your on-site training date, and your progress won't reset when it does.</div></div>\n<h2>Already settled</h2>\n<ul><li>Hydra is your source of truth in the field for the session sequence, checklist, and scenario list.</li><li>Login and profile setup are covered hands-on; there is nothing to pre-configure before your training day.</li></ul>\n"}, {"id": "troubleshooting", "ic": "&#128295;", "title": "Troubleshooting", "sub": "What to do when equipment or the app misbehaves.", "min": 6, "gate": "stub", "body": "\n<p>This module is covered hands-on at in-person training, led by Riley Robertson. You'll get the full walkthrough with the actual equipment and materials — the substance doesn't translate well to a screen. Here's what to expect, and the one or two things already settled.</p>\n<div class=\"awaiting\"><div class=\"a-ic\">&#9203;</div><div class=\"a-tx\"><strong>Full content pending from Riley Robertson.</strong> Check the box below once you've read this placeholder — the real content will replace it before your on-site training date, and your progress won't reset when it does.</div></div>\n<h2>Already settled</h2>\n<ul><li><strong>Never force-quit the field app</strong> during a capture, or while it's finalizing or packaging a session — this is one of the most common ways to lose a completed session's data.</li><li>You are not expected to repair hardware. Work the troubleshooting steps you're given at training, and if it's not resolved, escalate — that's not a failure.</li></ul>\n"}, {"id": "comms", "ic": "&#128172;", "title": "Participant Communication", "sub": "Greeting, orienting, and closing a session at the Las Vegas Lab.", "min": 10, "gate": "quiz", "body": "\n<h2>The contact cadence</h2>\n<p>Sessions are booked in advance and participants arrive at the Centific Las Vegas Lab for their appointment. There's no travel or en-route call on this collection — the cadence starts when they walk in.</p>\n\n<h2>Greeting and orientation</h2>\n<p>Open with a friendly, professional greeting.</p>\n<div class=\"script\">&quot;Thank you for participating in Project Sesame. We appreciate your time today.&quot;</div>\n<p>Then orient them to what's about to happen, before anything starts. This is the single biggest lever on data quality — a clear, plain briefing produces natural movement; a vague one produces stiff, self-conscious movement.</p>\n<div class=\"script\">&quot;We'll be moving through a few different rooms today. In each one, I'll ask you to move around naturally — walk over to things, interact with the room a bit, just like you would at home. There's no script and no wrong way to do it. I'll show you what I mean before we start each room, and you can ask me anything or take a break at any point.&quot;</div>\n<p>Cover before anything is switched on:</p>\n<ul>\n<li>Roughly how long the session will take.</li>\n<li>That you'll brief each room before it starts, and demonstrate if helpful.</li>\n<li>That you may ask for a room to be redone — completely normal, never a comment on them.</li>\n<li>That they may be seen and heard on camera, and what that means (it's for validating the primary sensor data, not the focus of the collection).</li>\n<li>That they can stop, pause, or ask anything at any point.</li>\n</ul>\n\n<h2>Confirming consent</h2>\n<p>Confirm consent forms are signed before any capture begins. If they haven't been, sort that first — see Module 3, Script C2.</p>\n\n<h2>No playback</h2>\n<div class=\"callout\"><div class=\"c-ic\">&#9432;</div><div class=\"c-tx\"><strong>Never a flat refusal, never a screening.</strong> Confirmed policy, consistent with prior Centific collections: &quot;we got the capture we need, let's move to the next one&quot; — not &quot;no, you can't&quot; and not showing them the monitor. See Module 3, Script C15 for the full exchange.</div></div>\n\n<h2>During the session</h2>\n<table class=\"tbl\">\n<tr><th>Do</th><th>Don't</th></tr>\n<tr><td>Be professional and courteous throughout</td><td>Discuss project or client details you weren't briefed on</td></tr>\n<tr><td>Brief each room clearly before recording</td><td>Keep running commentary going during an episode</td></tr>\n<tr><td>Ask permission before repositioning anything in a room</td><td>Rush a participant who needs a moment</td></tr>\n<tr><td>Thank participants for their time and effort</td><td>Leave equipment or materials in the room when you're done</td></tr>\n</table>\n\n<h2>Before the participant leaves</h2>\n<p>By the time the session ends, every participant should know:</p>\n<ul>\n<li>That their session was completed and submitted successfully.</li>\n<li>That Oslo_comms@centific.com handles anything further — payment, consent, follow-up questions.</li>\n<li>That they will not receive or review copies of the footage.</li>\n</ul>\n<p>Thank them explicitly at the close.</p>\n\n<h2>Session debrief: what you may tell them afterward</h2>\n<div class=\"callout\"><div class=\"c-ic\">&#9432;</div><div class=\"c-tx\"><strong>There is no session debrief on Sesame.</strong> You do not tell a participant whether their session passed, what happens to the footage next, or whether they'll be contacted again — you won't know, and it isn't yours to say. &quot;That gets reviewed by a different team, so I won't see the outcome&quot; is a complete, honest answer.</div></div>\n\n<h2>Two PII rules, and they are absolute</h2>\n<ul>\n<li><strong>Never spoken while a capture is rolling.</strong> If you need to refer to the participant mid-capture, say &quot;the participant,&quot; not their name.</li>\n<li><strong>Never written anywhere the booking doesn't already hold it.</strong> Not in free-text app fields, not in a message, not in an escalation note. Use the session reference instead.</li>\n</ul>\n"}, {"id": "hourspay", "ic": "&#128176;", "title": "Your Hours and Pay", "sub": "What you're paid for, your timesheet, and how you're paid.", "min": 6, "gate": "quiz", "body": "\n<h2>What you are paid for</h2>\n<p>Your agency pays you for <strong>all hours worked during collection sessions</strong>, and for <strong>any training hours confirmed by the Sesame PM team</strong>. Log both in your timesheet system against the Project ID your Project Manager gives you.</p>\n<div class=\"awaiting\"><div class=\"a-ic\">&#9203;</div><div class=\"a-tx\">The rate for training hours is confirmed as paid, but the rate itself is still being finalized. This module updates once that's settled.</div></div>\n\n<h2>Mileage</h2>\n<p><strong>Not currently applicable.</strong> Sesame runs entirely at the Centific Las Vegas Lab — there's no participant-home driving to reimburse. If the project expands to offsite collection, this section will be updated with a mileage policy at that time.</p>\n\n<h2>Your timesheet</h2>\n<p>Go to <strong>timesheet.centific.com</strong> and choose &quot;Login by SSO.&quot; Use your Centific v-dash email credential and password. Your moderator email address was provided by Centific IT in your welcome letter.</p>\n<div class=\"video-embed\"><div class=\"video-fallback\">&#9654; Moderator Fundamentals — Timesheet Walkthrough<br><a href=\"https://digitaltechedge.sharepoint.com/sites/Oslo_Sesame_Moderators\" target=\"_blank\" rel=\"noopener\">Watch on the Moderator SharePoint &#8599;</a><br><span style=\"font-size:11.5px;\">Sign in with your Centific credentials.</span></div></div>\n<p><strong>Your logged hours become your paycheck.</strong> The approved-hours figure your Project Manager submits is built from what you logged. Late or missing entries delay your own payment.</p>\n\n<h2>You work with Centific. Your agency employs you.</h2>\n<p>Two different relationships, and keeping them clear protects you. Centific directs the work: what the sessions need, how the data is captured, what good quality looks like. Your agency is your employer — they hold your contract, they pay you, and they handle your terms. Your Centific email starts with v- for exactly this reason: it marks you as working through a vendor rather than as staff.</p>\n<p><strong>How to describe the work:</strong> you are a moderator working with Centific, not for Centific. To participants, you moderate on behalf of Centific. On LinkedIn or a CV, list your agency as your employer and describe the work as data collection moderating carried out on behalf of Centific. Do not list Centific as your employer or give yourself a Centific job title.</p>\n<table class=\"tbl\">\n<tr><th>If it is about...</th><th>Ask</th></tr>\n<tr><td>Doing the work — guidelines, tools, scheduling, quality, support mid-session</td><td>Centific (your PM)</td></tr>\n<tr><td>Your employment — pay, rate, contract, hours, time off, benefits, taxes, future work</td><td>Your agency</td></tr>\n</table>\n<p>Centific staff cannot change your rate, approve a bonus, negotiate more hours, or promise future work. If you raise these they will point you back to your agency. That is not a brush-off — they have no authority to act, and your agency does.</p>\n\n<h2>How you are paid</h2>\n<p>As a C2C moderator your contract is with your agency. You log hours, you reconcile them with your Project Manager, the PM approves them at the close of each pay period, and Centific reports them onward to your agency. Your agency issues payment.</p>\n<table class=\"tbl\">\n<tr><th>Question</th><th>Ask</th></tr>\n<tr><td>&quot;My hours don't look right&quot;</td><td>Your Project Manager</td></tr>\n<tr><td>&quot;When will I be paid?&quot;</td><td>Your agency</td></tr>\n<tr><td>&quot;What is my rate?&quot;</td><td>Your agency</td></tr>\n<tr><td>&quot;Can I get a raise, a bonus, or more hours?&quot;</td><td>Your agency</td></tr>\n</table>\n"}];
+const MOD_QUESTIONS_DEFAULT = {"centific": [{"q": "Which best describes what Centific does?", "opts": ["It builds and sells its own consumer AI assistant", "It is a market research firm that runs opinion polls", "It creates and collects high-quality human data, and adds expert human judgment, so companies can train and evaluate AI systems", "It is a translation agency"], "a": 2}, {"q": "A participant asks which company will receive the recordings. What do you do?", "opts": ["Name the client, since the participant has already signed a consent form", "Say you are not able to share the client name, and explain what the data is used for instead", "Hint at the industry so they can work it out", "Tell them you have no idea what the data is for"], "a": 1}, {"q": "What is the data collection team measured on?", "opts": ["The total number of sessions recorded, regardless of outcome", "How much data passes QA and can actually be used", "How quickly participants are recruited", "The number of languages covered in a single project"], "a": 1}, {"q": "On Sesame, what's the clearest way to describe the moderator's role?", "opts": ["An interviewer collecting opinions", "A movie director — directing the scene, not performing in it", "A QA reviewer who accepts or rejects sessions", "A security guard for the lab"], "a": 1}], "fundamentals": [{"q": "Where does Sesame currently collect data?", "opts": ["At participant homes only", "At the Centific Las Vegas Lab", "At a rotating set of client offices", "Wherever the moderator is available"], "a": 1}, {"q": "On Sesame, are moderators allowed to be seen and heard on camera?", "opts": ["No — moderators must stay completely out of frame and silent", "Yes — the radar is the primary data source, and video/audio validate it", "Only the QA moderator may be visible", "Only during calibration"], "a": 1}, {"q": "How are the Primary and QA moderator roles staffed on this collection?", "opts": ["Two entirely separate people are hired for each role, permanently", "Both moderators are trained on both roles for scheduling flexibility", "Only certified specialists can be QA moderators", "There is no QA moderator role on Sesame"], "a": 1}, {"q": "A participant asks something you weren't briefed on. What's the correct move?", "opts": ["Improvise a reasonable-sounding answer", "Route it to the contact table or the project email address", "Tell them you don't know and end the conversation", "Guess based on another project's policy"], "a": 1}, {"q": "What is Sesame's escalation channel for anything time-sensitive during a session?", "opts": ["Personal text to your Project Manager only", "The Sesame Moderators Teams channel", "Whatever the participant suggests", "Wait until the next scheduled check-in"], "a": 1}], "workflow": [{"q": "What is the correct relationship between a capture, a scenario, and an episode?", "opts": ["They're three different words for the same thing", "A capture runs one scenario (C0 or T1); episodes are timestamped markers inside it", "An episode contains multiple captures", "A scenario is a type of episode"], "a": 1}, {"q": "You're about to start a capture. What's required first?", "opts": ["Just the camera needs to be connected", "All three devices — radar, camera, microphone — confirmed connected", "Only the radar needs to be paired", "Nothing, capture can start once the room is selected"], "a": 1}, {"q": "You need to reposition for the next view. What's the rule?", "opts": ["Move the rig while sensors keep recording, then start the next episode", "Stop all sensors, then move, then start the next episode", "Change rooms whenever it's convenient, mid-capture is fine", "Sensors should be turned off between every single episode regardless of room"], "a": 1}, {"q": "Your ingestion/transfer shows 100%. Is the session complete?", "opts": ["Yes — 100% transfer means it's done", "No — validation and packaging must also finish before it's complete", "Only if the client confirms separately", "Yes, but only for T1, not C0"], "a": 1}], "comms": [{"q": "A participant asks “who is this for?” What do you do?", "opts": ["Give your best guess based on the equipment", "Say you can't name the company and point them to the consent form / project email", "Change the subject", "Tell them to look it up themselves"], "a": 1}, {"q": "A participant wants to stop the session mid-way. What's the correct response?", "opts": ["Ask them to at least finish the current room", "Mention that stopping early may affect their pay", "Honor it immediately, no explanation needed, then route any payment question", "Try to talk them out of it"], "a": 2}, {"q": "A participant asks to see the footage you just captured. What's the right response?", "opts": ["Play it back briefly since it's their own session", "Explain you're keeping things moving and point to the consent form / project email for anything further", "Tell them footage review isn't allowed by law", "Offer to send them a copy later"], "a": 1}, {"q": "What can you tell a participant about whether their session “passed”?", "opts": ["Give them your honest first impression", "Nothing — there is no session debrief on Sesame", "Tell them once QA reviews it, informally, next time you see them", "Only tell them if they ask twice"], "a": 1}], "hourspay": [{"q": "Who is your actual employer as a C2C moderator?", "opts": ["Centific", "Your agency", "The client", "Whoever pays fastest"], "a": 1}, {"q": "A moderator asks Centific staff for a raise. What's the correct response?", "opts": ["Centific staff can approve it directly", "Point them to their agency — Centific has no authority to change pay/rate/hours", "Tell them it's not allowed to ask", "Offer a bonus from the project budget"], "a": 1}, {"q": "Is mileage currently reimbursed on Sesame?", "opts": ["Yes, for all commuting", "No — all sessions run at the Las Vegas Lab, so there's no participant-home driving to reimburse", "Only for the QA moderator", "Only if you use your own vehicle"], "a": 1}]};
+const FINAL_CHECK_DEFAULT = [{"q": "Before starting any capture, what must be confirmed?", "opts": ["Just that the camera is on", "All three devices (radar, camera, microphone) confirmed connected, with storage green", "That the participant has arrived", "That the Wi-Fi is fast enough"], "a": 1}, {"q": "Mid-capture, you need to reposition for the next view. What do you do?", "opts": ["Stop the sensors, move, and start again", "Move promptly while sensors keep recording, then mark the next episode", "Change rooms if it saves time", "Ask the participant to wait outside while you move"], "a": 1}, {"q": "Between T1 episodes in the same room, should you ever stop the sensors?", "opts": ["Yes, briefly, to save storage", "No — the recording continues; only the episode timestamps change", "Only if the room is empty", "Only during calibration"], "a": 1}, {"q": "What's the difference between C0 calibration motion and T1 pickup/carry/setdown?", "opts": ["They're the same thing, just labeled differently", "C0 is structured whole-platform motion for calibration; T1 pickup/carry is natural view relocation — one is not a substitute for the other", "C0 only happens in the last room", "T1 motion is scripted and C0 is not"], "a": 1}, {"q": "You're mid-ingestion and the app seems frozen. What do you do?", "opts": ["Force-quit the app and restart it immediately", "Wait and follow the troubleshooting steps from training — never force-quit during capture, finalization, or packaging", "Unplug the camera to reset the connection", "Restart the whole session from scratch"], "a": 1}, {"q": "Your transfer just reached 100%. Is the session complete?", "opts": ["Yes, 100% means done", "No — validation and packaging must also finish", "Only if it's the last room of the day", "Yes, but only for C0"], "a": 1}, {"q": "Can a moderator be seen or heard by the camera and microphone on Sesame?", "opts": ["No, moderators must always stay off-camera and silent", "Yes — the radar is the primary data source; video and audio exist to validate it", "Only the QA moderator, never the Primary", "Only during the calibration scenario"], "a": 1}, {"q": "A participant asks who the data is being collected for.", "opts": ["Name the client since they signed a consent form", "Say you're not able to share the client's name, and point to the consent form / project email", "Hint at the industry so they can work it out", "Tell them you have no idea"], "a": 1}, {"q": "A participant asks to see footage you just recorded of them.", "opts": ["Play it back on the spot since it's their session", "Explain you're keeping things moving to the next capture and route anything further to the project email", "Tell them it's illegal to show them", "Promise to send it later"], "a": 1}, {"q": "A participant appears to be under the influence. What's the correct move?", "opts": ["Proceed carefully and monitor them closely", "End the session outright — no reschedule offer, no discussion of payment or reasons — and notify your on-site lead after, from a safe location", "Ask them to wait until they seem more sober", "Reschedule for later the same day"], "a": 1}];
+const FINAL_CHECK_PASS_PCT = 80;
+const FINAL_CHECK_MAX_ATTEMPTS = 3;
+function finalAttemptsKey(email){ return 'sesame_final_attempts_' + email.toLowerCase(); }
+function getFinalAttempts(){ try{ return parseInt(localStorage.getItem(finalAttemptsKey(ME.email))||'0',10) || 0; }catch(e){ return 0; } }
+function incFinalAttempts(){ try{ const n = getFinalAttempts()+1; localStorage.setItem(finalAttemptsKey(ME.email), String(n)); return n; }catch(e){ return getFinalAttempts()+1; } }
+const TOTAL_MIN = 82;
+
+// ── CURRICULUM (editable quiz Q&A) ──────────────────────────────────────────
+// Live, mutable copies -- admin edits (Curriculum tab) change these in place.
+// Renders always read MOD_QUESTIONS / FINAL_CHECK, never the _DEFAULT copies,
+// so "reset to defaults" is just re-cloning from the _DEFAULT originals.
+let MOD_QUESTIONS = JSON.parse(JSON.stringify(MOD_QUESTIONS_DEFAULT));
+let FINAL_CHECK = JSON.parse(JSON.stringify(FINAL_CHECK_DEFAULT));
+function getModQuestions(id){ return MOD_QUESTIONS[id] || []; }
+
+function loadCurriculumOverrides(){
+  try{
+    const raw = localStorage.getItem('sesame_curriculum_v1');
+    if(!raw) return;
+    const saved = JSON.parse(raw);
+    if(saved.modQuestions) MOD_QUESTIONS = saved.modQuestions;
+    if(saved.finalCheck)   FINAL_CHECK   = saved.finalCheck;
+  }catch(e){}
+}
+function saveCurriculumOverrides(){
+  try{ localStorage.setItem('sesame_curriculum_v1', JSON.stringify({modQuestions: MOD_QUESTIONS, finalCheck: FINAL_CHECK})); }catch(e){}
+}
+function resetCurriculum(){
+  try{ localStorage.removeItem('sesame_curriculum_v1'); }catch(e){}
+  MOD_QUESTIONS = JSON.parse(JSON.stringify(MOD_QUESTIONS_DEFAULT));
+  FINAL_CHECK   = JSON.parse(JSON.stringify(FINAL_CHECK_DEFAULT));
+  renderView();
+}
+function curriculumArrFor(scope){ return scope==='final' ? FINAL_CHECK : (MOD_QUESTIONS[scope] || []); }
+
+function curriculumArrFor(scope){ return scope==='final' ? FINAL_CHECK : (MOD_QUESTIONS[scope.split(':')[1]] || []); }
+function editQuestionText(scope, idx, value){ curriculumArrFor(scope)[idx].q = value; saveCurriculumOverrides(); }
+function editCorrectAnswer(scope, idx, oi){ curriculumArrFor(scope)[idx].a = oi; saveCurriculumOverrides(); renderView(); }
+function editOptionText(scope, idx, oi, value){ curriculumArrFor(scope)[idx].opts[oi] = value; saveCurriculumOverrides(); }
+let curriculumEditOpen = {};
+function toggleCurriculumEdit(key){ curriculumEditOpen[key] = !curriculumEditOpen[key]; renderView(); }
+function renderEditableQuestion(scope, idx, q){
+  return `<div class="card" style="margin-bottom:12px;">
+    <label class="field-label">Question ${idx+1}</label>
+    <input class="field-input" style="margin-bottom:10px;" value="${escapeAttr(q.q)}" onchange="editQuestionText('${scope}',${idx},this.value)">
+    ${q.opts.map((o,oi)=>`<div style="display:flex;align-items:center;gap:9px;margin-bottom:8px;">
+      <input type="radio" name="correct_${scope.replace(':','_')}_${idx}" title="Mark as correct answer" ${oi===q.a?'checked':''} onchange="editCorrectAnswer('${scope}',${idx},${oi})">
+      <input class="field-input" style="flex:1;" value="${escapeAttr(o)}" onchange="editOptionText('${scope}',${idx},${oi},this.value)">
+    </div>`).join('')}
+    <div class="field-label" style="text-transform:none;font-weight:400;letter-spacing:0;color:var(--text3);">Radio button marks the correct answer.</div>
+  </div>`;
+}
+const CONTACTS = [{"name": "Marine Aghasyan", "role": "Program Manager", "need": "Sesame process, scheduling, sessions", "email": "pending POC list"}, {"name": "Riley Robertson", "role": "Technical & Quality Lead", "need": "Workflow, tooling, and quality", "email": "pending POC list"}, {"name": "Fen Yik", "role": "Guidelines", "need": "Client guidelines and runbook questions", "email": "pending POC list"}, {"name": "Bishwajit Pal", "role": "Radar SME", "need": "Radar and sensor technical questions", "email": "pending POC list"}, {"name": "Ingrid Lindstrom", "role": "Training & Development", "need": "This onboarding app, your progress, certification", "email": "ingrid.lindstrom@centific.com"}, {"name": "The project team", "role": "—", "need": "Anything general, or you're not sure who to ask", "email": "Oslo_comms@centific.com"}];
+const ESCALATION = [{"tier": "Handle it yourself", "what": "Routine session flow, everything the scripts cover, minor equipment hiccups, a normal reschedule."}, {"tier": "Flag to your on-site lead in real time", "what": "A participant under the influence, an unsafe or unworkable environment, an absent guardian for a minor, inappropriate conduct toward you, a participant in visible distress."}, {"tier": "Report after the fact", "what": "A canceled or cut-short session, a data-withdrawal request, a scope dispute, any participant complaint. Same day."}, {"tier": "Escalate to compliance / legal", "what": "A data breach or lost recording, a demand touching the consent form you can't answer, an allegation of misconduct, harm or a threat of harm. Notify your on-site lead AND the compliance/legal contact directly."}];
+const FIELD_CHECKLIST = [{"id": "before", "ic": "&#128203;", "t": "Before the Session", "sub": "Confirming setup, before a participant arrives", "items": ["Confirm today's assignment and room list in the field app — not from memory or a text", "Confirm all three devices — radar, camera, microphone — show as connected", "Confirm storage is green and consent is on file for the booked participant", "Confirm which of you is Primary and which is QA for this session"]}, {"id": "arrival", "ic": "&#128075;", "t": "Greeting & Orientation", "sub": "From welcome to briefing", "items": ["Greet the participant warmly and confirm identity against the booking", "Explain the session plainly before anything starts — what rooms, what kind of movement, roughly how long", "Confirm consent forms are signed", "Tell them they may be seen/heard on camera and briefly why"]}, {"id": "c0", "ic": "&#127916;", "t": "C0 — Calibration", "sub": "Once per session, before any room capture", "items": ["Rig stable at a neutral position, mounting rigid, cables slack", "Smooth loops/figure-eight motion plus translations across all axes, ~50–60 seconds", "Redo only for a real failure — not for a slightly different loop count or angle", "Confirm C0 is not confused with T1 pickup/carry motion"]}, {"id": "t1", "ic": "&#127909;", "t": "T1 — Natural Tracking", "sub": "Per room, briefing and running the capture", "items": ["Pre-plan 6–8 setdown positions before recording starts", "Brief the participant on natural, unscripted movement — a mix of motivated and unmotivated action", "Keep the capture running continuously — never stop sensors between episodes", "Never change rooms while a capture is live", "Skim the preview after the room and confirm every episode is present"]}, {"id": "close", "ic": "&#9989;", "t": "Closing the Session", "sub": "What every participant should know before they leave", "items": ["Confirm the session was completed and submitted successfully", "Confirm validation and packaging finished — not just 100% transfer", "Tell them Oslo_comms@centific.com handles payment and follow-up, not you", "Confirm they know they won't receive or review the footage", "Thank them explicitly"]}];
+const FIELD_SCRIPTS = [{"cat": "Participant Communication", "items": [{"t": "Arrival greeting", "s": "“Thank you for participating in Project Sesame. We appreciate your time today.”"}, {"t": "Orienting the participant", "s": "“We’ll be moving through a few different rooms today. In each one, I’ll ask you to move around naturally — there’s no script and no wrong way to do it.”"}, {"t": "“Who is this for?”", "s": "“Fair question, and I’m not able to name the company. How the footage gets used is set out in the consent form you signed. For more, email Oslo_comms@centific.com.”"}, {"t": "A nervous or hesitant participant", "s": "“You’re in exactly the right place. I’ll show you everything before we start, and you can stop me at any point.”"}, {"t": "A participant wants to stop", "s": "“Absolutely. You can stop at any time and that’s completely okay. No explanation needed.”"}, {"t": "“Can I see the footage?”", "s": "“We got the capture we need — let’s go ahead and move to the next one.”"}, {"t": "Closing the session", "s": "“Thank you so much for your time today — we got everything we needed. If you have any follow-up questions, please email Oslo_comms@centific.com.”"}]}, {"cat": "Boundaries & Safety", "items": [{"t": "Participant under the influence", "s": "“We’re not able to run the session today. I’m going to head out now.” — no reason given, no reschedule offered, no payment discussion."}, {"t": "Inappropriate conduct toward you", "s": "“I need this to stay professional. If that’s not workable, I’m going to end the session here.”"}, {"t": "Escalation", "s": "Oslo_comms@centific.com for any concern, unfit partner, or incident report. Your on-site lead for anything happening live."}]}];
+const TROUBLESHOOT_TREE = [{"q": "A device won't show as connected", "a": "Covered hands-on at in-person training. The full reference will be on the Moderator SharePoint once published."}, {"q": "The field app seems frozen or unresponsive", "a": "Do not force-quit during a capture, finalization, or packaging — that's one of the most common ways to lose a completed session. Wait and follow the training steps."}, {"q": "A room capture needs to be redone", "a": "Use the app's redo function rather than restarting the whole session — covered at in-person training."}, {"q": "When to stop troubleshooting and escalate", "a": "You are not expected to repair equipment. Work the steps you're given at training, and if it's not resolved, escalate — that's not a failure. A delayed session costs less than a bad one."}];
+
+// VALID_IDS guards against the 178%-progress bug: only these IDs (plus the
+// 'final_check' pseudo-id) ever count toward doneIds / certification.
+const VALID_IDS = new Set(MODULES.map(m => m.id));
+
+// ── STATE ────────────────────────────────────────────────────────────────────
+let ROLE = null, VIEW = 'path';
+let ME = null;            // {email, name, role, loc, doneIds:Set, stubDone:Set, finalScore, certified}
+let CUR_MOD = null;       // index into MODULES when VIEW === 'module'
+let DIR = [];
+let COHORT = [];
+let quizIdx = {};         // per moduleId: current question index while taking a quiz
+let quizAnswers = {};     // per moduleId: {qIdx: chosenOptionIndex}
+let stubChecked = {};     // per moduleId: bool, for stub-gated modules
+let checklistOpen = {};   // Field Reference accordion open state
+let finalMode = 'idle';   // 'idle' | 'inprogress' | 'result'
+let finalIdx = 0, finalAnswers = {}, finalResult = null;
+let adminModal = null;    // email of moderator whose detail modal is open
+let adminFilter = 'all';
+let LOCAL_MODS = [];  // locally added/edited moderators
+
+// ── LOCAL PERSISTENCE (per-email; UI-state convenience cache only) ──────────
+function sessionKeyFor(email){ return 'sesame_v1_session_' + email.toLowerCase(); }
+function persistLocal(){
+  if(!ME) return;
+  try{
+    localStorage.setItem(sessionKeyFor(ME.email), JSON.stringify({
+      quizAnswers, stubChecked, checklistOpen, theme: document.documentElement.getAttribute('data-theme')
+    }));
+  }catch(e){}
+}
+function restoreLocalSession(email){
+  try{
+    const raw = localStorage.getItem(sessionKeyFor(email));
+    if(!raw) return;
+    const d = JSON.parse(raw);
+    // Admin accounts use the dashboard, not the learning path.
+    // Don't restore quizAnswers for admins so the Curriculum tab is always fresh.
+    const rec = findUser(email);
+    if(rec && rec.role === 'admin'){
+      stubChecked = d.stubChecked || {};
+      checklistOpen = d.checklistOpen || {};
+    } else {
+      quizAnswers = d.quizAnswers || {};
+      stubChecked = d.stubChecked || {};
+      checklistOpen = d.checklistOpen || {};
+    }
+    if(d.theme) document.documentElement.setAttribute('data-theme', d.theme);
+  }catch(e){}
+}
+const LAST_LOGIN_KEY = 'sesame_last_login';
+function setLastLogin(email){ try{ localStorage.setItem(LAST_LOGIN_KEY, email); }catch(e){} }
+function getLastLogin(){ try{ return localStorage.getItem(LAST_LOGIN_KEY); }catch(e){ return null; } }
+
+// ── BACKEND HELPERS (GET plain, POST text/plain — see PA setup guide) ───────
+async function apiGet(url){
+  const r = await fetch(url);
+  if(!r.ok) throw new Error('GET '+r.status);
+  const t = await r.text();
+  let d; try{ d = JSON.parse(t); }catch(e){ return []; }
+  return Array.isArray(d) ? d : (d.value || []);
+}
+function normDirRow(u){
+  const pick = (keys)=>{ for(const k of keys){ if(u[k]!==undefined && u[k]!==null && String(u[k]).trim()!=='') return u[k]; } return ''; };
+  return {
+    email: String(pick(['email','Email','EMAIL'])).trim().toLowerCase(),
+    name: pick(['name','Name','NAME']),
+    role: (pick(['role','Role','ROLE'])||'moderator').toString().toLowerCase(),
+    cohort: pick(['cohort','Cohort','COHORT']),
+    loc: pick(['locale','Locale','LOCALE']),
+    active: (pick(['active','Active','ACTIVE'])||'yes').toString().toLowerCase()
+  };
+}
+let DATA_READY = false, _loadPromise = null;
+function loadData(){
+  if(_loadPromise) return _loadPromise;
+  _loadPromise = (async () => {
+    if(LIVE){
+      try{
+        const res = await Promise.all([apiGet(BACKEND.getDirectory), apiGet(BACKEND.getProgress)]);
+        DIR = res[0].map(normDirRow).filter(r => r.active !== 'no');
+        window._PROGRESS = res[1];
+      }catch(e){
+        console.error('[Sesame] backend load failed — using demo data:', e);
+        DIR = DEMO_DIRECTORY; window._PROGRESS = null;
+      }
+    } else {
+      DIR = DEMO_DIRECTORY; window._PROGRESS = null;
+    }
+    COHORT = DIR.filter(r=>r.role==='moderator').map(r => buildCohortRow(r));
+    mergeLocalMods();  // merge locally-added moderators
+    DATA_READY = true;
+  })();
+  return _loadPromise;
+}
+async function saveProgress(moduleId, status, score){
+  if(!LIVE || !/^https?:\/\//.test(BACKEND.saveProgress)) return;
+  try{
+    const res = await fetch(BACKEND.saveProgress, {method:'POST', headers:{'Content-Type':'text/plain'},
+      body: JSON.stringify({email: ME.email, moduleId, status, score: (score==null?'':score)})});
+    // Fire-and-forget by design (a failed save just means the moderator
+    // re-does that checkbox next load) -- but DO log the HTTP status, since
+    // fetch() only rejects on a network-level failure, never on a PA flow
+    // returning 400/401/etc. Without this, a misconfigured flow (wrong
+    // table binding, wiped Advanced Parameters after a Save-As clone) fails
+    // 100% silently -- the UI still shows progress because doneIds is
+    // updated in-memory regardless of whether the write actually landed.
+    if(!res.ok){
+      console.warn('[Sesame] saveProgress returned', res.status, '-- check the SaveProgress flow (Table binding / Advanced Parameters / trigger set to Anyone). Progress is NOT confirmed saved to Excel.', {moduleId, status, score});
+    } else {
+      console.log('[Sesame] saveProgress OK for', moduleId);
+    }
+  }catch(e){ console.error('[Sesame] saveProgress network failure (CORS, DNS, or offline) for', moduleId, ':', e); }
+}
+function progressFor(email){
+  if(LIVE && window._PROGRESS){
+    const rows = window._PROGRESS.filter(r => String(r.Email||r.email||'').toLowerCase() === email.toLowerCase());
+    const doneIds = new Set(rows.filter(r => String(r.Status||r.status||'')==='done' && VALID_IDS.has(r.ModuleID||r.moduleId)).map(r=>r.ModuleID||r.moduleId));
+    const finalRow = rows.find(r => (r.ModuleID||r.moduleId) === 'final_check');
+    const finalScore = finalRow ? Number(finalRow.Score||finalRow.score||0) : null;
+    return {doneIds, finalScore};
+  }
+  // demo mode: derive a plausible in-progress state for the test moderator
+  if(email === 'demo.mod@centific.com'){
+    return {doneIds: new Set(['welcome','centific']), finalScore: null};
+  }
+  return {doneIds: new Set(), finalScore: null};
+}
+function buildCohortRow(r){
+  const p = progressFor(r.email);
+  const totalReal = MODULES.length;
+  const certified = p.doneIds.size >= totalReal && p.finalScore !== null && p.finalScore >= FINAL_CHECK_PASS_PCT;
+  let status = 'not_started';
+  if(p.doneIds.size > 0) status = 'in_progress';
+  if(p.doneIds.size >= totalReal && (p.finalScore === null || p.finalScore < FINAL_CHECK_PASS_PCT)) status = 'awaiting_final';
+  if(certified) status = 'certified';
+  return {email:r.email, name:r.name, cohort:r.cohort, loc:r.loc, done:p.doneIds.size, finalScore:p.finalScore, status, certified};
+}
+
+// ── GATING ───────────────────────────────────────────────────────────────────
+function isModuleDone(id){ return ME.doneIds.has(id); }
+function moduleUnlocked(i){ return i===0 || isModuleDone(MODULES[i-1].id); }
+function allModulesDone(){ return MODULES.every(m => isModuleDone(m.id)); }
+function isCertified(){ return allModulesDone() && ME.finalScore !== null && ME.finalScore >= FINAL_CHECK_PASS_PCT; }
+
+// ── LOGIN ────────────────────────────────────────────────────────────────────
+function findUser(email){ return DIR.find(r => r.email === email.toLowerCase()); }
+function applyProfile(rec){
+  const p = progressFor(rec.email);
+  ME = { email: rec.email, name: rec.name, role: rec.role, cohort: rec.cohort, loc: rec.loc,
+         doneIds: p.doneIds, finalScore: p.finalScore };
+}
+async function doLogin(){
+  const el = document.getElementById('emailField');
+  const email = (el.value||'').trim().toLowerCase();
+  const err = document.getElementById('lgErr');
+  if(!/^[^@\s]+@centific\.com$/.test(email)){ err.textContent = 'Please enter your @centific.com email address.'; return; }
+  if(!DATA_READY){ err.textContent = 'Signing in…'; await loadData(); }
+  const rec = findUser(email);
+  if(!rec){ err.textContent = "That email isn't on the moderator list yet — check with your Project Manager."; return; }
+  err.textContent = '';
+  applyProfile(rec);
+  restoreLocalSession(email);
+  setLastLogin(email);
+  startApp(rec.role);
+}
+function logout(){
+  document.body.innerHTML = '';
+  ME = null; ROLE = null;
+  try{ localStorage.removeItem(LAST_LOGIN_KEY); }catch(e){}
+  renderLogin();
+}
+function toggleTheme(){
+  const cur = document.documentElement.getAttribute('data-theme');
+  document.documentElement.setAttribute('data-theme', cur==='dark' ? 'light' : 'dark');
+  persistLocal();
+}
+function toast(m){
+  const t = document.getElementById('toast');
+  if(!t) return;
+  t.textContent = m; t.classList.add('show');
+  clearTimeout(window._tt); window._tt = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+// ── APP SHELL ────────────────────────────────────────────────────────────────
+function startApp(role){
+  ROLE = role; VIEW = (role==='admin') ? 'dash' : 'path';
+  document.body.innerHTML = `
+    <div class="shell" id="shell">
+      <div class="page-wrap">
+        <div class="app-header">
+          <div class="nav-left"><div class="nav-logo">S</div><div class="nav-brand">Project Sesame <span>&middot; Onboarding</span></div></div>
+          <div class="nav-right">
+            <div class="who"><div class="who-text"><span id="userName"></span><br><span class="role-line" id="userMeta"></span></div></div>
+            <button class="icon-btn" onclick="toggleTheme()" title="Theme">&#9680;</button>
+            <button class="btn-signout" onclick="logout()"><span aria-hidden="true">&#9099;</span>Sign out</button>
+          </div>
+        </div>
+        <div class="nav-tabs" id="navTabs"></div>
+        <main class="content" id="content"></main>
+      </div>
+    </div>
+    <div class="toast" id="toast"></div>
+  `;
+  document.getElementById('userName').textContent = ME ? ME.name : 'Admin';
+  document.getElementById('userMeta').textContent = ROLE==='admin' ? 'Admin' : 'Moderator' + (ME.loc ? ' \u00b7 '+ME.loc : '');
+  renderNavTabs();
+  renderView();
+}
+function renderNavTabs(){
+  const tabs = ROLE==='admin'
+    ? [['dash','Cohort Dashboard'],['curriculum','Curriculum'],['mods','Moderators']]
+    : [['path','Learning Path'],['field','Field Reference'],['resources','Resources']];
+  document.getElementById('navTabs').innerHTML = tabs.map(([id,label]) =>
+    `<button class="nav-tab${VIEW===id?' active':''}" onclick="switchView('${id}')">${label}</button>`).join('');
+}
+function switchView(v){ VIEW = v; renderNavTabs(); renderView(); window.scrollTo(0,0); }
+function renderView(){
+  const c = document.getElementById('content');
+  if(VIEW==='mods'){ c.innerHTML='<div id="app"></div>'; vModerators(); return; }
+  const f = {path:vPath, field:vField, resources:vResources, module:vModule, dash:vDash, curriculum:vCurriculum}[VIEW];
+  c.innerHTML = f ? f() : '';
+}
+
+// ── LOGIN SCREEN ─────────────────────────────────────────────────────────────
+function renderLogin(){
+  document.body.innerHTML = `
+  <div id="login">
+    <div class="entry-card">
+      <div class="brand-mark">S</div>
+      <div class="eyebrow">CENTIFIC &middot; PROJECT SESAME</div>
+      <div class="entry-title">Moderator Onboarding</div>
+      <div class="entry-sub">Multimodal data capture &middot; Centific Las Vegas Lab.</div>
+      <label class="field-label">Centific email</label>
+      <input class="field-input" id="emailField" type="email" placeholder="v-name@centific.com" onkeydown="if(event.key==='Enter')doLogin()">
+      <div class="err-msg" id="lgErr"></div>
+      <button class="btn btn-primary" style="margin-top:6px" onclick="doLogin()">Continue &rarr;</button>
+      <div class="hint-line">We'll take you straight to your learning path.</div>
+      <div class="version-tag">${APP_VERSION}</div>
+    </div>
+  </div>`;
+}
+
+// ── LEARNING PATH ────────────────────────────────────────────────────────────
+function vPath(){
+  const doneCount = MODULES.filter(m=>isModuleDone(m.id)).length;
+  const total = MODULES.length;
+  const pct = Math.round((doneCount/total)*100);
+  const certified = isCertified();
+  const allDoneNoFinal = allModulesDone() && !certified;
+  let hero;
+  if(certified){
+    hero = `<div class="hero-box certified"><div class="pill pill-green" style="margin-bottom:10px;">&#10003; Cleared for on-site training</div>
+      <div class="hero-title2">You're certified, ${ME.name.split(' ')[0]}.</div>
+      <div class="hero-sub2">All ${MODULES.length} modules complete and the final check passed at ${ME.finalScore}%. Your Project Manager will confirm your on-site training date.</div></div>`;
+  } else if(allDoneNoFinal){
+    hero = `<div class="hero-box"><div class="hero-title2">One step left, ${ME.name.split(' ')[0]}.</div>
+      <div class="hero-sub2">All ${MODULES.length} modules are complete. Pass the final check (${FINAL_CHECK_PASS_PCT}%, up to ${FINAL_CHECK_MAX_ATTEMPTS} attempts) to be cleared for on-site training.</div>
+      <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
+      <div class="progress-label">${doneCount} of ${total} modules complete</div>
+      <button class="btn btn-primary" style="width:auto;margin-top:14px;" onclick="openFinalCheck()">Take the final check &rarr;</button></div>`;
+  } else if(doneCount===0){
+    hero = `<div class="hero-box"><div class="hero-title2">Welcome — let's get you ready.</div>
+      <div class="hero-sub2">${MODULES.length} modules, gated in order, ~${TOTAL_MIN} min total. Every module has a Back button and stays open for revisiting once you've completed it.</div>
+      <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
+      <div class="progress-label">0 of ${total} modules complete</div></div>`;
+  } else {
+    hero = `<div class="hero-box"><div class="hero-title2">Welcome back, ${ME.name.split(' ')[0]}.</div>
+      <div class="hero-sub2">Pick up where you left off.</div>
+      <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="progress-label">${doneCount} of ${total} modules complete</div></div>`;
+  }
+  const steps = MODULES.map((m,i) => {
+    const done = isModuleDone(m.id);
+    const unlocked = moduleUnlocked(i);
+    const current = unlocked && !done;
+    const dotClass = done ? 'done' : (current ? 'current' : 'locked');
+    const dotContent = done ? '&#10003;' : (i+1);
+    const clickable = unlocked;
+    return `<div class="step-row${clickable?' clickable':''}" ${clickable?`onclick="openModule(${i})"`:''}>
+      <div class="step-dot ${dotClass}">${dotContent}</div>
+      <div class="step-body">
+        <div class="step-title${unlocked?'':' locked'}">${m.ic} ${m.title}${m.gate==='stub'?' <span class=\"pill pill-amber\" style=\"margin-left:6px;\">Partial</span>':''}</div>
+        <div class="step-meta">${unlocked ? ('~'+m.min+' min &middot; '+(done?'Completed':'Not started')) : 'Locked — complete the previous module'}</div>
+      </div>
+    </div>`;
+  }).join('');
+  return `<h1 class="page-h1">My Learning Path</h1><p class="page-sub">${doneCount} of ${total} complete &middot; ~${TOTAL_MIN} min total</p>
+  ${hero}<div class="card"><div class="stepper">${steps}</div></div>`;
+}
+
+function openModule(i){ CUR_MOD = i; VIEW = 'module'; renderNavTabs(); renderView(); window.scrollTo(0,0); }
+function backToPath(){ VIEW='path'; renderNavTabs(); renderView(); window.scrollTo(0,0); }
+function continueFromModule(){
+  if(CUR_MOD < MODULES.length-1){ openModule(CUR_MOD+1); }
+  else { backToPath(); }
+}
+
+// ── MODULE VIEWER ────────────────────────────────────────────────────────────
+function vModule(){
+  const m = MODULES[CUR_MOD];
+  const done = isModuleDone(m.id);
+  const isLast = CUR_MOD === MODULES.length-1;
+  let gate;
+  if(m.gate === 'none'){
+    gate = renderNoneGate(m, done);
+  } else if(m.gate === 'stub'){
+    gate = renderStubGate(m, done);
+  } else {
+    gate = renderQuiz(m, done);
+  }
+  return `<div class="module-page">
+    <div class="r-eyebrow">Module ${CUR_MOD+1} of ${MODULES.length}</div>
+    <div class="r-title">${m.ic} ${m.title}</div>
+    <div class="r-sub">${m.sub}</div>
+    <div class="r-meta">~${m.min} min${m.gate==='stub'?' &middot; content still being finalized — see amber notes below':''}</div>
+    <div class="reader">${m.body}</div>
+    ${gate}
+    <div class="mod-nav-row">
+      <button class="btn btn-ghost" onclick="backToPath()">&larr; Back to path</button>
+      ${done ? `<button class="btn btn-secondary" onclick="continueFromModule()">${isLast ? 'Back to path' : 'Continue to next module'} &rarr;</button>` : ''}
+    </div>
+  </div>`;
+}
+
+// -- 'none' gate: real, finished content with no comprehension check by
+// design (e.g. the Welcome module) -- just an explicit "mark complete" step
+// so it still participates in gating/progress like every other module.
+function renderNoneGate(m, done){
+  if(done){
+    return `<div class="stub-gate"><div class="pill pill-green">&#10003; Completed</div></div>`;
+  }
+  return `<div class="stub-gate">
+    <button class="btn btn-primary" style="width:auto;" onclick="completeNone('${m.id}')">Continue &rarr;</button>
+  </div>`;
+}
+function completeNone(id){
+  ME.doneIds.add(id);
+  saveProgress(id, 'done', ''); // fire-and-forget -- don't block the UI on a slow PA response
+  renderView();
+}
+
+// -- stub gate (blocked modules): single acknowledgement checkbox --
+function renderStubGate(m, done){
+  if(done){
+    return `<div class="stub-gate"><div class="pill pill-green">&#10003; Reviewed</div></div>`;
+  }
+  const checked = !!stubChecked[m.id];
+  return `<div class="stub-gate">
+    <div class="locked-note" style="margin-top:0;margin-bottom:14px;">&#9432; This module's full content is still being finalized (see the amber notes above). This is a placeholder gate — it will be replaced with a real knowledge check once the content lands, without resetting your progress.</div>
+    <label class="stub-check" onclick="event.preventDefault();toggleStub('${m.id}')">
+      <div class="stub-box${checked?' on':''}"></div>
+      <div class="stub-label">I've reviewed this section.</div>
+    </label>
+    <button class="btn btn-primary" style="width:auto;margin-top:14px;" ${checked?'':'disabled'} onclick="completeStub('${m.id}')">Mark complete &amp; continue &rarr;</button>
+  </div>`;
+}
+function toggleStub(id){ stubChecked[id] = !stubChecked[id]; persistLocal(); renderView(); }
+function completeStub(id){
+  if(!stubChecked[id]) return;
+  ME.doneIds.add(id);
+  saveProgress(id, 'done', ''); // fire-and-forget
+  toast('Section marked complete.');
+  renderView();
+}
+
+// -- real per-module quiz (one question at a time, flagged not blocking).
+// Same single-question view whether or not the module is already done --
+// once done, options just stop being clickable and the Finish button is
+// replaced with a "Completed" pill. Back/dot-jump navigation always works,
+// so reviewing past answers never expands into a big list.
+function renderQuiz(m, done){
+  const qs = getModQuestions(m.id);
+  if(qs.length === 0){
+    // safety net: a real module with no quiz defined yet behaves like a stub
+    return renderStubGate(m, done);
+  }
+  if(!quizIdx[m.id]) quizIdx[m.id] = 0;
+  if(!quizAnswers[m.id]) quizAnswers[m.id] = {};
+  const idx = quizIdx[m.id];
+  const q = qs[idx];
+  const picked = quizAnswers[m.id][idx];
+  const answered = picked !== undefined;
+  const allAnswered = qs.every((_,i)=> quizAnswers[m.id][i] !== undefined);
+  const dots = qs.map((_,i)=>{
+    const ans = quizAnswers[m.id][i] !== undefined;
+    return `<div class="quiz-dot${i===idx?' active':''}${ans?' answered':''}"${ans?` onclick="jumpQuizQ('${m.id}',${i})" style="cursor:pointer;"`:''}></div>`;
+  }).join('');
+  const opts = q.opts.map((o,oi)=>{
+    let cls = 'quiz-opt';
+    if(answered){
+      if(oi===q.a) cls += ' correct';
+      else if(oi===picked) cls += ' incorrect';
+    }
+    // Once the module is done, answers are committed -- render as plain,
+    // non-interactive divs instead of buttons so reviewing never changes
+    // what was actually submitted.
+    return done
+      ? `<div class="${cls}" style="cursor:default;">${o}</div>`
+      : `<button class="${cls}" onclick="answerQuiz('${m.id}',${idx},${oi})">${o}</button>`;
+  }).join('');
+  const fbClass = answered ? (picked===q.a ? ' correct' : ' incorrect') : '';
+  const fb = answered ? `<div class="quiz-fb${fbClass}">${picked===q.a ? '&#10003; Correct.' : '&#10007; Not quite — the highlighted option is correct.'}</div>` : (done ? `<div class="quiz-fb">Answer not available to review on this device.</div>` : '');
+  const backBtn = idx > 0 ? `<button class="btn btn-ghost" style="width:auto;margin-top:14px;margin-right:8px;" onclick="prevQuizQ('${m.id}')">&larr; Back</button>` : '';
+  let nav;
+  if(done){
+    nav = idx < qs.length-1
+      ? `<button class="btn btn-secondary" style="width:auto;margin-top:14px;" onclick="nextQuizQ('${m.id}',${qs.length})">Next question &rarr;</button>`
+      : '';
+  } else {
+    nav = idx < qs.length-1
+      ? `<button class="btn btn-secondary" style="width:auto;margin-top:14px;" ${answered?'':'disabled'} onclick="nextQuizQ('${m.id}',${qs.length})">Next question &rarr;</button>`
+      : `<button class="btn btn-primary" style="width:auto;margin-top:14px;" ${allAnswered?'':'disabled'} onclick="completeQuiz('${m.id}')">Finish module &rarr;</button>`;
+  }
+  const progressLine = done
+    ? `<div class="quiz-progress">Knowledge check &middot; question ${idx+1} of ${qs.length} &middot; <span style="color:var(--green-text);font-weight:600;">&#10003; Completed</span></div>`
+    : `<div class="quiz-progress">Knowledge check &middot; question ${idx+1} of ${qs.length}</div>`;
+  return `<div class="quiz-card">
+    ${progressLine}
+    <div class="quiz-dots">${dots}</div>
+    <div class="quiz-q">${q.q}</div>
+    ${opts}${fb}
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">${backBtn}${nav}</div>
+  </div>`;
+}
+function answerQuiz(id, qi, oi){ quizAnswers[id][qi] = oi; persistLocal(); renderView(); }
+function nextQuizQ(id, total){ quizIdx[id] = Math.min(total-1, (quizIdx[id]||0)+1); renderView(); }
+function prevQuizQ(id){ quizIdx[id] = Math.max(0, (quizIdx[id]||0)-1); renderView(); }
+function jumpQuizQ(id, i){ if(quizAnswers[id] && quizAnswers[id][i] !== undefined){ quizIdx[id] = i; renderView(); } }
+function completeQuiz(id){
+  ME.doneIds.add(id);
+  saveProgress(id, 'done', ''); // fire-and-forget
+  toast('Module complete.');
+  renderView();
+}
+
+// ── FINAL CHECK (score-gated certification exam) ────────────────────────────
+function openFinalCheck(){
+  if(!isCertified() && getFinalAttempts() >= FINAL_CHECK_MAX_ATTEMPTS){
+    toast('All 3 attempts used — your Project Manager will follow up to arrange next steps.');
+    return;
+  }
+  finalMode='inprogress'; finalIdx=0; finalAnswers={}; finalResult=null; VIEW='final'; renderNavTabsForFinal();
+}
+function renderNavTabsForFinal(){
+  document.getElementById('content').innerHTML = vFinal();
+  window.scrollTo(0,0);
+}
+function vFinal(){
+  if(finalMode==='result'){
+    const pass = finalResult.pct >= FINAL_CHECK_PASS_PCT;
+    const attemptsUsed = finalResult.attempts || getFinalAttempts();
+    const attemptsLeft = FINAL_CHECK_MAX_ATTEMPTS - attemptsUsed;
+    const exhausted = !pass && attemptsLeft <= 0;
+    let statusCallout;
+    if(pass){
+      statusCallout = `<div class="callout"><div class="c-ic">&#9733;</div><div class="c-tx">You're cleared for on-site training. Your Project Manager will confirm the date.</div></div>`;
+    } else if(exhausted){
+      statusCallout = `<div class="callout danger"><div class="c-ic">&#9888;</div><div class="c-tx"><strong>That was your third and final attempt.</strong> Your Project Manager will follow up directly to arrange a review or a retake — the app won't open a fourth attempt on its own.</div></div>`;
+    } else {
+      statusCallout = `<div class="callout warn"><div class="c-ic">&#9888;</div><div class="c-tx">Attempt ${attemptsUsed} of ${FINAL_CHECK_MAX_ATTEMPTS}. Review the modules above and try again — you have ${attemptsLeft} attempt${attemptsLeft===1?'':'s'} left.</div></div>`;
+    }
+    return `<div class="module-page">
+      <div class="r-eyebrow">Final Check &middot; Attempt ${attemptsUsed} of ${FINAL_CHECK_MAX_ATTEMPTS}</div>
+      <div class="r-title">${pass ? 'Passed' : 'Not yet'} &middot; ${finalResult.pct}%</div>
+      <div class="r-sub">${finalResult.correct} of ${finalResult.total} correct &middot; ${FINAL_CHECK_PASS_PCT}% needed to pass</div>
+      ${statusCallout}
+      <button class="btn btn-secondary" style="width:auto;margin-top:14px;" onclick="backToPath()">Back to Learning Path</button>
+      ${(!pass && !exhausted)?'<button class="btn btn-primary" style="width:auto;margin-top:14px;margin-left:10px;" onclick="openFinalCheck()">Retake &rarr;</button>':''}
+    </div>`;
+  }
+  const q = FINAL_CHECK[finalIdx];
+  const picked = finalAnswers[finalIdx];
+  const answered = picked !== undefined;
+  const dots = FINAL_CHECK.map((_,i)=>{
+    const ans = finalAnswers[i] !== undefined;
+    return `<div class="quiz-dot${i===finalIdx?' active':''}${ans?' answered':''}"${ans?` onclick="jumpFinal(${i})" style="cursor:pointer;"`:''}></div>`;
+  }).join('');
+  const opts = q.opts.map((o,oi)=>{
+    let cls='quiz-opt';
+    if(answered){ if(oi===q.a) cls+=' correct'; else if(oi===picked) cls+=' incorrect'; }
+    return `<button class="${cls}" onclick="answerFinal(${oi})">${o}</button>`;
+  }).join('');
+  const fbClass2 = answered ? (picked===q.a ? ' correct' : ' incorrect') : '';
+  const fb = answered ? `<div class="quiz-fb${fbClass2}">${picked===q.a?'&#10003; Correct.':'&#10007; Not quite — the highlighted option is correct.'}</div>` : '';
+  const backBtn2 = finalIdx > 0 ? `<button class="btn btn-ghost" style="width:auto;margin-top:14px;margin-right:8px;" onclick="prevFinal()">&larr; Back</button>` : '';
+  const nav = finalIdx < FINAL_CHECK.length-1
+    ? `<button class="btn btn-secondary" style="width:auto;margin-top:14px;" ${answered?'':'disabled'} onclick="nextFinal()">Next &rarr;</button>`
+    : `<button class="btn btn-primary" style="width:auto;margin-top:14px;" ${answered?'':'disabled'} onclick="submitFinal()">See result &rarr;</button>`;
+  return `<div class="module-page">
+    <div class="r-eyebrow">Final Check &middot; question ${finalIdx+1} of ${FINAL_CHECK.length}</div>
+    <div class="r-title" style="font-size:20px;">Scenario check</div>
+    <div class="quiz-card">
+      <div class="quiz-dots">${dots}</div>
+      <div class="quiz-q">${q.q}</div>
+      ${opts}${fb}
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">${backBtn2}${nav}</div>
+    </div>
+  </div>`;
+}
+function answerFinal(oi){ finalAnswers[finalIdx]=oi; renderNavTabsForFinal(); }
+function nextFinal(){ finalIdx = Math.min(FINAL_CHECK.length-1, finalIdx+1); renderNavTabsForFinal(); }
+function prevFinal(){ finalIdx = Math.max(0, finalIdx-1); renderNavTabsForFinal(); }
+function jumpFinal(i){ if(finalAnswers[i] !== undefined){ finalIdx = i; renderNavTabsForFinal(); } }
+function submitFinal(){
+  let correct=0;
+  FINAL_CHECK.forEach((q,i)=>{ if(finalAnswers[i]===q.a) correct++; });
+  const pct = Math.round((correct/FINAL_CHECK.length)*100);
+  const attempts = incFinalAttempts();
+  finalResult = {correct, total: FINAL_CHECK.length, pct, attempts};
+  ME.finalScore = pct;
+  saveProgress('final_check', 'done', pct); // fire-and-forget
+  finalMode = 'result';
+  renderNavTabsForFinal();
+}
+
+// ── FIELD REFERENCE TAB ──────────────────────────────────────────────────────
+function vField(){
+  const sections = FIELD_CHECKLIST.map(s => {
+    const open = !!checklistOpen[s.id];
+    return `<div class="checklist-section">
+      <div class="checklist-head" onclick="toggleChecklistSection('${s.id}')">
+        <div class="checklist-head-l"><span class="checklist-head-ic">${s.ic}</span><div class="checklist-head-tx"><h4>${s.t}</h4><p>${s.sub}</p></div></div>
+        <svg class="${open?'open':''}" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="checklist-body${open?' open':''}"><div class="checklist-body-inner"><div class="check-group">
+        ${s.items.map((it,ii)=>`<label class="check-item${(checklistOpen['done_'+s.id+ii])?' done':''}"><input type="checkbox" ${(checklistOpen['done_'+s.id+ii])?'checked':''} onchange="toggleFieldCheck('${s.id}',${ii})"><span>${it}</span></label>`).join('')}
+      </div></div></div>
+    </div>`;
+  }).join('');
+  const scripts = FIELD_SCRIPTS.map(g => `<h3 style="margin-top:22px;">${g.cat}</h3>${g.items.map(it=>
+    `<div class="script-card"><h4>${it.t}</h4><div class="script" style="margin:0;">${it.s}</div></div>`).join('')}`).join('');
+  const escRows = ESCALATION.map(e=>`<tr><td style="white-space:nowrap;font-weight:600;color:var(--text);">${e.tier}</td><td>${e.what}</td></tr>`).join('');
+  const contactCards = CONTACTS.map(c=>`<div class="contact-card"><div class="cn">${c.name}</div><div class="cr">${c.role} &middot; ${c.need}</div><div class="ce">${c.email}</div></div>`).join('');
+  const treeRows = TROUBLESHOOT_TREE.map(t=>`<div class="tree-node"><div class="tree-q">${t.q}</div><div class="tree-a">${t.a}</div></div>`).join('');
+  return `<h1 class="page-h1">Field Reference</h1><p class="page-sub">Keep this tab open during a live session — arrival-to-departure checklist, quick scripts, escalation tiers, and troubleshooting, all in one place.</p>
+  <div class="field-quick-grid">
+    <div class="field-quick-card" onclick="document.getElementById('fr-scripts').scrollIntoView({behavior:'smooth'})"><h4>&#128172; Quick scripts</h4><p>Jump to a script by situation</p></div>
+    <div class="field-quick-card" onclick="document.getElementById('fr-tree').scrollIntoView({behavior:'smooth'})"><h4>&#128295; Troubleshooting</h4><p>Decision tree for kit problems</p></div>
+    <div class="field-quick-card" onclick="document.getElementById('fr-esc').scrollIntoView({behavior:'smooth'})"><h4>&#9888; Escalation tiers</h4><p>What to handle vs. flag vs. escalate</p></div>
+    <div class="field-quick-card" onclick="document.getElementById('fr-contacts').scrollIntoView({behavior:'smooth'})"><h4>&#128222; Who to contact</h4><p>Names, roles, emails</p></div>
+  </div>
+  <h2 style="font-size:17px;font-weight:600;margin:0 0 12px;">On-site checklist</h2>
+  ${sections}
+  <div id="fr-scripts">${scripts}</div>
+  <h2 id="fr-tree" style="font-size:17px;font-weight:600;margin:28px 0 6px;">Troubleshooting decision tree</h2>
+  ${treeRows}
+  <h2 id="fr-esc" style="font-size:17px;font-weight:600;margin:28px 0 6px;">Escalation tiers</h2>
+  <table class="tbl"><tr><th>Tier</th><th>What it covers</th></tr>${escRows}</table>
+  <h2 id="fr-contacts" style="font-size:17px;font-weight:600;margin:28px 0 6px;">Who to contact</h2>
+  ${contactCards}
+  `;
+}
+function toggleChecklistSection(id){ checklistOpen[id] = !checklistOpen[id]; persistLocal(); renderView(); }
+function toggleFieldCheck(sid, ii){ const k='done_'+sid+ii; checklistOpen[k]=!checklistOpen[k]; persistLocal(); renderView(); }
+
+// ── RESOURCES TAB ────────────────────────────────────────────────────────────
+function vResources(){
+  const items = [
+    {ic:'&#128193;', t:'Moderator SharePoint', d:'Additional resources, client updates, and ongoing training for Project Sesame. Sign in with your Centific credentials.', href:'https://digitaltechedge.sharepoint.com/sites/Oslo_Sesame_Moderators', pending:false},
+    {ic:'&#128172;', t:'Sesame Moderators (Teams)', d:'The team&rsquo;s live channel. Use this — not email — for anything time-sensitive during a session.', href:'https://teams.microsoft.com/l/team/19%3AARV6TnUuGclAJMOrlr2MKD5O2_YSGJz_31EAeAgxAKE1%40thread.tacv2/conversations?groupId=555f9868-d65e-4283-a9d3-8eca2d0695dc&tenantId=9b415834-803a-4da0-afdc-fe6b1d52d649', pending:false},
+    {ic:'&#128203;', t:'Hydra (field app)', d:'Your source of truth in the field — session sequence, checklist, and scenario list. Login covered at in-person training.', href:'#', pending:true},
+    {ic:'&#128196;', t:'Client runbook (simplified guideline)', d:'The moderator-facing version of the client runbook, once the simplified version is ready.', href:'#', pending:true},
+    {ic:'&#128295;', t:'Hardware Troubleshooting reference', d:'Full decision tree. Covered at in-person training; reference to follow on the Moderator SharePoint.', href:'#', pending:true},
+    {ic:'&#9993;', t:'Project inbox', d:'Oslo_comms@centific.com — monitored by the project team.', href:'mailto:Oslo_comms@centific.com', pending:false},
+  ];
+  const cards = items.map(it => `<a class="res-card" href="${it.href}" ${it.pending?`onclick="event.preventDefault();toast('Link pending \u2014 will be wired in once the resource is live.')"`:''} style="text-decoration:none;color:inherit;">
+    <div class="res-ic">${it.ic}</div>
+    <div class="res-tx"><h4>${it.t} ${it.pending?'<span class=\"pill pill-amber\" style=\"margin-left:6px;\">Pending</span>':''}</h4><p>${it.d}</p></div>
+    <div class="res-arrow">&rarr;</div>
+  </a>`).join('');
+  return `<h1 class="page-h1">Resources</h1><p class="page-sub">Documents and tools you'll use outside the training path.</p>${cards}`;
+}
+
+// ── ADMIN DASHBOARD ──────────────────────────────────────────────────────────
+function vDash(){
+  const total = COHORT.length;
+  const certified = COHORT.filter(c=>c.status==='certified').length;
+  const inProgress = COHORT.filter(c=>c.status==='in_progress').length;
+  const awaitingFinal = COHORT.filter(c=>c.status==='awaiting_final').length;
+  const filtered = COHORT.filter(c => adminFilter==='all' ? true : c.status===adminFilter);
+  const rows = filtered.map(c => {
+    const pct = Math.round((c.done/MODULES.length)*100);
+    const pillMap = {not_started:['pill-gray','Not started'], in_progress:['pill-blue','In progress'], awaiting_final:['pill-amber','Awaiting final check'], certified:['pill-green','Certified']};
+    const [pc,pt] = pillMap[c.status];
+    return `<tr>
+      <td><div class="mod-row-name"><div class="mod-avatar">${c.name.charAt(0)}</div><div><div style="font-weight:600;">${c.name}</div><div style="font-size:11.5px;color:var(--text3);">${c.email}</div></div></div></td>
+      <td>${c.done} / ${MODULES.length} (${pct}%)</td>
+      <td>${c.finalScore===null?'—':c.finalScore+'%'}</td>
+      <td><span class="pill ${pc}">${pt}</span></td>
+    </tr>`;
+  }).join('');
+  return `<h1 class="page-h1">Cohort Dashboard</h1><p class="page-sub">Sesame moderators &middot; onboarding progress</p>
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-val">${total}</div><div class="kpi-lbl">Enrolled</div></div>
+    <div class="kpi-card"><div class="kpi-val">${inProgress}</div><div class="kpi-lbl">In progress</div></div>
+    <div class="kpi-card"><div class="kpi-val">${awaitingFinal}</div><div class="kpi-lbl">Awaiting final check</div></div>
+    <div class="kpi-card"><div class="kpi-val">${certified}</div><div class="kpi-lbl">Certified</div></div>
+  </div>
+  <div class="filter-row">
+    ${[['all','All'],['in_progress','In progress'],['awaiting_final','Awaiting final'],['certified','Certified']].map(([k,l])=>
+      `<button class="filter-chip${adminFilter===k?' active':''}" onclick="setAdminFilter('${k}')">${l}</button>`).join('')}
+  </div>
+  <div class="card"><table class="admin-tbl"><tr><th>Moderator</th><th>Modules</th><th>Final check</th><th>Status</th></tr>${rows||'<tr><td colspan="4" style="color:var(--text3);">No moderators match this filter.</td></tr>'}</table></div>`;
+}
+function setAdminFilter(f){ adminFilter=f; renderView(); }
+
+function vCurriculum(){
+  const rows = MODULES.map((m,i) => {
+    const qs = getModQuestions(m.id);
+    const editable = qs.length > 0;
+    const gateLabel = m.gate==='stub' ? '<span class="pill pill-amber" style="margin-left:6px;">Partial content</span>'
+                     : (editable ? '<span class="pill pill-green" style="margin-left:6px;">Ready</span>' : '<span class="pill pill-gray" style="margin-left:6px;">No check</span>');
+    const open = !!curriculumEditOpen[m.id];
+    return `<div class="res-card" style="cursor:default;flex-direction:column;align-items:stretch;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div class="res-ic">${m.ic}</div>
+        <div class="res-tx" style="flex:1;"><h4>${i+1}. ${m.title} ${gateLabel}</h4><p>~${m.min} min &middot; ${qs.length} question${qs.length===1?'':'s'}</p></div>
+        ${editable ? `<button class="btn btn-ghost" onclick="toggleCurriculumEdit('${m.id}')">${open?'Hide':'Edit'} questions</button>` : ''}
+      </div>
+      ${editable && open ? `<div style="margin-top:14px;">${qs.map((q,qi)=>renderEditableQuestion('mod:'+m.id, qi, q)).join('')}</div>` : ''}
+    </div>`;
+  }).join('');
+  const finalOpen = !!curriculumEditOpen['final'];
+  return `<h1 class="page-h1">Curriculum</h1><p class="page-sub">${MODULES.length} modules, sequential and gated &middot; two-layer knowledge check (per-module + final) &middot; ~${TOTAL_MIN} min total</p>
+  <div class="callout" style="margin-bottom:18px;"><div class="c-ic">&#9432;</div><div class="c-tx"><strong>Question and answer text below is editable.</strong> Changes save to this browser only until the Curriculum backend is wired — see Dev_Notes.md. <button class="btn btn-ghost" style="margin-left:4px;" onclick="resetCurriculum()">Reset all to defaults</button></div></div>
+  ${rows}
+  <div class="res-card" style="cursor:default;flex-direction:column;align-items:stretch;margin-top:6px;">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div class="res-ic">&#127919;</div>
+      <div class="res-tx" style="flex:1;"><h4>Final Check <span class="pill pill-green" style="margin-left:6px;">${FINAL_CHECK.length} of 10 live</span></h4><p>${FINAL_CHECK_PASS_PCT}% to pass &middot; ${FINAL_CHECK_MAX_ATTEMPTS} attempts, then your Project Manager follows up directly</p></div>
+      <button class="btn btn-ghost" onclick="toggleCurriculumEdit('final')">${finalOpen?'Hide':'Edit'} questions</button>
+    </div>
+    ${finalOpen ? `<div style="margin-top:14px;">${FINAL_CHECK.map((q,qi)=>renderEditableQuestion('final', qi, q)).join('')}</div>` : ''}
+  </div>`;
+}
+
+
+// ── MODERATOR MANAGEMENT ────────────────────────────────────────────────────
+function showToast(m){ toast(m); }
+
+function getLocalMods(){
+  try{ return JSON.parse(localStorage.getItem('sesame_local_mods_v1')||'[]'); }catch(e){ return []; }
+}
+function saveLocalMods(arr){
+  try{ localStorage.setItem('sesame_local_mods_v1', JSON.stringify(arr)); }catch(e){}
+}
+function mergeLocalMods(){
+  LOCAL_MODS = getLocalMods();
+  LOCAL_MODS.forEach(lm => {
+    const idx = DIR.findIndex(d => d.email.toLowerCase() === lm.email.toLowerCase());
+    if(idx >= 0){ Object.assign(DIR[idx], lm); }
+    else { DIR.push(lm); }
+  });
+  COHORT = DIR.filter(r=>r.role==='moderator').map(r => buildCohortRow(r));
+}
+async function submitManageModerator(payload){
+  if(!LIVE) return;
+  try{
+    await fetch(BACKEND.manageModerator, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain'},
+      body: JSON.stringify(payload)
+    });
+  }catch(e){ console.warn('[Sesame] ManageModerator PA call failed (non-blocking)', e); }
+}
+function addModeratorInApp(name, email, cohort){
+  const entry = {name, email:email.toLowerCase(), role:'moderator', cohort, active:'yes', _local:true};
+  const idx = DIR.findIndex(d => d.email.toLowerCase() === email.toLowerCase());
+  if(idx >= 0){ DIR[idx] = {...DIR[idx], ...entry}; }
+  else { DIR.push(entry); }
+  const localArr = getLocalMods();
+  const li = localArr.findIndex(d => d.email.toLowerCase() === email.toLowerCase());
+  if(li >= 0){ localArr[li] = entry; } else { localArr.push(entry); }
+  saveLocalMods(localArr);
+  COHORT = DIR.filter(r=>r.role==='moderator').map(r=>buildCohortRow(r));
+  submitManageModerator({action:'add', name, email:email.toLowerCase(), cohort});
+  showToast('Moderator added ✓');
+  renderView();
+}
+function deactivateModeratorInApp(email){
+  const idx = DIR.findIndex(d => d.email.toLowerCase() === email.toLowerCase());
+  if(idx >= 0){ DIR[idx].active = 'no'; }
+  const localArr = getLocalMods();
+  const li = localArr.findIndex(d => d.email.toLowerCase() === email.toLowerCase());
+  if(li >= 0){ localArr[li].active = 'no'; }
+  else { localArr.push({email:email.toLowerCase(), active:'no', _deactivate:true}); }
+  saveLocalMods(localArr);
+  COHORT = DIR.filter(r=>r.role==='moderator').map(r=>buildCohortRow(r));
+  submitManageModerator({action:'deactivate', email:email.toLowerCase()});
+  showToast('Moderator deactivated');
+  renderView();
+}
+function vModerators(){
+  const mods = DIR.filter(r=>r.role==='moderator');
+  const active = mods.filter(m=>m.active!=='no');
+  const inactive = mods.filter(m=>m.active==='no');
+  document.getElementById('app').innerHTML = `
+<div class="module-page" style="max-width:860px;margin:0 auto;padding:2rem 1.5rem">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem">
+    <div>
+      <div class="eyebrow">Admin</div>
+      <h2 style="margin:0;font-size:1.5rem">Moderator Management</h2>
+      <p style="color:var(--text2);margin:.25rem 0 0;font-size:.9rem">${active.length} active · ${inactive.length} deactivated</p>
+    </div>
+    <button class="btn btn-primary" style="width:auto" onclick="document.getElementById('mod-form').style.display=document.getElementById('mod-form').style.display==='none'?'block':'none'">+ Add Moderator</button>
+  </div>
+  <div id="mod-form" style="display:none" class="card">
+    <h3 style="margin:0 0 1rem;font-size:1rem">Add New Moderator</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.75rem">
+      <div><label style="font-size:.8rem;color:var(--text2);display:block;margin-bottom:.25rem">Full Name</label>
+        <input id="new-mod-name" style="width:100%;box-sizing:border-box;padding:.5rem .75rem;border-radius:6px;border:1px solid var(--border-strong);background:var(--input-bg);color:var(--text);font-family:var(--font);font-size:.9rem" placeholder="Jane Smith"></div>
+      <div><label style="font-size:.8rem;color:var(--text2);display:block;margin-bottom:.25rem">Email</label>
+        <input id="new-mod-email" style="width:100%;box-sizing:border-box;padding:.5rem .75rem;border-radius:6px;border:1px solid var(--border-strong);background:var(--input-bg);color:var(--text);font-family:var(--font);font-size:.9rem" placeholder="jane.smith@centific.com"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:.75rem;align-items:flex-end">
+      <div><label style="font-size:.8rem;color:var(--text2);display:block;margin-bottom:.25rem">Cohort</label>
+        <input id="new-mod-cohort" style="width:100%;box-sizing:border-box;padding:.5rem .75rem;border-radius:6px;border:1px solid var(--border-strong);background:var(--input-bg);color:var(--text);font-family:var(--font);font-size:.9rem" placeholder="A"></div>
+      <button class="btn btn-primary" onclick="(function(){const n=document.getElementById('new-mod-name').value.trim(),e=document.getElementById('new-mod-email').value.trim(),c=document.getElementById('new-mod-cohort').value.trim();if(!n||!e){alert('Name and email required');return;}addModeratorInApp(n,e,c);document.getElementById('mod-form').style.display='none';})()">Add Moderator</button>
+    </div>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden;margin-top:1rem">
+    <table class="admin-tbl" style="width:100%;border-collapse:collapse">
+      <thead><tr><th>Name</th><th>Email</th><th>Cohort</th><th>Status</th><th>Source</th><th></th></tr></thead>
+      <tbody>
+        ${active.map(m=>`<tr>
+          <td><div style="display:flex;align-items:center;gap:10px"><div class="mod-avatar">${m.name.charAt(0).toUpperCase()}</div>${m.name}</div></td>
+          <td style="color:var(--text2);font-size:.85rem">${m.email}</td>
+          <td>${m.cohort||'—'}</td>
+          <td><span style="background:var(--green-bg);color:var(--green-text);padding:.2rem .6rem;border-radius:99px;font-size:.75rem;font-weight:600">Active</span></td>
+          <td style="font-size:.75rem;color:var(--text3)">${m._local?'Local':'Excel'}</td>
+          <td><button class="btn btn-ghost" style="font-size:.75rem;padding:.25rem .6rem;color:var(--red)" onclick="if(confirm('Deactivate ${m.name}?'))deactivateModeratorInApp('${m.email}')">Deactivate</button></td>
+        </tr>`).join('')}
+        ${inactive.length?`<tr><td colspan="6" style="padding:.5rem 1rem;background:var(--bg3);font-size:.8rem;color:var(--text3)">Deactivated (${inactive.length})</td></tr>`:''}
+        ${inactive.map(m=>`<tr style="opacity:.55">
+          <td>${m.name||'—'}</td><td style="font-size:.85rem">${m.email}</td><td>—</td>
+          <td><span style="background:var(--bg4);color:var(--text3);padding:.2rem .6rem;border-radius:99px;font-size:.75rem">Inactive</span></td>
+          <td style="font-size:.75rem;color:var(--text3)">${m._local?'Local':'Excel'}</td><td></td>
+        </tr>`).join('')}
+        ${mods.length===0?`<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text3)">No moderators yet — add the first one above.</td></tr>`:''}
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:1rem;font-size:.8rem;color:var(--text3)">⚠ Changes sync to Power Automate in real-time. Locally-added moderators persist even before the PA flow is configured.</p>
+</div>`;
+}
+
+// ── BOOT ─────────────────────────────────────────────────────────────────────
+// Local-file warning: modern Chrome/Edge block outbound fetch() from a
+// file:// origin to remote HTTPS endpoints, so BACKEND calls silently never
+// leave the browser when someone double-clicks this file instead of opening
+// it from a hosted URL. That looks identical to "the flow is broken" (zero
+// Power Automate run history) but is actually a browser restriction, not an
+// app or flow bug. Appended to <html> (a sibling of <body>), not inside
+// <body>, so it survives every full-body innerHTML re-render.
+if(location.protocol === 'file:'){
+  const w = document.createElement('div');
+  w.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#F59E0B;color:#1a1207;font-family:-apple-system,\'SF Pro Text\',sans-serif;font-size:12.5px;font-weight:600;padding:9px 16px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.25);';
+  w.textContent = '⚠ Opened as a local file (file://) — network calls to Power Automate are blocked by the browser from this origin, so progress will not sync. Open this from a hosted URL (e.g. GitHub Pages) to test the live backend.';
+  document.documentElement.appendChild(w);
+}
+
+// Prefetch starts the instant the page loads (not on a click) -- see
+// canonical pattern in Verdi_App_Family_Master_Context.md §20.1. If there's
+// no auto-resume candidate, show the login screen immediately rather than
+// waiting on the network; doLogin() awaits the same in-flight promise.
+loadCurriculumOverrides();
+if(!getLastLogin()) renderLogin();
+loadData().then(() => {
+  const last = getLastLogin();
+  if(last){
+    const rec = findUser(last);
+    if(rec){ applyProfile(rec); restoreLocalSession(last); startApp(rec.role); }
+    else { renderLogin(); }
+  }
+});
+
+</script>
+</body>
+</html>
