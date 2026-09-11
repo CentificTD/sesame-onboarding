@@ -19,7 +19,7 @@
 [data-theme="dark"]{
   color-scheme:dark;
   --bg:#12100E; --bg2:#1C1814; --bg3:#252119; --bg4:#302C25;
-  --text:#EFE8DC; --text2:#B8A08A; --text3:#9C8D75;
+  --text:#EFE8DC; --text2:#B8A08A; --text3:#7A6C5A;
   --border:#221E18; --border-strong:#352F26;
   --input-bg:#1C1814; --card-bg:#1C1814; --nav-bg:rgba(18,16,14,0.92); --sidebar-bg:#1C1814;
   --shadow-sm:0 2px 12px rgba(0,0,0,0.50); --shadow-md:0 8px 40px rgba(0,0,0,0.62); --shadow-lg:0 20px 60px rgba(0,0,0,0.72);
@@ -38,7 +38,7 @@
   --accent-ink:#8A6840;
   --bg-glow:#EDD8B8;
   --bg-glow2:#F5ECD8;
-  --seed-op:0;
+  --seed-op:0.45;
 }
 *{box-sizing:border-box;}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
@@ -75,8 +75,8 @@ a{color:var(--accent-ink);}
     radial-gradient(circle at 90% -4%, var(--bg-glow2) 0%, transparent 42%),
     var(--bg);
 }
-.entry-card{background:var(--card-bg);border:.5px solid var(--border);border-radius:22px;box-shadow:var(--shadow-lg);padding:44px 40px 34px;width:100%;max-width:420px;text-align:center;}
-.brand-mark{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent-dim));display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:700;color:#fff;margin:0 auto 18px;}
+.entry-card{background:var(--card-bg);border:.5px solid var(--border);border-top-color:rgba(184,146,106,0.45);border-radius:22px;box-shadow:var(--shadow-lg);padding:44px 40px 34px;width:100%;max-width:420px;text-align:center;}
+.brand-mark{width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent-dim));display:flex;align-items:center;justify-content:center;color:#fff;margin:0 auto 14px;box-shadow:0 4px 22px rgba(184,146,106,0.38),0 1px 0 rgba(255,255,255,0.12) inset;}
 .eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:10px;}
 .entry-title{font-size:25px;font-weight:600;letter-spacing:-.02em;margin-bottom:8px;}
 .entry-sub{font-size:14.5px;color:var(--text2);line-height:1.55;margin-bottom:28px;}
@@ -96,11 +96,13 @@ a{color:var(--accent-ink);}
 .btn-secondary:hover{background:var(--bg4);}
 .btn-ghost{background:transparent;color:var(--text2);border:.5px solid var(--border-strong);width:auto;font-size:13px;padding:8px 14px;}
 .btn-ghost:hover{background:var(--bg3);color:var(--text);}
+.btn-sm{font-size:12px;font-weight:500;padding:5px 12px;border-radius:8px;border:.5px solid var(--border-strong);background:var(--bg3);color:var(--accent);cursor:pointer;white-space:nowrap;}
+.btn-sm:hover{background:var(--accent);color:#fff;}
 .page-wrap{max-width:1180px;margin:0 auto;padding:0 32px;width:100%;}
 .shell{min-height:calc(100vh - 90px);}
 .app-header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:22px 0 18px;flex-wrap:wrap;}
 .nav-left{display:flex;align-items:center;gap:12px;min-width:0;}
-.nav-logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-dim));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;}
+.nav-logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-dim));display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(184,146,106,0.28);}
 .nav-brand{font-size:15.5px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .nav-brand span{color:var(--text3);font-weight:400;}
 .nav-right{display:flex;align-items:center;gap:12px;}
@@ -121,7 +123,7 @@ h1.page-h1{font-size:24px;font-weight:600;letter-spacing:-.02em;margin:0 0 4px;}
 .page-sub{font-size:14.5px;color:var(--text2);margin:0 0 24px;line-height:1.5;}
 .card{background:var(--card-bg);border:.5px solid var(--border);border-radius:18px;padding:20px 22px;box-shadow:var(--shadow-sm);}
 .hero-box{background:var(--card-bg);border:.5px solid var(--border);border-radius:20px;padding:26px 28px;margin-bottom:26px;box-shadow:var(--shadow-sm);}
-.hero-box.certified{border-color:rgba(34,197,94,.35);}
+.hero-box.certified{border-color:rgba(34,197,94,.35);box-shadow:0 0 0 1px rgba(184,146,106,0.12),var(--shadow-sm);}
 .hero-title2{font-size:19px;font-weight:600;letter-spacing:-.015em;margin-bottom:6px;}
 .hero-sub2{font-size:14px;color:var(--text2);line-height:1.5;margin-bottom:16px;}
 .progress-track{height:8px;border-radius:99px;background:var(--bg4);overflow:hidden;margin-bottom:8px;}
@@ -139,7 +141,7 @@ h1.page-h1{font-size:24px;font-weight:600;letter-spacing:-.02em;margin:0 0 4px;}
 .step-dot{width:31px;height:31px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;flex-shrink:0;background:var(--bg3);color:var(--text3);border:2px solid var(--border-strong);z-index:1;}
 .step-dot.locked{opacity:.55;}
 .step-dot.current{background:linear-gradient(135deg,var(--accent),var(--accent-dim));color:#fff;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft);}
-.step-dot.done{background:var(--green);color:#fff;border-color:var(--green);}
+.step-dot.done{background:var(--green);color:#fff;border-color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,0.15);}
 .step-body{flex:1;padding-top:3px;min-width:0;}
 .step-title{font-size:14.5px;font-weight:600;letter-spacing:-.01em;margin-bottom:2px;}
 .step-title.locked{color:var(--text3);}
@@ -192,9 +194,9 @@ h1.page-h1{font-size:24px;font-weight:600;letter-spacing:-.02em;margin:0 0 4px;}
 .quiz-fb.correct{background:var(--green-bg);color:var(--green-text);}
 .quiz-fb.incorrect{background:var(--red-bg);color:var(--red-text);}
 .quiz-dots{display:flex;gap:6px;margin-bottom:16px;}
-.quiz-dot{width:8px;height:8px;border-radius:50%;background:var(--border-strong);}
-.quiz-dot.active{background:var(--accent);width:20px;border-radius:99px;}
-.quiz-dot.answered{background:var(--text3);}
+.quiz-dot{width:7px;height:11px;border-radius:50%;background:var(--border-strong);transition:all .2s;}
+.quiz-dot.active{background:var(--accent);width:22px;height:11px;border-radius:99px;box-shadow:0 0 8px rgba(184,146,106,0.35);}
+.quiz-dot.answered{background:var(--accent-dim);opacity:.6;}
 .stub-gate{background:var(--card-bg);border:.5px solid var(--border);border-radius:16px;padding:22px 24px;margin-top:26px;}
 .stub-check{display:flex;align-items:flex-start;gap:12px;cursor:pointer;padding:6px 0;}
 .stub-box{width:22px;height:22px;border:1.5px solid var(--border-strong);border-radius:6px;flex-shrink:0;position:relative;margin-top:1px;transition:all .15s;}
@@ -261,31 +263,120 @@ h1.page-h1{font-size:24px;font-weight:600;letter-spacing:-.02em;margin:0 0 4px;}
 ::-webkit-scrollbar{width:8px;height:8px;}
 ::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:99px;}
 
+/* ── RESPONSIVE / MOBILE ──────────────────────────────────────── */
+/* Base: shrink page side gutters on narrow screens */
+@media (max-width:600px){
+  .page-wrap{padding:0 16px;}
+}
+
+/* Login card: reduce padding on small screens */
+@media (max-width:480px){
+  .entry-card{padding:32px 20px 24px;}
+  .entry-title{font-size:22px;}
+  .brand-mark{width:40px;height:40px;font-size:18px;}
+}
+
+/* Nav header: stack or tighten on mobile */
+@media (max-width:540px){
+  .app-header{padding:14px 0 12px;gap:10px;}
+  .nav-brand{font-size:13.5px;}
+  .who-text{display:none;}           /* hide name/role text, keep sign-out btn */
+  .btn-signout{font-size:11px;padding:0 8px;}
+  .nav-logo{width:24px;height:24px;font-size:12px;}
+}
+
+/* Nav tabs: keep scrollable, shrink text on very small screens */
+@media (max-width:520px){
+  .nav-tab{font-size:12px;padding:8px 12px;gap:5px;}
+  .nav-tabs{padding:4px;gap:4px;}
+}
+
+/* Module reader: full width on mobile, no excess margin */
+@media (max-width:780px){
+  .module-page{max-width:100%;}
+}
+@media (max-width:600px){
+  .r-title{font-size:22px;}
+  .reader{font-size:14.5px;}
+  .quiz-q{font-size:15px;}
+  .quiz-opt{font-size:14px;padding:11px 13px;}
+  .mod-nav-row{flex-wrap:wrap;gap:8px;}
+  .mod-nav-row .btn{flex:1;min-width:120px;}
+}
+
+/* Admin table: wrap into scrollable container on mobile */
+@media (max-width:700px){
+  .admin-tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .admin-tbl{min-width:520px;}
+  .kpi-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:400px){
+  .kpi-grid{grid-template-columns:1fr 1fr;}
+  .kpi-val{font-size:22px;}
+}
+
+/* Field reference: checklist items, script cards, escalation table */
+@media (max-width:600px){
+  .tbl{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .checklist-head{padding:12px 14px;}
+  .script-card{padding:14px 14px;}
+  .tree-node{padding-left:12px;}
+}
+
+/* Resource cards: tighten on mobile */
+@media (max-width:520px){
+  .res-card{padding:12px 14px;gap:10px;}
+  .res-arrow{display:none;}
+}
+
+/* Stepper (learning path): tighten gap */
+@media (max-width:480px){
+  .step-row{gap:10px;}
+  .step-dot{width:26px;height:26px;font-size:11px;}
+  .step-title{font-size:13.5px;}
+}
+
+/* Hero box */
+@media (max-width:520px){
+  .hero-box{padding:18px 16px;}
+  .hero-title2{font-size:17px;}
+}
+
+/* Buttons: full width on narrow screens where they appear side-by-side */
+@media (max-width:420px){
+  .btn-sm{font-size:11px;padding:4px 9px;}
+}
+
+/* Prevent horizontal scroll on body */
+body{overflow-x:hidden;}
+
 </style>
 </head>
 <body>
 <script>
 
 // ── VERSION (MAJOR.MINOR.MMDDYY) ────────────────────────────────────────────
-const APP_VERSION = 'v0.1.0.090926-sesame';
+const APP_VERSION = 'v1.2.0.091126-sesame';
 
 // ── BACKEND CONFIG ───────────────────────────────────────────────────────────
-// DEMO MODE until real Power Automate URLs are pasted in below. Once wired,
-// see Sesame_Go_Live_Guide.md for the validation sequence to run before
-// trusting this for a real cohort.
+// LIVE as of this build -- these are Sesame's own GetDirectory/GetProgress/
+// SaveProgress flow URLs (cloned from Maple's). Not yet validated end-to-end
+// against a real Excel write -- see Sesame_Go_Live_Guide.md §2.5 for the
+// validation sequence to run before trusting this for a real cohort.
 const BACKEND = {
-  getDirectory:    'PASTE_YOUR_GET_DIRECTORY_URL_HERE',
-  getProgress:     'PASTE_YOUR_GET_PROGRESS_URL_HERE',
-  saveProgress:    'PASTE_YOUR_SAVE_PROGRESS_URL_HERE',
-  manageModerator: 'PASTE_YOUR_MANAGE_MODERATOR_URL_HERE'
+  getDirectory:    'https://default9b415834803a4da0afdcfe6b1d52d6.49.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/14/workflows/fdb5a8a0c8c448ebad5d761d2d8754b4/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=do487Ldpal9uCki2kE69ohD_kJhEJic9SP8SlK2QF5E',
+  getProgress:     'https://default9b415834803a4da0afdcfe6b1d52d6.49.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/31/workflows/cee6421ca60d4b00881b4dd6052fe0bc/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=1RpRN-7-3zWYezkaYW4x64xLBA-RLaKaj3x5fXVTi6M',
+  saveProgress:    'https://default9b415834803a4da0afdcfe6b1d52d6.49.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/15/workflows/9d932e319d104cc699d111c286a06cb0/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=suVLPsGMaxMQP-kFbcz7qEEgPMP_Dnhiiy63McDAp0U',
+  manageModerator: 'https://default9b415834803a4da0afdcfe6b1d52d6.49.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/03/workflows/1472a4710873485f954bbd04f8e9fd0d/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=PLG1A_dt7RIhS-Rm6CSBU1H3aJB7HAwd7cgZ4Ud3HMw'
 };
 const LIVE = /^https?:\/\//.test(BACKEND.getDirectory);
 
 // ── DATA ─────────────────────────────────────────────────────────────────────
-// FLAG BEFORE PRODUCTION DEPLOY: DEMO_DIRECTORY is intentionally left in for
-// now so this file is testable the moment it's handed over. Remove this
-// const before real moderators start using a live-wired build -- see
-// Sesame_Go_Live_Guide.md, "Before a real cohort logs in."
+// FLAG BEFORE PRODUCTION DEPLOY: DEMO_DIRECTORY and the "Demo accounts:" hint
+// on the login screen are intentionally left in for now (per direct
+// instruction) so this file is testable the moment it's handed over. Remove
+// both -- this const and the hint-line in renderLogin() -- before real
+// moderators start using a live-wired build. See Team_Handoff.md action items.
 const DEMO_DIRECTORY = [
   {name:'Test Moderator', email:'test.mod@centific.com', role:'moderator', cohort:'A', active:'yes'},
   {name:'Test Admin', email:'test.admin@centific.com', role:'admin', cohort:'', active:'yes'},
@@ -296,9 +387,6 @@ const MOD_QUESTIONS_DEFAULT = {"centific": [{"q": "Which best describes what Cen
 const FINAL_CHECK_DEFAULT = [{"q": "Before starting any capture, what must be confirmed?", "opts": ["Just that the camera is on", "All three devices (radar, camera, microphone) confirmed connected, with storage green", "That the participant has arrived", "That the Wi-Fi is fast enough"], "a": 1}, {"q": "Mid-capture, you need to reposition for the next view. What do you do?", "opts": ["Stop the sensors, move, and start again", "Move promptly while sensors keep recording, then mark the next episode", "Change rooms if it saves time", "Ask the participant to wait outside while you move"], "a": 1}, {"q": "Between T1 episodes in the same room, should you ever stop the sensors?", "opts": ["Yes, briefly, to save storage", "No — the recording continues; only the episode timestamps change", "Only if the room is empty", "Only during calibration"], "a": 1}, {"q": "What's the difference between C0 calibration motion and T1 pickup/carry/setdown?", "opts": ["They're the same thing, just labeled differently", "C0 is structured whole-platform motion for calibration; T1 pickup/carry is natural view relocation — one is not a substitute for the other", "C0 only happens in the last room", "T1 motion is scripted and C0 is not"], "a": 1}, {"q": "You're mid-ingestion and the app seems frozen. What do you do?", "opts": ["Force-quit the app and restart it immediately", "Wait and follow the troubleshooting steps from training — never force-quit during capture, finalization, or packaging", "Unplug the camera to reset the connection", "Restart the whole session from scratch"], "a": 1}, {"q": "Your transfer just reached 100%. Is the session complete?", "opts": ["Yes, 100% means done", "No — validation and packaging must also finish", "Only if it's the last room of the day", "Yes, but only for C0"], "a": 1}, {"q": "Can a moderator be seen or heard by the camera and microphone on Sesame?", "opts": ["No, moderators must always stay off-camera and silent", "Yes — the radar is the primary data source; video and audio exist to validate it", "Only the QA moderator, never the Primary", "Only during the calibration scenario"], "a": 1}, {"q": "A participant asks who the data is being collected for.", "opts": ["Name the client since they signed a consent form", "Say you're not able to share the client's name, and point to the consent form / project email", "Hint at the industry so they can work it out", "Tell them you have no idea"], "a": 1}, {"q": "A participant asks to see footage you just recorded of them.", "opts": ["Play it back on the spot since it's their session", "Explain you're keeping things moving to the next capture and route anything further to the project email", "Tell them it's illegal to show them", "Promise to send it later"], "a": 1}, {"q": "A participant appears to be under the influence. What's the correct move?", "opts": ["Proceed carefully and monitor them closely", "End the session outright — no reschedule offer, no discussion of payment or reasons — and notify your on-site lead after, from a safe location", "Ask them to wait until they seem more sober", "Reschedule for later the same day"], "a": 1}];
 const FINAL_CHECK_PASS_PCT = 80;
 const FINAL_CHECK_MAX_ATTEMPTS = 3;
-function finalAttemptsKey(email){ return 'sesame_final_attempts_' + email.toLowerCase(); }
-function getFinalAttempts(){ try{ return parseInt(localStorage.getItem(finalAttemptsKey(ME.email))||'0',10) || 0; }catch(e){ return 0; } }
-function incFinalAttempts(){ try{ const n = getFinalAttempts()+1; localStorage.setItem(finalAttemptsKey(ME.email), String(n)); return n; }catch(e){ return getFinalAttempts()+1; } }
 const TOTAL_MIN = 94;
 
 // ── CURRICULUM (editable quiz Q&A) ──────────────────────────────────────────
@@ -362,6 +450,7 @@ let ME = null;            // {email, name, role, loc, doneIds:Set, stubDone:Set,
 let CUR_MOD = null;       // index into MODULES when VIEW === 'module'
 let DIR = [];
 let COHORT = [];
+let moduleStartTimes = {};  // {moduleId: Date.now() timestamp when module was opened}
 let quizIdx = {};         // per moduleId: current question index while taking a quiz
 let quizAnswers = {};     // per moduleId: {qIdx: chosenOptionIndex}
 let stubChecked = {};     // per moduleId: bool, for stub-gated modules
@@ -370,6 +459,7 @@ let finalMode = 'idle';   // 'idle' | 'inprogress' | 'result'
 let finalIdx = 0, finalAnswers = {}, finalResult = null;
 let adminModal = null;    // email of moderator whose detail modal is open
 let adminFilter = 'all';
+let detailEmail = null;   // email of moderator open in detail view
 let LOCAL_MODS = [];  // locally added/edited moderators
 
 // ── LOCAL PERSISTENCE (per-email; UI-state convenience cache only) ──────────
@@ -397,6 +487,11 @@ function restoreLocalSession(email){
       quizAnswers = d.quizAnswers || {};
       stubChecked = d.stubChecked || {};
       checklistOpen = d.checklistOpen || {};
+      // Only keep quiz answers for modules the moderator has already completed.
+      // Incomplete modules should start fresh — not show prior session selections.
+      if(ME && ME.doneIds){
+        Object.keys(quizAnswers).forEach(id => { if(!ME.doneIds.has(id)) delete quizAnswers[id]; });
+      }
     }
     if(d.theme) document.documentElement.setAttribute('data-theme', d.theme);
   }catch(e){}
@@ -425,6 +520,9 @@ function normDirRow(u){
   };
 }
 let DATA_READY = false, _loadPromise = null;
+let adminLastRefresh = null;   // timestamp of last admin data fetch
+let adminPollTimer = null;     // setInterval handle for admin auto-refresh
+const ADMIN_POLL_MS = 60000;   // refresh every 60 s
 function loadData(){
   if(_loadPromise) return _loadPromise;
   _loadPromise = (async () => {
@@ -446,11 +544,41 @@ function loadData(){
   })();
   return _loadPromise;
 }
+// ── ADMIN AUTO-REFRESH ────────────────────────────────────────────────────────
+async function refreshAdminData(){
+  if(!LIVE){ adminLastRefresh = Date.now(); if(VIEW==='dash'||VIEW==='detail') renderView(); return; }
+  try{
+    const res = await Promise.all([apiGet(BACKEND.getDirectory), apiGet(BACKEND.getProgress)]);
+    DIR = res[0].map(normDirRow).filter(r => r.active !== 'no');
+    window._PROGRESS = res[1];
+    COHORT = DIR.filter(r=>r.role==='moderator').map(r => buildCohortRow(r));
+    mergeLocalMods();
+    adminLastRefresh = Date.now();
+    if(ROLE==='admin' && (VIEW==='dash'||VIEW==='detail')) renderView();
+  }catch(e){ console.warn('[Sesame] admin refresh failed:', e); }
+}
+function startAdminPoll(){
+  stopAdminPoll();
+  if(!LIVE) return;
+  adminPollTimer = setInterval(refreshAdminData, ADMIN_POLL_MS);
+}
+function stopAdminPoll(){
+  if(adminPollTimer){ clearInterval(adminPollTimer); adminPollTimer = null; }
+}
+async function adminRefreshBtn(){
+  const btn = document.getElementById('adminRefreshBtn');
+  if(btn){ btn.disabled = true; btn.textContent = '↻ Refreshing…'; }
+  await refreshAdminData();
+}
+
 async function saveProgress(moduleId, status, score){
   if(!LIVE || !/^https?:\/\//.test(BACKEND.saveProgress)) return;
   try{
+    const _dur = moduleStartTimes[moduleId]
+      ? Math.max(1, Math.round((Date.now() - moduleStartTimes[moduleId]) / 1000))
+      : null;
     const res = await fetch(BACKEND.saveProgress, {method:'POST', headers:{'Content-Type':'text/plain'},
-      body: JSON.stringify({email: ME.email, moduleId, status, score: (score==null?'':score)})});
+      body: JSON.stringify({email: ME.email, moduleId, status, score: (score==null?'':score), duration: _dur})});
     // Fire-and-forget by design (a failed save just means the moderator
     // re-does that checkbox next load) -- but DO log the HTTP status, since
     // fetch() only rejects on a network-level failure, never on a PA flow
@@ -487,7 +615,14 @@ function buildCohortRow(r){
   if(p.doneIds.size > 0) status = 'in_progress';
   if(p.doneIds.size >= totalReal && (p.finalScore === null || p.finalScore < FINAL_CHECK_PASS_PCT)) status = 'awaiting_final';
   if(certified) status = 'certified';
-  return {email:r.email, name:r.name, cohort:r.cohort, loc:r.loc, done:p.doneIds.size, finalScore:p.finalScore, status, certified};
+  const rawRows = (LIVE && window._PROGRESS)
+    ? window._PROGRESS.filter(pr => String(pr.Email||pr.email||'').toLowerCase() === r.email.toLowerCase())
+    : [];
+  const mods = MODULES.map(m => {
+    const prog = rawRows.find(pr => (pr.ModuleID||pr.moduleId) === m.id);
+    return {id: m.id, completed: prog ? String(prog.Status||prog.status||'')==='done' : false, score: prog ? Number(prog.Score||prog.score||0) : 0, duration: prog ? (Number(prog.Duration || prog.duration) || null) : null};
+  });
+  return {email:r.email, name:r.name, cohort:r.cohort, loc:r.loc, done:p.doneIds.size, finalScore:p.finalScore, status, certified, mods};
 }
 
 // ── GATING ───────────────────────────────────────────────────────────────────
@@ -518,6 +653,7 @@ async function doLogin(){
   startApp(rec.role);
 }
 function logout(){
+  stopAdminPoll();
   document.body.innerHTML = '';
   ME = null; ROLE = null;
   try{ localStorage.removeItem(LAST_LOGIN_KEY); }catch(e){}
@@ -538,11 +674,12 @@ function toast(m){
 // ── APP SHELL ────────────────────────────────────────────────────────────────
 function startApp(role){
   ROLE = role; VIEW = (role==='admin') ? 'dash' : 'path';
+  if(role==='admin'){ adminLastRefresh = Date.now(); startAdminPoll(); }
   document.body.innerHTML = `
     <div class="shell" id="shell">
       <div class="page-wrap">
         <div class="app-header">
-          <div class="nav-left"><div class="nav-logo">S</div><div class="nav-brand">Project Sesame <span>&middot; Onboarding</span></div></div>
+          <div class="nav-left"><div class="nav-logo"><svg width="15" height="15" viewBox="0 0 28 28" fill="none"><ellipse cx="14" cy="9" rx="4.2" ry="7" fill="white" opacity="0.96"/><ellipse cx="8" cy="19.5" rx="3.2" ry="5.2" fill="white" opacity="0.76" transform="rotate(-20 8 19.5)"/><ellipse cx="20" cy="19.5" rx="3.2" ry="5.2" fill="white" opacity="0.76" transform="rotate(20 20 19.5)"/></svg></div><div class="nav-brand">Project <strong style="color:var(--accent-ink);font-weight:600">Sesame</strong> <span>&middot; Onboarding</span></div></div>
           <div class="nav-right">
             <div class="who"><div class="who-text"><span id="userName"></span><br><span class="role-line" id="userMeta"></span></div></div>
             <button class="icon-btn" onclick="toggleTheme()" title="Theme">&#9680;</button>
@@ -571,7 +708,7 @@ function switchView(v){ VIEW = v; renderNavTabs(); renderView(); window.scrollTo
 function renderView(){
   const c = document.getElementById('content');
   if(VIEW==='mods'){ c.innerHTML='<div id="app"></div>'; vModerators(); return; }
-  const f = {path:vPath, field:vField, resources:vResources, module:vModule, dash:vDash, curriculum:vCurriculum}[VIEW];
+  const f = {path:vPath, field:vField, resources:vResources, module:vModule, dash:vDash, curriculum:vCurriculum, detail:vModDetail}[VIEW];
   c.innerHTML = f ? f() : '';
 }
 
@@ -580,7 +717,14 @@ function renderLogin(){
   document.body.innerHTML = `
   <div id="login">
     <div class="entry-card">
-      <div class="brand-mark">S</div>
+      <div class="brand-mark"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="14" cy="9" rx="4.2" ry="7" fill="white" opacity="0.96"/><ellipse cx="8" cy="19.5" rx="3.2" ry="5.2" fill="white" opacity="0.76" transform="rotate(-20 8 19.5)"/><ellipse cx="20" cy="19.5" rx="3.2" ry="5.2" fill="white" opacity="0.76" transform="rotate(20 20 19.5)"/></svg></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:5px;margin:0 auto 20px">
+        <div style="width:4px;height:7px;border-radius:50%;background:var(--accent);opacity:.3;transform:rotate(-22deg)"></div>
+        <div style="width:5px;height:8px;border-radius:50%;background:var(--accent);opacity:.5;transform:rotate(8deg)"></div>
+        <div style="width:5px;height:10px;border-radius:50%;background:var(--accent);opacity:.7;transform:rotate(-4deg)"></div>
+        <div style="width:5px;height:8px;border-radius:50%;background:var(--accent);opacity:.5;transform:rotate(12deg)"></div>
+        <div style="width:4px;height:7px;border-radius:50%;background:var(--accent);opacity:.3;transform:rotate(-18deg)"></div>
+      </div>
       <div class="eyebrow">CENTIFIC &middot; PROJECT SESAME</div>
       <div class="entry-title">Moderator Onboarding</div>
       <div class="entry-sub">Multimodal data capture &middot; Centific Las Vegas Lab.</div>
@@ -608,7 +752,7 @@ function vPath(){
       <div class="hero-sub2">All ${MODULES.length} modules complete and the final check passed at ${ME.finalScore}%. Your Project Manager will confirm your on-site training date.</div></div>`;
   } else if(allDoneNoFinal){
     hero = `<div class="hero-box"><div class="hero-title2">One step left, ${ME.name.split(' ')[0]}.</div>
-      <div class="hero-sub2">All ${MODULES.length} modules are complete. Pass the final check (${FINAL_CHECK_PASS_PCT}%, up to ${FINAL_CHECK_MAX_ATTEMPTS} attempts) to be cleared for on-site training.</div>
+      <div class="hero-sub2">All ${MODULES.length} modules are complete. Pass the final check (${FINAL_CHECK_PASS_PCT}%, unlimited retakes) to be cleared for on-site training.</div>
       <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
       <div class="progress-label">${doneCount} of ${total} modules complete</div>
       <button class="btn btn-primary" style="width:auto;margin-top:14px;" onclick="openFinalCheck()">Take the final check &rarr;</button></div>`;
@@ -642,7 +786,7 @@ function vPath(){
   ${hero}<div class="card"><div class="stepper">${steps}</div></div>`;
 }
 
-function openModule(i){ CUR_MOD = i; VIEW = 'module'; renderNavTabs(); renderView(); window.scrollTo(0,0); }
+function openModule(i){ CUR_MOD = i; if(!moduleStartTimes[MODULES[i].id]) moduleStartTimes[MODULES[i].id] = Date.now(); VIEW = 'module'; renderNavTabs(); renderView(); window.scrollTo(0,0); }
 function backToPath(){ VIEW='path'; renderNavTabs(); renderView(); window.scrollTo(0,0); }
 function continueFromModule(){
   if(CUR_MOD < MODULES.length-1){ openModule(CUR_MOD+1); }
@@ -721,7 +865,8 @@ function completeStub(id){
 // Same single-question view whether or not the module is already done --
 // once done, options just stop being clickable and the Finish button is
 // replaced with a "Completed" pill. Back/dot-jump navigation always works,
-// so reviewing past answers never expands into a big list.
+// so reviewing past answers never expands into a big list -- matches the
+// Maple pattern this was modeled on.
 function renderQuiz(m, done){
   const qs = getModQuestions(m.id);
   if(qs.length === 0){
@@ -781,20 +926,18 @@ function nextQuizQ(id, total){ quizIdx[id] = Math.min(total-1, (quizIdx[id]||0)+
 function prevQuizQ(id){ quizIdx[id] = Math.max(0, (quizIdx[id]||0)-1); renderView(); }
 function jumpQuizQ(id, i){ if(quizAnswers[id] && quizAnswers[id][i] !== undefined){ quizIdx[id] = i; renderView(); } }
 function completeQuiz(id){
+  const qs = getModQuestions(id);
+  const answers = quizAnswers[id] || {};
+  const correct = qs.filter((q,i) => answers[i] === q.a).length;
+  const pct = qs.length > 0 ? Math.round((correct / qs.length) * 100) : 0;
   ME.doneIds.add(id);
-  saveProgress(id, 'done', ''); // fire-and-forget
+  saveProgress(id, 'done', pct); // fire-and-forget
   toast('Module complete.');
   renderView();
 }
 
 // ── FINAL CHECK (score-gated certification exam) ────────────────────────────
-function openFinalCheck(){
-  if(!isCertified() && getFinalAttempts() >= FINAL_CHECK_MAX_ATTEMPTS){
-    toast('All 3 attempts used — your Project Manager will follow up to arrange next steps.');
-    return;
-  }
-  finalMode='inprogress'; finalIdx=0; finalAnswers={}; finalResult=null; VIEW='final'; renderNavTabsForFinal();
-}
+function openFinalCheck(){ finalMode='inprogress'; finalIdx=0; finalAnswers={}; finalResult=null; VIEW='final'; renderNavTabsForFinal(); }
 function renderNavTabsForFinal(){
   document.getElementById('content').innerHTML = vFinal();
   window.scrollTo(0,0);
@@ -802,24 +945,14 @@ function renderNavTabsForFinal(){
 function vFinal(){
   if(finalMode==='result'){
     const pass = finalResult.pct >= FINAL_CHECK_PASS_PCT;
-    const attemptsUsed = finalResult.attempts || getFinalAttempts();
-    const attemptsLeft = FINAL_CHECK_MAX_ATTEMPTS - attemptsUsed;
-    const exhausted = !pass && attemptsLeft <= 0;
-    let statusCallout;
-    if(pass){
-      statusCallout = `<div class="callout"><div class="c-ic">&#9733;</div><div class="c-tx">You're cleared for on-site training. Your Project Manager will confirm the date.</div></div>`;
-    } else if(exhausted){
-      statusCallout = `<div class="callout danger"><div class="c-ic">&#9888;</div><div class="c-tx"><strong>That was your third and final attempt.</strong> Your Project Manager will follow up directly to arrange a review or a retake — the app won't open a fourth attempt on its own.</div></div>`;
-    } else {
-      statusCallout = `<div class="callout warn"><div class="c-ic">&#9888;</div><div class="c-tx">Attempt ${attemptsUsed} of ${FINAL_CHECK_MAX_ATTEMPTS}. Review the modules above and try again — you have ${attemptsLeft} attempt${attemptsLeft===1?'':'s'} left.</div></div>`;
-    }
     return `<div class="module-page">
-      <div class="r-eyebrow">Final Check &middot; Attempt ${attemptsUsed} of ${FINAL_CHECK_MAX_ATTEMPTS}</div>
+      <div class="r-eyebrow">Final Check</div>
       <div class="r-title">${pass ? 'Passed' : 'Not yet'} &middot; ${finalResult.pct}%</div>
       <div class="r-sub">${finalResult.correct} of ${finalResult.total} correct &middot; ${FINAL_CHECK_PASS_PCT}% needed to pass</div>
-      ${statusCallout}
+      ${pass ? `<div class="callout"><div class="c-ic">&#9733;</div><div class="c-tx">You're cleared for on-site training. Your Project Manager will confirm the date.</div></div>`
+             : `<div class="callout warn"><div class="c-ic">&#9888;</div><div class="c-tx">No limit on retakes — review the modules above and try again whenever you're ready.</div></div>`}
       <button class="btn btn-secondary" style="width:auto;margin-top:14px;" onclick="backToPath()">Back to Learning Path</button>
-      ${(!pass && !exhausted)?'<button class="btn btn-primary" style="width:auto;margin-top:14px;margin-left:10px;" onclick="openFinalCheck()">Retake &rarr;</button>':''}
+      ${pass?'':'<button class="btn btn-primary" style="width:auto;margin-top:14px;margin-left:10px;" onclick="openFinalCheck()">Retake &rarr;</button>'}
     </div>`;
   }
   const q = FINAL_CHECK[finalIdx];
@@ -859,8 +992,7 @@ function submitFinal(){
   let correct=0;
   FINAL_CHECK.forEach((q,i)=>{ if(finalAnswers[i]===q.a) correct++; });
   const pct = Math.round((correct/FINAL_CHECK.length)*100);
-  const attempts = incFinalAttempts();
-  finalResult = {correct, total: FINAL_CHECK.length, pct, attempts};
+  finalResult = {correct, total: FINAL_CHECK.length, pct};
   ME.finalScore = pct;
   saveProgress('final_check', 'done', pct); // fire-and-forget
   finalMode = 'result';
@@ -931,32 +1063,137 @@ function vDash(){
   const certified = COHORT.filter(c=>c.status==='certified').length;
   const inProgress = COHORT.filter(c=>c.status==='in_progress').length;
   const awaitingFinal = COHORT.filter(c=>c.status==='awaiting_final').length;
+  const completionTimes = COHORT.flatMap(r =>
+    (r.mods||[]).filter(m => m.duration && m.duration > 0).map(m => m.duration)
+  );
+  const avgTime = completionTimes.length
+    ? fmtDur(Math.round(completionTimes.reduce((a,b)=>a+b,0)/completionTimes.length))
+    : '—';
   const filtered = COHORT.filter(c => adminFilter==='all' ? true : c.status===adminFilter);
   const rows = filtered.map(c => {
     const pct = Math.round((c.done/MODULES.length)*100);
     const pillMap = {not_started:['pill-gray','Not started'], in_progress:['pill-blue','In progress'], awaiting_final:['pill-amber','Awaiting final check'], certified:['pill-green','Certified']};
     const [pc,pt] = pillMap[c.status];
-    return `<tr>
+    const totalSec = (c.mods||[]).reduce((s,m)=>s+(Number(m.duration)||0),0);
+    return `<tr style="cursor:pointer" onclick="openModDetail('${c.email}')" title="View ${c.name}'s progress">
       <td><div class="mod-row-name"><div class="mod-avatar">${c.name.charAt(0)}</div><div><div style="font-weight:600;">${c.name}</div><div style="font-size:11.5px;color:var(--text3);">${c.email}</div></div></div></td>
       <td>${c.done} / ${MODULES.length} (${pct}%)</td>
       <td>${c.finalScore===null?'—':c.finalScore+'%'}</td>
       <td><span class="pill ${pc}">${pt}</span></td>
+      <td>${totalSec > 0 ? fmtDur(totalSec) : '—'}</td>
     </tr>`;
   }).join('');
-  return `<h1 class="page-h1">Cohort Dashboard</h1><p class="page-sub">Sesame moderators &middot; onboarding progress</p>
+  const nowTs = Date.now();
+  const diffSec = adminLastRefresh ? Math.round((nowTs - adminLastRefresh) / 1000) : null;
+  const lastUpdStr = diffSec === null ? '' : diffSec < 5 ? 'just now' : diffSec < 60 ? diffSec + 's ago' : Math.floor(diffSec/60) + 'min ago';
+  return `<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:2px">
+    <h1 class="page-h1" style="margin:0">Cohort Dashboard</h1>
+    <span style="margin-left:auto;font-size:12px;color:var(--text3)">${lastUpdStr ? 'Updated ' + lastUpdStr : ''}</span>
+    <button id="adminRefreshBtn" class="btn-ghost" onclick="adminRefreshBtn()" style="padding:4px 10px;font-size:12px;border-radius:7px" title="Fetch latest data from Excel">&#8635; Refresh</button>
+  </div>
+  <p class="page-sub" style="margin-top:4px">Sesame moderators &middot; onboarding progress</p>
   <div class="kpi-grid">
     <div class="kpi-card"><div class="kpi-val">${total}</div><div class="kpi-lbl">Enrolled</div></div>
     <div class="kpi-card"><div class="kpi-val">${inProgress}</div><div class="kpi-lbl">In progress</div></div>
     <div class="kpi-card"><div class="kpi-val">${awaitingFinal}</div><div class="kpi-lbl">Awaiting final check</div></div>
     <div class="kpi-card"><div class="kpi-val">${certified}</div><div class="kpi-lbl">Certified</div></div>
+    <div class="kpi-card"><div class="kpi-val">${avgTime}</div><div class="kpi-label">Avg. Completion Time</div></div>
   </div>
   <div class="filter-row">
     ${[['all','All'],['in_progress','In progress'],['awaiting_final','Awaiting final'],['certified','Certified']].map(([k,l])=>
       `<button class="filter-chip${adminFilter===k?' active':''}" onclick="setAdminFilter('${k}')">${l}</button>`).join('')}
   </div>
-  <div class="card"><table class="admin-tbl"><tr><th>Moderator</th><th>Modules</th><th>Final check</th><th>Status</th></tr>${rows||'<tr><td colspan="4" style="color:var(--text3);">No moderators match this filter.</td></tr>'}</table></div>`;
+  <div class="card"><div class="admin-tbl-wrap"><table class="admin-tbl"><tr><th>Moderator</th><th>Modules</th><th>Final check</th><th>Status</th><th>Time</th></tr>${rows||'<tr><td colspan="5" style="color:var(--text3);">No moderators match this filter.</td></tr>'}</table></div></div>`;
+}
+function fmtDur(secs){
+  if(!secs || secs <= 0) return '';
+  const m = Math.floor(secs / 60);
+  const s = secs % 60;
+  if(m === 0) return s + 's';
+  return s > 0 ? m + 'm ' + s + 's' : m + 'm';
 }
 function setAdminFilter(f){ adminFilter=f; renderView(); }
+function openModDetail(email){ detailEmail=email; VIEW='detail'; renderView(); }
+
+// ── MODERATOR DETAIL VIEW ────────────────────────────────────────────────────
+function vModDetail(){
+  const c = COHORT.find(r => r.email === detailEmail);
+  if(!c) return `<p>Moderator not found.</p>`;
+  const pillMap = {not_started:['pill-gray','Not started'], in_progress:['pill-blue','In progress'], awaiting_final:['pill-amber','Awaiting final check'], certified:['pill-green','Certified']};
+  const [pc,pt] = pillMap[c.status];
+  const totalSec = (c.mods||[]).reduce((s,m)=>s+(Number(m.duration)||0),0);
+  const pct = Math.round((c.done/MODULES.length)*100);
+  const modRows = MODULES.map((m,i) => {
+    const prog = (c.mods||[]).find(p=>p.id===m.id) || {completed:false, score:0, duration:null};
+    const done = prog.completed;
+    const dur = prog.duration ? `<span style="color:var(--text3);font-size:.8rem;margin-left:6px;">${fmtDur(Number(prog.duration))}</span>` : '';
+    const scoreTag = (prog.score && prog.score > 0) ? `<span class="pill pill-blue" style="margin-left:8px;font-size:.75rem;">${prog.score}% quiz</span>` : '';
+    const action = done
+      ? `<span style="color:var(--accent);font-size:1.1rem;">&#10003;</span>`
+      : `<button class="btn-sm" onclick="grantModCredit('${c.email}','${m.id}',\`${m.title.replace(/`/g,"'")}\`)">Grant completion</button>`;
+    return `<tr style="border-top:1px solid var(--border)">
+      <td style="width:32px;text-align:center;font-size:1.15rem;padding:13px 6px 13px 0">${m.ic}</td>
+      <td style="padding:13px 10px">${done?m.title:`<span style="color:var(--text2)">${m.title}</span>`}${scoreTag}${dur}</td>
+      <td style="text-align:right;padding:13px 0 13px 10px;white-space:nowrap">${action}</td>
+    </tr>`;
+  }).join('');
+  return `
+  <div style="max-width:700px;margin:0 auto">
+    <button class="btn-ghost" onclick="VIEW='dash';renderView()" style="margin-bottom:18px">&#8592; Back to dashboard</button>
+    <div class="card" style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:16px">
+      <div class="mod-avatar" style="width:52px;height:52px;font-size:1.4rem">${c.name.charAt(0)}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:700;font-size:1.1rem">${c.name}</div>
+        <div style="color:var(--text3);font-size:.85rem">${c.email}${c.cohort?' &middot; Cohort '+c.cohort:''}</div>
+      </div>
+      <span class="pill ${pc}">${pt}</span>
+      ${totalSec>0?`<span style="font-size:.85rem;color:var(--text2)">${fmtDur(totalSec)} total</span>`:''}
+    </div>
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:.85rem;color:var(--text3)">Modules completed</span>
+        <span style="font-weight:600">${c.done} / ${MODULES.length}</span>
+      </div>
+      <div style="height:6px;background:var(--bg3);border-radius:99px;overflow:hidden">
+        <div style="height:100%;width:${pct}%;background:var(--accent);border-radius:99px;transition:width .3s"></div>
+      </div>
+      ${c.finalScore!==null?`<div style="margin-top:8px;font-size:.82rem;color:var(--text2)">Final check: ${c.finalScore}%</div>`:''}
+    </div>
+    <div class="card">
+      <h3 style="font-size:.9rem;font-weight:600;margin:0 0 12px;color:var(--text2)">Module progress</h3>
+      <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table style="width:100%;min-width:320px;border-collapse:collapse">
+        <colgroup><col style="width:32px"><col><col style="width:150px"></colgroup>
+        ${modRows}
+      </table>
+      </div>
+    </div>
+  </div>`;
+}
+
+async function grantModCredit(email, moduleId, moduleTitle){
+  const c = COHORT.find(r=>r.email===email);
+  const name = c ? c.name : email;
+  if(!confirm(`Grant completion for "${moduleTitle}" to ${name}?`)) return;
+  // Always update in-memory immediately so the UI reflects it at once
+  const upsertProgress = (arr) => {
+    const existing = arr.find(p=>(p.Email||p.email||'').toLowerCase()===email.toLowerCase() && (p.ModuleID||p.moduleId)===moduleId);
+    if(existing){ existing.Status='done'; existing.status='done'; }
+    else{ arr.push({Email:email, ModuleID:moduleId, Status:'done', Score:'', Duration:null}); }
+  };
+  if(!window._PROGRESS) window._PROGRESS = [];
+  upsertProgress(window._PROGRESS);
+  COHORT = DIR.filter(r=>r.role==='moderator').map(r => buildCohortRow(r));
+  renderView();
+  if(LIVE){
+    try{
+      await fetch(BACKEND.saveProgress, {method:'POST', headers:{'Content-Type':'text/plain'},
+        body: JSON.stringify({email, moduleId, status:'done', score:'', duration:null})});
+    }catch(e){ console.error('[Sesame] grantModCredit failed',e); }
+  } else {
+    toast(`Demo: granted "${moduleTitle}" to ${name}`);
+  }
+}
 
 function vCurriculum(){
   const rows = MODULES.map((m,i) => {
@@ -981,7 +1218,7 @@ function vCurriculum(){
   <div class="res-card" style="cursor:default;flex-direction:column;align-items:stretch;margin-top:6px;">
     <div style="display:flex;align-items:center;gap:14px;">
       <div class="res-ic">&#127919;</div>
-      <div class="res-tx" style="flex:1;"><h4>Final Check <span class="pill pill-green" style="margin-left:6px;">${FINAL_CHECK.length} of 10 live</span></h4><p>${FINAL_CHECK_PASS_PCT}% to pass &middot; ${FINAL_CHECK_MAX_ATTEMPTS} attempts, then your Project Manager follows up directly</p></div>
+      <div class="res-tx" style="flex:1;"><h4>Final Check <span class="pill pill-blue" style="margin-left:6px;">${FINAL_CHECK.length} of 10 planned</span></h4><p>${FINAL_CHECK_PASS_PCT}% to pass &middot; unlimited retakes &middot; 4 more held pending policy decisions</p></div>
       <button class="btn btn-ghost" onclick="toggleCurriculumEdit('final')">${finalOpen?'Hide':'Edit'} questions</button>
     </div>
     ${finalOpen ? `<div style="margin-top:14px;">${FINAL_CHECK.map((q,qi)=>renderEditableQuestion('final', qi, q)).join('')}</div>` : ''}
@@ -1012,7 +1249,7 @@ async function submitManageModerator(payload){
   try{
     await fetch(BACKEND.manageModerator, {
       method:'POST',
-      headers:{'Content-Type':'text/plain'},
+      headers:{'Content-Type':'application/json'},
       body: JSON.stringify(payload)
     });
   }catch(e){ console.warn('[Sesame] ManageModerator PA call failed (non-blocking)', e); }
@@ -1027,7 +1264,7 @@ function addModeratorInApp(name, email, cohort){
   if(li >= 0){ localArr[li] = entry; } else { localArr.push(entry); }
   saveLocalMods(localArr);
   COHORT = DIR.filter(r=>r.role==='moderator').map(r=>buildCohortRow(r));
-  submitManageModerator({action:'add', name, email:email.toLowerCase(), cohort});
+  submitManageModerator({action:'add', name, email:email.toLowerCase(), role:'moderator', cohort, active:'yes'});
   showToast('Moderator added ✓');
   renderView();
 }
