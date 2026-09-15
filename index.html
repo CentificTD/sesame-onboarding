@@ -188,6 +188,7 @@ h1.page-h1{font-size:24px;font-weight:600;letter-spacing:-.02em;margin:0 0 4px;}
 .quiz-opt{display:block;width:100%;text-align:left;padding:13px 15px;border-radius:12px;border:1px solid var(--border-strong);margin-bottom:9px;font-size:14.5px;color:var(--text);background:var(--bg2);transition:all .15s;}
 .quiz-opt:hover{border-color:var(--accent);}
 .quiz-opt.picked{border-color:var(--accent);background:var(--accent-soft);}
+.quiz-opt.picked{border-color:var(--accent);background:var(--accent-soft);color:var(--text);font-weight:600;}
 .quiz-opt.correct{border-color:var(--green);background:var(--green-bg);color:var(--green-text);}
 .quiz-opt.incorrect{border-color:var(--red);background:var(--red-bg);color:var(--red-text);}
 .quiz-fb{font-size:13.5px;line-height:1.55;margin-top:10px;padding:12px 14px;border-radius:10px;background:var(--bg3);color:var(--text2);font-weight:600;}
@@ -367,7 +368,9 @@ const BACKEND = {
   getDirectory:    'https://default9b415834803a4da0afdcfe6b1d52d6.49.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/14/workflows/fdb5a8a0c8c448ebad5d761d2d8754b4/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=do487Ldpal9uCki2kE69ohD_kJhEJic9SP8SlK2QF5E',
   getProgress:     'https://default9b415834803a4da0afdcfe6b1d52d6.49.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/31/workflows/cee6421ca60d4b00881b4dd6052fe0bc/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=1RpRN-7-3zWYezkaYW4x64xLBA-RLaKaj3x5fXVTi6M',
   saveProgress:    'https://default9b415834803a4da0afdcfe6b1d52d6.49.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/15/workflows/9d932e319d104cc699d111c286a06cb0/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=suVLPsGMaxMQP-kFbcz7qEEgPMP_Dnhiiy63McDAp0U',
-  manageModerator: 'https://default9b415834803a4da0afdcfe6b1d52d6.49.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/03/workflows/1472a4710873485f954bbd04f8e9fd0d/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=PLG1A_dt7RIhS-Rm6CSBU1H3aJB7HAwd7cgZ4Ud3HMw'
+  manageModerator: 'https://default9b415834803a4da0afdcfe6b1d52d6.49.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/03/workflows/1472a4710873485f954bbd04f8e9fd0d/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=PLG1A_dt7RIhS-Rm6CSBU1H3aJB7HAwd7cgZ4Ud3HMw',
+  getCurriculum:   'https://default9b415834803a4da0afdcfe6b1d52d6.49.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/30/workflows/9e062af57b4548d99341ec4387bc5366/triggers/manual/paths/invoke?api-version=1',
+  saveCurriculum:  'https://default9b415834803a4da0afdcfe6b1d52d6.49.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/28/workflows/1f3009a551ea4786b6fa7dc03be7bd05/triggers/manual/paths/invoke?api-version=1'
 };
 const LIVE = /^https?:\/\//.test(BACKEND.getDirectory);
 
@@ -400,7 +403,19 @@ let MOD_QUESTIONS = JSON.parse(JSON.stringify(MOD_QUESTIONS_DEFAULT));
 let FINAL_CHECK = JSON.parse(JSON.stringify(FINAL_CHECK_DEFAULT));
 function getModQuestions(id){ return MOD_QUESTIONS[id] || []; }
 
-function loadCurriculumOverrides(){
+async function loadCurriculumOverrides(){
+  // Try PA first (shared curriculum), fall back to localStorage (last local save)
+  if(BACKEND.getCurriculum){
+    try{
+      const r = await fetch(BACKEND.getCurriculum);
+      if(r.ok){
+        const saved = await r.json();
+        if(saved.modQuestions) MOD_QUESTIONS = saved.modQuestions;
+        if(saved.finalCheck)   FINAL_CHECK   = saved.finalCheck;
+        return; // PA loaded — skip localStorage fallback
+      }
+    }catch(e){ console.warn('[Sesame] GetCurriculum PA fetch failed, using local', e); }
+  }
   try{
     const raw = localStorage.getItem('sesame_curriculum_v1');
     if(!raw) return;
@@ -410,7 +425,16 @@ function loadCurriculumOverrides(){
   }catch(e){}
 }
 function saveCurriculumOverrides(){
-  try{ localStorage.setItem('sesame_curriculum_v1', JSON.stringify({modQuestions: MOD_QUESTIONS, finalCheck: FINAL_CHECK})); }catch(e){}
+  const payload = JSON.stringify({modQuestions: MOD_QUESTIONS, finalCheck: FINAL_CHECK});
+  try{ localStorage.setItem('sesame_curriculum_v1', payload); }catch(e){}
+  // Also persist to SharePoint via PA when available
+  if(LIVE && BACKEND.saveCurriculum){
+    fetch(BACKEND.saveCurriculum, {method:'POST', headers:{'Content-Type':'text/plain'}, body: payload})
+      .then(()=>{ toast('Curriculum saved ✓'); })
+      .catch(e=>{ console.warn('[Sesame] SaveCurriculum PA call failed', e); toast('Saved locally (PA sync failed)'); });
+  } else if(!LIVE){
+    toast('Saved locally (PA not connected in demo mode)');
+  }
 }
 function resetCurriculum(){
   try{ localStorage.removeItem('sesame_curriculum_v1'); }catch(e){}
@@ -418,8 +442,6 @@ function resetCurriculum(){
   FINAL_CHECK   = JSON.parse(JSON.stringify(FINAL_CHECK_DEFAULT));
   renderView();
 }
-function curriculumArrFor(scope){ return scope==='final' ? FINAL_CHECK : (MOD_QUESTIONS[scope] || []); }
-
 function curriculumArrFor(scope){ return scope==='final' ? FINAL_CHECK : (MOD_QUESTIONS[scope.split(':')[1]] || []); }
 function editQuestionText(scope, idx, value){ curriculumArrFor(scope)[idx].q = value; saveCurriculumOverrides(); }
 function editCorrectAnswer(scope, idx, oi){ curriculumArrFor(scope)[idx].a = oi; saveCurriculumOverrides(); renderView(); }
@@ -458,6 +480,11 @@ let quizIdx = {};         // per moduleId: current question index while taking a
 let quizAnswers = {};     // per moduleId: {qIdx: chosenOptionIndex} -- ONLY ever holds the CORRECT pick, once found
 let quizWrongPick = {};   // per "moduleId:qIdx": the most recent incorrect pick, cleared once answered correctly
 let stubChecked = {};     // per moduleId: bool, for stub-gated modules
+let moduleAttemptScores = {}; // {moduleId: [score1, score2, ...]} — all attempt scores per module
+let moduleRetrying = {};      // {moduleId: bool} — retrying flag so quiz renders interactive even if done
+let finalAttemptScores = [];  // [score1, score2, ...] — final check attempt scores
+let finalShuffleMap = null;   // {qIdx: [origOptIdx, ...]} — visual slot → original opt index, generated per attempt
+let finalAnswerLog = [];      // [{answers:{qIdx:origOptIdx}, shuffleMap, score, pct}] — per-attempt log for review
 let checklistOpen = {};   // Field Reference accordion open state
 let finalMode = 'idle';   // 'idle' | 'inprogress' | 'result'
 let finalIdx = 0, finalAnswers = {}, finalResult = null;
@@ -472,7 +499,8 @@ function persistLocal(){
   if(!ME) return;
   try{
     localStorage.setItem(sessionKeyFor(ME.email), JSON.stringify({
-      quizAnswers, stubChecked, checklistOpen, theme: document.documentElement.getAttribute('data-theme')
+      quizAnswers, stubChecked, checklistOpen, moduleAttemptScores, finalAttemptScores, finalAnswerLog,
+      theme: document.documentElement.getAttribute('data-theme')
     }));
   }catch(e){}
 }
@@ -491,6 +519,9 @@ function restoreLocalSession(email){
       quizAnswers = d.quizAnswers || {};
       stubChecked = d.stubChecked || {};
       checklistOpen = d.checklistOpen || {};
+      moduleAttemptScores = d.moduleAttemptScores || {};
+      finalAttemptScores = d.finalAttemptScores || [];
+      finalAnswerLog = d.finalAnswerLog || [];
       // Only keep quiz answers for modules the moderator has already completed.
       // Incomplete modules should start fresh — not show prior session selections.
       if(ME && ME.doneIds){
@@ -581,8 +612,10 @@ async function saveProgress(moduleId, status, score){
     const _dur = moduleStartTimes[moduleId]
       ? Math.max(1, Math.round((Date.now() - moduleStartTimes[moduleId]) / 1000))
       : null;
+    const attemptNum = (moduleAttemptScores[moduleId] || []).length;
+    const retryCount = Math.max(0, attemptNum - 1);
     const res = await fetch(BACKEND.saveProgress, {method:'POST', headers:{'Content-Type':'text/plain'},
-      body: JSON.stringify({email: ME.email, moduleId, status, score: (score==null?'':score), duration: _dur})});
+      body: JSON.stringify({email: ME.email, moduleId, status, score: (score==null?'':score), duration: _dur, attemptNum: attemptNum || 1, retryCount})});
     // Fire-and-forget by design (a failed save just means the moderator
     // re-does that checkbox next load) -- but DO log the HTTP status, since
     // fetch() only rejects on a network-level failure, never on a PA flow
@@ -623,10 +656,36 @@ function buildCohortRow(r){
     ? window._PROGRESS.filter(pr => String(pr.Email||pr.email||'').toLowerCase() === r.email.toLowerCase())
     : [];
   const mods = MODULES.map(m => {
-    const prog = rawRows.find(pr => (pr.ModuleID||pr.moduleId) === m.id);
-    return {id: m.id, completed: prog ? String(prog.Status||prog.status||'')==='done' : false, score: prog ? Number(prog.Score||prog.score||0) : 0, duration: prog ? (Number(prog.Duration || prog.duration) || null) : null};
+    const modRows = rawRows.filter(pr => (pr.ModuleID||pr.moduleId) === m.id)
+      .sort((a,b) => Number(a.AttemptNum||a.attemptNum||1) - Number(b.AttemptNum||b.attemptNum||1));
+    const latestRow = modRows[modRows.length - 1];
+    const allScores = modRows.map(r2 => Number(r2.Score||r2.score||0));
+    const bestScore = allScores.length ? Math.max(...allScores) : 0;
+    return {
+      id: m.id,
+      completed: latestRow ? String(latestRow.Status||latestRow.status||'') === 'done' : false,
+      score: bestScore, latestScore: latestRow ? Number(latestRow.Score||latestRow.score||0) : 0,
+      duration: latestRow ? (Number(latestRow.Duration||latestRow.duration)||null) : null,
+      retryCount: Math.max(0, modRows.length - 1),
+      attempts: modRows.map(row => ({
+        attemptNum: Number(row.AttemptNum||row.attemptNum||1),
+        score: Number(row.Score||row.score||0),
+        duration: Number(row.Duration||row.duration)||null
+      }))
+    };
   });
-  return {email:r.email, name:r.name, cohort:r.cohort, loc:r.loc, done:p.doneIds.size, finalScore:p.finalScore, status, certified, mods};
+  // Aggregate final check attempts
+  const fcRows = rawRows.filter(pr => (pr.ModuleID||pr.moduleId) === 'final_check')
+    .sort((a,b) => Number(a.AttemptNum||a.attemptNum||1) - Number(b.AttemptNum||b.attemptNum||1));
+  const fcAttempts = fcRows.map(row => ({
+    attemptNum: Number(row.AttemptNum||row.attemptNum||1),
+    score: Number(row.Score||row.score||0),
+    duration: Number(row.Duration||row.duration)||null
+  }));
+  const fcBest = fcAttempts.length ? Math.max(...fcAttempts.map(a => a.score)) : null;
+  return {email:r.email, name:r.name, cohort:r.cohort, loc:r.loc, done:p.doneIds.size,
+    finalScore: p.finalScore !== null ? p.finalScore : (fcBest !== null ? fcBest : null),
+    status, certified, mods, fcAttempts};
 }
 
 // ── GATING ───────────────────────────────────────────────────────────────────
@@ -712,7 +771,7 @@ function switchView(v){ VIEW = v; renderNavTabs(); renderView(); window.scrollTo
 function renderView(){
   const c = document.getElementById('content');
   if(VIEW==='mods'){ c.innerHTML='<div id="app"></div>'; vModerators(); return; }
-  const f = {path:vPath, field:vField, resources:vResources, module:vModule, dash:vDash, curriculum:vCurriculum, detail:vModDetail}[VIEW];
+  const f = {path:vPath, field:vField, resources:vResources, module:vModule, dash:vDash, curriculum:vCurriculum, detail:vModDetail, review:vReview}[VIEW];
   c.innerHTML = f ? f() : '';
 }
 
@@ -871,6 +930,8 @@ function completeStub(id){
 // shown which option was correct. Once done, options render as frozen,
 // non-interactive divs so reviewing never changes what was submitted.
 function renderQuiz(m, done){
+  const retrying = !!moduleRetrying[m.id];
+  if(retrying) done = false; // override: render interactive even if module is done
   const qs = getModQuestions(m.id);
   if(qs.length === 0){
     // safety net: a real module with no quiz defined yet behaves like a stub
@@ -884,7 +945,9 @@ function renderQuiz(m, done){
   const correctPick = quizAnswers[m.id][idx]; // undefined until they get it right
   const answeredCorrectly = correctPick !== undefined;
   const justWrong = quizWrongPick[wrongKey];
+  const correct = qs.filter((q2,i) => quizAnswers[m.id][i] === q2.a).length;
   const allAnswered = qs.every((_,i)=> quizAnswers[m.id][i] !== undefined);
+  const retryBtn = (done && !retrying) ? `<button class="btn btn-ghost" onclick="retryModuleQuiz('${m.id}')" style="width:auto;margin-top:14px;">&#8635; Retry quiz</button>` : '';
   const dots = qs.map((_,i)=>{
     const ans = quizAnswers[m.id][i] !== undefined;
     return `<div class="quiz-dot${i===idx?' active':''}${ans?' answered':''}"${ans?` onclick="jumpQuizQ('${m.id}',${i})" style="cursor:pointer;"`:''}></div>`;
@@ -910,6 +973,10 @@ function renderQuiz(m, done){
   } else if(done){
     fb = `<div class="quiz-fb">Answer not available to review on this device.</div>`;
   }
+  // Build attempt history line
+  const pastScores = moduleAttemptScores[m.id] || [];
+  const attemptHistoryHtml = pastScores.length > 0
+    ? `<div style="font-size:12px;color:var(--text3);margin-top:8px;">Past attempts: ${pastScores.map((s,i)=>`<span style="margin-right:6px;">Attempt ${i+1}: <strong style="color:var(--text);">${s}%</strong></span>`).join('')}</div>` : '';
   const backBtn = idx > 0 ? `<button class="btn btn-ghost" style="width:auto;margin-top:14px;margin-right:8px;" onclick="prevQuizQ('${m.id}')">&larr; Back</button>` : '';
   let nav;
   if(done){
@@ -924,12 +991,19 @@ function renderQuiz(m, done){
   const progressLine = done
     ? `<div class="quiz-progress">Knowledge check &middot; question ${idx+1} of ${qs.length} &middot; <span style="color:var(--green-text);font-weight:600;">&#10003; Completed</span></div>`
     : `<div class="quiz-progress">Knowledge check &middot; question ${idx+1} of ${qs.length}</div>`;
+  const scoreFooter = (allAnswered || done)
+    ? `<div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:.5px solid var(--border);">
+        <span style="font-size:13px;color:var(--text2);">Quiz score: <strong style="color:var(--accent-ink);">${correct}/${qs.length}</strong></span>
+        ${retryBtn}
+      </div>
+      ${attemptHistoryHtml}` : '';
   return `<div class="quiz-card">
     ${progressLine}
     <div class="quiz-dots">${dots}</div>
     <div class="quiz-q">${q.q}</div>
     ${opts}${fb}
     <div style="display:flex;gap:8px;flex-wrap:wrap;">${backBtn}${nav}</div>
+    ${scoreFooter}
   </div>`;
 }
 function answerQuiz(id, qi, oi){
@@ -953,10 +1027,61 @@ function completeQuiz(id){
   const answers = quizAnswers[id] || {};
   const correct = qs.filter((q,i) => answers[i] === q.a).length;
   const pct = qs.length > 0 ? Math.round((correct / qs.length) * 100) : 0;
+  if(!moduleAttemptScores[id]) moduleAttemptScores[id] = [];
+  moduleAttemptScores[id].push(pct);
+  delete moduleRetrying[id];
   ME.doneIds.add(id);
+  persistLocal();
   saveProgress(id, 'done', pct); // fire-and-forget
-  toast('Module complete.');
+  toast('Module complete. ✓');
   renderView();
+}
+function retryModuleQuiz(id){
+  // Clear quiz state for this module so it renders fresh — module stays done (still unlocks next)
+  if(!moduleAttemptScores[id]) moduleAttemptScores[id] = [];
+  quizAnswers[id] = {};
+  Object.keys(quizWrongPick).forEach(k => { if(k.startsWith(id+':')) delete quizWrongPick[k]; });
+  quizIdx[id] = 0;
+  moduleRetrying[id] = true;
+  persistLocal();
+  renderView();
+}
+
+// ── ANSWER REVIEW PAGE (post-final-check, shows correct answers) ────────────
+function vReview(){
+  const log = finalAnswerLog[finalAnswerLog.length - 1];
+  if(!log){ return `<div class="module-page"><p>No review data available.</p><button class="btn btn-secondary" style="width:auto;margin-top:14px;" onclick="finalMode='result';VIEW='final';renderNavTabsForFinal()">Back</button></div>`; }
+  const {answers, shuffleMap, pct} = log;
+  const rows = FINAL_CHECK.map((q, qi) => {
+    const slots = (shuffleMap && shuffleMap[qi]) ? shuffleMap[qi] : q.opts.map((_,i)=>i);
+    const userOrigOi = answers[qi]; // original opt index the user chose
+    const correctOrigOi = q.a;
+    const optHtml = slots.map((origOi, visualSlot) => {
+      const isUserPick = origOi === userOrigOi;
+      const isCorrect = origOi === correctOrigOi;
+      let cls = 'quiz-opt'; let badge = '';
+      if(isCorrect){ cls += ' correct'; badge = ' <span style="font-size:11px;font-weight:700;color:var(--green-text);">(correct)</span>'; }
+      if(isUserPick && !isCorrect){ cls += ' incorrect'; badge = ' <span style="font-size:11px;font-weight:700;color:var(--red-text);">(your answer)</span>'; }
+      if(isUserPick && isCorrect){ badge = ' <span style="font-size:11px;font-weight:700;color:var(--green-text);">(your answer ✓)</span>'; }
+      return `<div class="${cls}" style="cursor:default;margin-bottom:7px;">${q.opts[origOi]}${badge}</div>`;
+    }).join('');
+    const icon = userOrigOi === correctOrigOi ? '&#10003;' : '&#10007;';
+    const iconColor = userOrigOi === correctOrigOi ? 'var(--green-text)' : 'var(--red-text)';
+    return `<div class="quiz-card" style="margin-bottom:14px;">
+      <div class="quiz-progress">Question ${qi+1} of ${FINAL_CHECK.length} <span style="font-size:16px;font-weight:700;color:${iconColor};margin-left:6px;">${icon}</span></div>
+      <div class="quiz-q">${q.q}</div>
+      ${optHtml}
+    </div>`;
+  }).join('');
+  return `<div class="module-page">
+    <div class="r-eyebrow">Final Check &middot; Answer Review</div>
+    <div class="r-title">Your score: ${pct}%</div>
+    <div class="r-sub">${log.score} of ${FINAL_CHECK.length} correct</div>
+    <div class="callout info" style="margin-bottom:18px;"><div class="c-ic">&#9432;</div><div class="c-tx">Correct answers are shown below. Use this to understand where to focus before your next attempt.</div></div>
+    <button class="btn btn-secondary" style="width:auto;margin-bottom:20px;" onclick="finalMode='result';VIEW='final';renderNavTabsForFinal()">&#8592; Back to result</button>
+    ${rows}
+    <button class="btn btn-secondary" style="width:auto;margin-top:4px;" onclick="backToPath()">Back to Learning Path</button>
+  </div>`;
 }
 
 // ── FINAL CHECK (score-gated certification exam) ────────────────────────────
@@ -965,10 +1090,23 @@ function openFinalCheck(){
     toast('All 3 attempts used — your Project Manager will follow up to arrange next steps.');
     return;
   }
-  finalMode='inprogress'; finalIdx=0; finalAnswers={}; finalResult=null; VIEW='final'; renderNavTabsForFinal();
+  finalMode='inprogress'; finalIdx=0; finalAnswers={}; finalResult=null;
+  // Start timing this attempt
+  moduleStartTimes['final_check'] = Date.now();
+  // Generate per-attempt shuffle map so correct answer positions differ each attempt
+  finalShuffleMap = {};
+  FINAL_CHECK.forEach((q, qi) => {
+    const indices = q.opts.map((_,i) => i);
+    for(let i = indices.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+    finalShuffleMap[qi] = indices; // visual slot i → original opt index indices[i]
+  });
+  VIEW='final'; renderNavTabsForFinal();
 }
 function renderNavTabsForFinal(){
-  document.getElementById('content').innerHTML = vFinal();
+  document.getElementById('content').innerHTML = VIEW === 'review' ? vReview() : vFinal();
   window.scrollTo(0,0);
 }
 function vFinal(){
@@ -991,6 +1129,7 @@ function vFinal(){
       <div class="r-sub">${finalResult.correct} of ${finalResult.total} correct &middot; ${FINAL_CHECK_PASS_PCT}% needed to pass</div>
       ${statusCallout}
       <button class="btn btn-secondary" style="width:auto;margin-top:14px;" onclick="backToPath()">Back to Learning Path</button>
+      <button class="btn btn-ghost" style="width:auto;margin-top:14px;margin-left:10px;" onclick="VIEW='review';renderNavTabsForFinal()">Review answers</button>
       ${(!pass && !exhausted)?'<button class="btn btn-primary" style="width:auto;margin-top:14px;margin-left:10px;" onclick="openFinalCheck()">Retake &rarr;</button>':''}
     </div>`;
   }
@@ -1001,13 +1140,15 @@ function vFinal(){
     const ans = finalAnswers[i] !== undefined;
     return `<div class="quiz-dot${i===finalIdx?' active':''}${ans?' answered':''}"${ans?` onclick="jumpFinal(${i})" style="cursor:pointer;"`:''}></div>`;
   }).join('');
-  const opts = q.opts.map((o,oi)=>{
+  // Use shuffle map to render options in shuffled positions; store selection as locked
+  const shuffleSlots = (finalShuffleMap && finalShuffleMap[finalIdx]) ? finalShuffleMap[finalIdx] : q.opts.map((_,i)=>i);
+  const opts = shuffleSlots.map((origOi, visualSlot)=>{
     let cls='quiz-opt';
-    if(answered){ if(oi===q.a) cls+=' correct'; else if(oi===picked) cls+=' incorrect'; }
-    return `<button class="${cls}" onclick="answerFinal(${oi})">${o}</button>`;
+    if(answered && origOi === picked) cls += ' picked'; // only mark selected — no correct/incorrect reveal
+    const locked = answered ? 'disabled style="cursor:default;"' : '';
+    return `<button class="${cls}" onclick="answerFinal(${visualSlot})" ${locked}>${q.opts[origOi]}</button>`;
   }).join('');
-  const fbClass2 = answered ? (picked===q.a ? ' correct' : ' incorrect') : '';
-  const fb = answered ? `<div class="quiz-fb${fbClass2}">${picked===q.a?'&#10003; Correct.':'&#10007; Not quite — the highlighted option is correct.'}</div>` : '';
+  const fb = answered ? `<div class="quiz-fb">Answer recorded. Use the navigation to continue.</div>` : '';
   const backBtn2 = finalIdx > 0 ? `<button class="btn btn-ghost" style="width:auto;margin-top:14px;margin-right:8px;" onclick="prevFinal()">&larr; Back</button>` : '';
   const nav = finalIdx < FINAL_CHECK.length-1
     ? `<button class="btn btn-secondary" style="width:auto;margin-top:14px;" ${answered?'':'disabled'} onclick="nextFinal()">Next &rarr;</button>`
@@ -1023,7 +1164,13 @@ function vFinal(){
     </div>
   </div>`;
 }
-function answerFinal(oi){ finalAnswers[finalIdx]=oi; renderNavTabsForFinal(); }
+function answerFinal(visualOi){
+  if(finalAnswers[finalIdx] !== undefined) return; // locked — one answer per question
+  // Map visual slot index → original option index via shuffle map
+  const origOi = finalShuffleMap && finalShuffleMap[finalIdx] ? finalShuffleMap[finalIdx][visualOi] : visualOi;
+  finalAnswers[finalIdx] = origOi;
+  renderNavTabsForFinal();
+}
 function nextFinal(){ finalIdx = Math.min(FINAL_CHECK.length-1, finalIdx+1); renderNavTabsForFinal(); }
 function prevFinal(){ finalIdx = Math.max(0, finalIdx-1); renderNavTabsForFinal(); }
 function jumpFinal(i){ if(finalAnswers[i] !== undefined){ finalIdx = i; renderNavTabsForFinal(); } }
@@ -1033,7 +1180,11 @@ function submitFinal(){
   const pct = Math.round((correct/FINAL_CHECK.length)*100);
   const attempts = incFinalAttempts();
   finalResult = {correct, total: FINAL_CHECK.length, pct, attempts};
-  ME.finalScore = pct;
+  ME.finalScore = (ME.finalScore === null || pct > ME.finalScore) ? pct : ME.finalScore;
+  // Track per-attempt scores and log answers+shuffle for review page
+  finalAttemptScores.push(pct);
+  finalAnswerLog.push({answers: {...finalAnswers}, shuffleMap: finalShuffleMap ? {...finalShuffleMap} : null, score: correct, pct});
+  persistLocal();
   saveProgress('final_check', 'done', pct); // fire-and-forget
   finalMode = 'result';
   renderNavTabsForFinal();
@@ -1119,7 +1270,7 @@ function vDash(){
     return `<tr style="cursor:pointer" onclick="openModDetail('${c.email}')" title="View ${c.name}'s progress">
       <td><div class="mod-row-name"><div class="mod-avatar">${c.name.charAt(0)}</div><div><div style="font-weight:600;">${c.name}</div><div style="font-size:11.5px;color:var(--text3);">${c.email}</div></div></div></td>
       <td>${c.done} / ${MODULES.length} (${pct}%)</td>
-      <td>${c.finalScore===null?'—':c.finalScore+'%'}</td>
+      <td>${c.finalScore===null?'—':`${c.finalScore}% ${c.fcAttempts&&c.fcAttempts.length?`<span style="font-size:11px;color:var(--text3);">(${c.fcAttempts.length} attempt${c.fcAttempts.length===1?'':'s'})</span>`:''}`}</td>
       <td><span class="pill ${pc}">${pt}</span></td>
       <td>${totalSec > 0 ? fmtDur(totalSec) : '—'}</td>
     </tr>`;
@@ -1144,7 +1295,7 @@ function vDash(){
     ${[['all','All'],['in_progress','In progress'],['awaiting_final','Awaiting final'],['certified','Certified']].map(([k,l])=>
       `<button class="filter-chip${adminFilter===k?' active':''}" onclick="setAdminFilter('${k}')">${l}</button>`).join('')}
   </div>
-  <div class="card"><div class="admin-tbl-wrap"><table class="admin-tbl"><tr><th>Moderator</th><th>Modules</th><th>Final check</th><th>Status</th><th>Time</th></tr>${rows||'<tr><td colspan="5" style="color:var(--text3);">No moderators match this filter.</td></tr>'}</table></div></div>`;
+  <div class="card"><div class="admin-tbl-wrap"><table class="admin-tbl"><tr><th>Moderator</th><th>Modules</th><th>Final check (best)</th><th>Status</th><th>Time</th></tr>${rows||'<tr><td colspan="5" style="color:var(--text3);">No moderators match this filter.</td></tr>'}</table></div></div>`;
 }
 function fmtDur(secs){
   if(!secs || secs <= 0) return '';
@@ -1168,13 +1319,16 @@ function vModDetail(){
     const prog = (c.mods||[]).find(p=>p.id===m.id) || {completed:false, score:0, duration:null};
     const done = prog.completed;
     const dur = prog.duration ? `<span style="color:var(--text3);font-size:.8rem;margin-left:6px;">${fmtDur(Number(prog.duration))}</span>` : '';
-    const scoreTag = (prog.score && prog.score > 0) ? `<span class="pill pill-blue" style="margin-left:8px;font-size:.75rem;">${prog.score}% quiz</span>` : '';
+    const scoreTag = prog.score > 0 ? `<span class="pill pill-blue" style="margin-left:8px;font-size:.75rem;">${prog.score}%${prog.retryCount>0?' best':''}</span>` : '';
+    const retryTag = prog.retryCount > 0 ? `<span class="pill pill-amber" style="margin-left:4px;font-size:.75rem;">${prog.retryCount} retr${prog.retryCount===1?'y':'ies'}</span>` : '';
+    const attemptsLine = prog.attempts && prog.attempts.length > 1
+      ? `<div style="font-size:11.5px;color:var(--text3);margin-top:3px;">${prog.attempts.map(a=>`A${a.attemptNum}: ${a.score}%`).join(' · ')}</div>` : '';
     const action = done
       ? `<span style="color:var(--accent);font-size:1.1rem;">&#10003;</span>`
       : `<button class="btn-sm" onclick="grantModCredit('${c.email}','${m.id}',\`${m.title.replace(/`/g,"'")}\`)">Grant completion</button>`;
     return `<tr style="border-top:1px solid var(--border)">
       <td style="width:32px;text-align:center;font-size:1.15rem;padding:13px 6px 13px 0">${m.ic}</td>
-      <td style="padding:13px 10px">${done?m.title:`<span style="color:var(--text2)">${m.title}</span>`}${scoreTag}${dur}</td>
+      <td style="padding:13px 10px">${done?m.title:`<span style="color:var(--text2)">${m.title}</span>`}${scoreTag}${retryTag}${dur}${attemptsLine}</td>
       <td style="text-align:right;padding:13px 0 13px 10px;white-space:nowrap">${action}</td>
     </tr>`;
   }).join('');
@@ -1198,7 +1352,7 @@ function vModDetail(){
       <div style="height:6px;background:var(--bg3);border-radius:99px;overflow:hidden">
         <div style="height:100%;width:${pct}%;background:var(--accent);border-radius:99px;transition:width .3s"></div>
       </div>
-      ${c.finalScore!==null?`<div style="margin-top:8px;font-size:.82rem;color:var(--text2)">Final check: ${c.finalScore}%</div>`:''}
+      ${c.finalScore!==null?`<div style="margin-top:8px;font-size:.82rem;color:var(--text2)">Final check: <strong>${c.finalScore}%</strong> (best score)${c.fcAttempts&&c.fcAttempts.length>1?' — '+c.fcAttempts.map(a=>`A${a.attemptNum}: ${a.score}%${a.duration?' ('+fmtDur(a.duration)+')':''}`).join(', '):c.fcAttempts&&c.fcAttempts.length===1&&c.fcAttempts[0].duration?' — '+fmtDur(c.fcAttempts[0].duration):''}</div>`:''}
     </div>
     <div class="card">
       <h3 style="font-size:.9rem;font-weight:600;margin:0 0 12px;color:var(--text2)">Module progress</h3>
@@ -1254,7 +1408,7 @@ function vCurriculum(){
   }).join('');
   const finalOpen = !!curriculumEditOpen['final'];
   return `<h1 class="page-h1">Curriculum</h1><p class="page-sub">${MODULES.length} modules, sequential and gated &middot; two-layer knowledge check (per-module + final) &middot; ~${TOTAL_MIN} min total</p>
-  <div class="callout" style="margin-bottom:18px;"><div class="c-ic">&#9432;</div><div class="c-tx"><strong>Question and answer text below is editable.</strong> Changes save to this browser only until the Curriculum backend is wired — see Dev_Notes.md. <button class="btn btn-ghost" style="margin-left:4px;" onclick="resetCurriculum()">Reset all to defaults</button></div></div>
+  <div class="callout" style="margin-bottom:18px;"><div class="c-ic">&#9432;</div><div class="c-tx"><strong>Question and answer text below is editable.</strong> Changes save to SharePoint via PA (when live) and locally in this browser. <button class="btn btn-ghost" style="margin-left:4px;" onclick="resetCurriculum()">Reset all to defaults</button></div></div>
   ${rows}
   <div class="res-card" style="cursor:default;flex-direction:column;align-items:stretch;margin-top:6px;">
     <div style="display:flex;align-items:center;gap:14px;">
@@ -1395,9 +1549,11 @@ if(location.protocol === 'file:'){
 // canonical pattern in Verdi_App_Family_Master_Context.md §20.1. If there's
 // no auto-resume candidate, show the login screen immediately rather than
 // waiting on the network; doLogin() awaits the same in-flight promise.
-loadCurriculumOverrides();
-if(!getLastLogin()) renderLogin();
-loadData().then(() => {
+// Boot: load curriculum (PA or local) then decide which screen to show
+(async () => {
+  await loadCurriculumOverrides();
+  if(!getLastLogin()) renderLogin();
+  loadData().then(() => {
   const last = getLastLogin();
   if(last){
     const rec = findUser(last);
@@ -1405,6 +1561,7 @@ loadData().then(() => {
     else { renderLogin(); }
   }
 });
+})();
 
 </script>
 </body>
