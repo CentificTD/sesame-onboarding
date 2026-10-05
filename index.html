@@ -1327,12 +1327,16 @@ function mergeLocalMods(){
   // cached local deactivation flag for that user is stale — clear it so Excel wins.
   if(LIVE){
     const activeInExcel = new Set(DIR.filter(d => !d._local).map(d => d.email.toLowerCase()));
-    const cleaned = LOCAL_MODS.filter(lm => !(lm._deactivate && activeInExcel.has(lm.email.toLowerCase())));
+    // Drop any local entry (deactivate override OR full local add) whose email is now confirmed in Excel
+    const cleaned = LOCAL_MODS.filter(lm => !activeInExcel.has(lm.email.toLowerCase()));
     if(cleaned.length !== LOCAL_MODS.length){ saveLocalMods(cleaned); LOCAL_MODS = cleaned; }
   }
   LOCAL_MODS.forEach(lm => {
     const idx = DIR.findIndex(d => d.email.toLowerCase() === lm.email.toLowerCase());
-    if(idx >= 0){ Object.assign(DIR[idx], lm); }
+    if(idx >= 0){
+      const {_local, ...rest} = lm; // don't stamp _local onto an Excel-sourced entry
+      Object.assign(DIR[idx], rest);
+    }
     else { DIR.push(lm); }
   });
   COHORT = DIR.filter(r=>r.role==='moderator').map(r => buildCohortRow(r));
